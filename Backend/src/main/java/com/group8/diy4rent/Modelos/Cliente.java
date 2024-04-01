@@ -1,26 +1,27 @@
+package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "CLIENTE")
 
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "apellidos")
+    @Column(name = "APELLIDOS")
     private String apellidos;
     
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "coordenadas")
+    @Column(name = "COORDENADAS")
     private String coordenadas;
 
-    @Column(name = "iban")
+    @Column(name = "IBAN")
     private String iban;
 
     public Cliente() {
@@ -68,7 +69,7 @@ public class Cliente {
         this.coordenadas = coordenadas;
     }
 
-    public Long getIban() {
+    public String getIban() {
         return iban;
     }
 

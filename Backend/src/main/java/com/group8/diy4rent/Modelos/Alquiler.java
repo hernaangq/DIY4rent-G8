@@ -4,27 +4,26 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "alquileres")
+@Table(name = "ALQUILER")
 
 public class Alquiler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fechaAlquilada")
-    @Temporal(TemporalType.Date)
+    @Column(name = "FECHA_ALQUILADA")
     private Date FechaAlquilada;
 
-    @Column(name = "precioPagado")
-    private Integer precioPagado;
+    @Column(name = "PRECIO_PAGADO")
+    private Double precioPagado;
 
-    @Column(name = "estrellaUsuario")
+    @Column(name = "ESTRELLA_USUARIO")
     private Integer estrellaUsuario;
 
-    @Column(name = "estrellasServicio")
+    @Column(name = "ESTRELLAS_SERVICIO")
     private Integer estrellasServicio;
 
-    @Column(name = "valoracion")
+    @Column(name = "VALORACION")
     private String valoracion;
 
 
@@ -33,7 +32,7 @@ public class Alquiler {
     }
 
 
-    public Alquiler(Long id, Date fechaAlquilada, Integer precioPagado, Integer estrellaUsuario,
+    public Alquiler(Long id, Date fechaAlquilada, Double precioPagado, Integer estrellaUsuario,
             Integer estrellasServicio, String valoracion) {
         this.id = id;
         FechaAlquilada = fechaAlquilada;
@@ -64,12 +63,12 @@ public class Alquiler {
     }
 
 
-    public Integer getPrecioPagado() {
+    public Double getPrecioPagado() {
         return precioPagado;
     }
 
 
-    public void setPrecioPagado(Integer precioPagado) {
+    public void setPrecioPagado(Double precioPagado) {
         this.precioPagado = precioPagado;
     }
 

@@ -1,4 +1,4 @@
-package com.group8.diy4rent;
+package com.group8.diy4rent.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

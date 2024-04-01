@@ -4,32 +4,31 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "herramientas")
+@Table(name = "HERRAMIENTA")
 
 public class Herramienta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
     @Lob
-    @Column(name = "foto")
+    @Column(name = "FOTO")
     private byte[] foto;
 
-    @Enumerated(EnumType.String)
-    @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ESTADO")
     private Estado estado;
 
-    @Column(name = "precio")
+    @Column(name = "PRECIO")
     private Boolean precio;
 
-    @Column(name = "estaAlquilada")
+    @Column(name = "ESTA_ALQUILADA")
     private Boolean estaAlquilada;
 
-    @Column(name = "estaAlquilada")
-    @Temporal(TemporalType.Date)
+    @Column(name = "FECHAS_DISPONIBLES")
     private Date fechasDisponibles;
 
     public Herramienta() {
