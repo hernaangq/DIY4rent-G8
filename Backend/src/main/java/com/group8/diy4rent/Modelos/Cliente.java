@@ -1,3 +1,4 @@
+package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
 @Entity
