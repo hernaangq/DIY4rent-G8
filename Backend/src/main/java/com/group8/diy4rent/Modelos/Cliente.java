@@ -1,13 +1,15 @@
 package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
-@Entity
-@Table(name = "CLIENTE")
+/*INSERT INTO clientes VALUES (1, 'hernan', 'garcia', 'hernan@gmail.com', ST_GeomFromText('POINT(23.3334 -81.4555)'), 'ES1234'); */
 
+
+@Entity
+@Table(name = "clientes")
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "NOMBRE")
     private String nombre;
@@ -37,11 +39,11 @@ public class Cliente {
 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,6 +71,13 @@ public class Cliente {
         this.coordenadas = coordenadas;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getIban() {
         return iban;
     }
