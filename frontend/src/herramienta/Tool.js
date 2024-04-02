@@ -1,11 +1,12 @@
 import React from 'react';
 import './Tool.css'; // Importa el archivo de estilos para Tool
+import toolImage from '../images/martillo.jpg'; // Importa la imagen de la herramienta
 
 const Tool = () => {
   return (
     <div className="container">
-      <div className="tool-image">
-        <img src="/logo512.png" alt="Tool Image" />
+      <div className="tool-image" style={{ width: '25vw' }}>
+        <img src={toolImage} alt="Tool Image" style={{ width: '100%', height: 'auto' }} />
       </div>
       <div className="tool-details">
         <div className="tool-info">
@@ -37,4 +38,4 @@ const Tool = () => {
   );
 };
 
-export default Tool;
+export default Tool;
