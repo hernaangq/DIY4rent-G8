@@ -1,3 +1,4 @@
+C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\AlquilerRepository.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\HerramientaRepository.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Modelos\Herramienta.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Modelos\Cliente.java
@@ -5,6 +6,6 @@ C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Diy4r
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Controller\Diy4rentController.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Modelos\Propietario.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Modelos\Usuario.java
+C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\PropietarioRepository.java
 C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Modelos\Alquiler.java
-C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\Alquiler.java
-C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\ClienteRepository.java
+C:\Users\Propietario\DIY4rent-G8\Backend\src\main\java\com\group8\diy4rent\Repository\UsuarioRepository.java

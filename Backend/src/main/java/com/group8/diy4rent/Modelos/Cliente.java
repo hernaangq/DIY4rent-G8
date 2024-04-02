@@ -2,7 +2,7 @@ package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "Clientes")
 
 public class Cliente {
     @Id

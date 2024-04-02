@@ -1,15 +1,15 @@
 package com.group8.diy4rent.Repository;
-import com.group8.diy4rent.Modelos.Herramienta;
+import com.group8.diy4rent.Modelos.Propietario;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface HerramientaRepository extends CrudRepository<Herramienta, Long> {
+public interface PropietarioRepository extends CrudRepository<Propietario, Long> {
 
     // Aquí van a ir todas los métodos crud que implementa automáticamente SpringBoot
     // según su nombre (por ejemplo: findByPropietario())
-    
-    List<Herramienta> findByPropietarioId(Long id);
-    List<Herramienta> findByNombre(String nombre);
-}
+
+    Optional<Propietario> findByUsername(String nombre);
+}  
+

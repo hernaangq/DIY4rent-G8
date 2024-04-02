@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "HERRAMIENTA")
+@Table(name = "Herramientas")
 
 public class Herramienta {
     @Id
@@ -13,6 +13,9 @@ public class Herramienta {
 
     @Column(name = "NOMBRE")
     private String nombre;
+
+    @Column(name = "MODELO")
+    private String modelo;
 
     @Lob
     @Column(name = "FOTO")
@@ -23,7 +26,7 @@ public class Herramienta {
     private Estado estado;
 
     @Column(name = "PRECIO")
-    private Boolean precio;
+    private Double precio;
 
     @Column(name = "ESTA_ALQUILADA")
     private Boolean estaAlquilada;
@@ -35,9 +38,10 @@ public class Herramienta {
 
     }
     
-    public Herramienta(Long id, String nombre, byte[] foto, Estado estado, Boolean precio, Boolean estaAlquilada, Date fechasDisponibles) {
+    public Herramienta(Long id, String nombre, String modelo, byte[] foto, Estado estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
         this.id = id;
         this.nombre = nombre;
+        this.modelo = modelo;
         this.foto = foto;
         this.estado = estado;
         this.precio = precio;
@@ -61,6 +65,14 @@ public class Herramienta {
         this.nombre = nombre;
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
     public byte[] getFoto() {
         return foto;
     }
@@ -77,11 +89,11 @@ public class Herramienta {
         this.estado = estado;
     }
 
-    public Boolean getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Boolean precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
