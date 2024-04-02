@@ -20,6 +20,10 @@ public class Diy4rentController {
 	@Autowired(required = false)
 	private ClienteRepository clienteRepository;
 
+	// public Diy4rentController(ClienteRepository clienteRepository) {
+    //     this.clienteRepository = clienteRepository;
+    // }
+
 	
 	@PostMapping(path="/add") // Map ONLY POST Requests
 	public @ResponseBody String addNewClient (@RequestParam String nombre
@@ -38,8 +42,8 @@ public class Diy4rentController {
 	}
 
 	@GetMapping("/all")
-	public @ResponseBody Iterable<Cliente> getAllUsers() {
-		return clienteRepository.findAll();
+	public String getAllUsers() {
+		return "hola";
 	}
 
 }
