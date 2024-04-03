@@ -12,7 +12,7 @@ function Navbar() {
           </li>
           <li style={{ marginRight: '100px', marginLeft: '220px' }}><a href="#" style={{ color: 'black' }}>Buscar</a></li>
           <li style={{ marginRight: '100px' }}><a href="#" style={{ color: 'black' }}>Publica tu herramienta</a></li>
-          <li style={{ marginRight: '100px' }}><a href="#" style={{ color: 'black' }}>Mis herramientas</a></li>
+          <Link style={{ marginRight: '100px' }}><a href="#" style={{ color: 'black' }}>Mis herramientas</a></Link>
           <li style={{ marginRight: '100px' }}><a href="#" style={{ color: 'black' }}>Ayuda</a></li>
           <li style={{ borderRadius: '10px', border: '2px solid black', padding: '5px' }}><a href="#" style={{ color: 'black' }}>hernaangq</a></li>
         </ul>

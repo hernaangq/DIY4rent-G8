@@ -4,6 +4,11 @@ import "./App.css";
 import Navbar from "./main/Navbar";
 import ToolList from "./main/ToolList";
 import Tool from "./herramienta/Tool";
+import Mytools from "./herramienta/Mytools";
+import Editartool from "./herramienta/Editartool"
+import Inicio from "./registro/Inicio"
+import Registro from "./registro/Registro"
+
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 function App() {
@@ -29,6 +34,10 @@ function App() {
         <Routes>
           <Route path="/" element={<ToolList />} />
           <Route path="/tool/:id" element={<Tool />} />
+          <Route path="/tool/:id/editar" element={<Editartool />} />
+          <Route path="/mytools" element={<Mytools />} />
+          <Route path="/iniciar" element={<Inicio />} />
+          <Route path="/registrar" element={<Registro />} />
         </Routes>
       </div>
     </Router>
