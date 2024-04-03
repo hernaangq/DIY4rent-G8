@@ -29,21 +29,26 @@ public class Diy4rentController {
     }
 
 	
-	// @PostMapping(path="/add") // Map ONLY POST Requests
-	// public @ResponseBody String addNewClient (@RequestParam String nombre
-	// 	, @RequestParam String apellidos, @RequestParam String email, @RequestParam String coordenadas, @RequestParam String iban) {
-	//   // @ResponseBody means the returned String is the response, not a view name
-	//   // @RequestParam means it is a parameter from the GET or POST request
-  
-	//   Cliente n = new Cliente();
-	//   n.setNombre(nombre);
-	//   n.setApellidos(apellidos);
-	//   n.setEmail(email);
-	//   n.setCoordenadas(coordenadas);
-	//   n.setIban(iban);
-	//   clienteRepository.save(n);
-	//   return "Saved";
-	// }
+	@PostMapping(path="/add") // Map ONLY POST Requests
+	public @ResponseBody String addNewClient (@RequestParam String nombre
+		, @RequestParam String apellidos, @RequestParam String email, @RequestParam String coordenadas, @RequestParam String iban) {
+	  // @ResponseBody means the returned String is the response, not a view name
+	  // @RequestParam means it is a parameter from the GET or POST request
+	  nombre = "pablo";
+	  apellidos = "bote";
+	  email = "pablo@email.com";
+	  coordenadas = "9871";
+	  iban = "ES2345";
+
+	  Cliente n = new Cliente();
+	  n.setNombre(nombre);
+	  n.setApellidos(apellidos);
+	  n.setEmail(email);
+	  n.setCoordenadas(coordenadas);
+	  n.setIban(iban);
+	  clienteRepository.save(n);
+	  return "Saved";
+	}
 
 	@GetMapping
 	List<Cliente> getClientes() {
