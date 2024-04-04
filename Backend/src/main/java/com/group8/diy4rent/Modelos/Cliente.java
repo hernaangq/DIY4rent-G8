@@ -1,6 +1,8 @@
 package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
+
+
 /*INSERT INTO clientes VALUES (1, 'hernan', 'garcia', 'hernan@gmail.com', ST_GeomFromText('POINT(23.3334 -81.4555)'), 'ES1234'); */
 
 
@@ -20,8 +22,11 @@ public class Cliente {
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "COORDENADAS")
-    private String coordenadas;
+    @Column(name = "LATITUD")
+    private Double latitud;
+
+    @Column(name = "LONGITUD")
+    private Double longitud;
 
     @Column(name = "IBAN")
     private String iban;
@@ -30,11 +35,12 @@ public class Cliente {
 
     }
 
-    public Cliente(String nombre, String apellidos, String email, String coordenadas, String iban) {
+    public Cliente(String nombre, String apellidos, String email, Double latitud, Double longitud, String iban) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        this.coordenadas = coordenadas;
+        this.latitud = latitud;
+        this.longitud = longitud;
         this.iban = iban;
 
     }
@@ -63,13 +69,6 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
 
     public String getEmail() {
         return email;
@@ -77,6 +76,22 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }    
+    
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
     public String getIban() {
         return iban;
