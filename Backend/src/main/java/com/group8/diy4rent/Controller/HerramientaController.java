@@ -51,7 +51,7 @@ public class HerramientaController {
     @GetMapping("/propietarios/herramientas/{id}")
 	ResponseEntity<Herramienta> getHerramienta(@PathVariable Integer id) {
 	// return (List<herramienta>) herramientaRepository.findBynombre("hernan");
-	return  herramientaRepository.findById(id).map(h -> ResponseEntity.ok().body(h))
+	return herramientaRepository.findById(id).map(h -> ResponseEntity.ok().body(h))
             .orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
 
 	}
