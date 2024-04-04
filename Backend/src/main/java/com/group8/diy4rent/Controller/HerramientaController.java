@@ -1,6 +1,7 @@
 package com.group8.diy4rent.Controller;
 
 import com.group8.diy4rent.Modelos.Herramienta;
+import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
 import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
@@ -40,7 +41,7 @@ public class HerramientaController {
         this.herramientaRepository = herramientaRepository;
     }
 
-    @GetMapping("/propietarios/herramientas")
+    @GetMapping("/herramientas")
 	List<Herramienta> getHerramientas() {
 	// return (List<herramienta>) herramientaRepository.findBynombre("hernan");
 	return herramientaRepository.findAll();
@@ -71,5 +72,23 @@ public class HerramientaController {
 	  herramientaRepository.save(n);
 	  return "Saved";
 	}
+
+	@PutMapping("/propietarios/herramientas/{id}")
+	public ResponseEntity<Herramienta> actualizarHerramienta (@RequestBody Herramienta herramienta, @PathVariable Integer id) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
   
+        return herramientaRepository.findById(id).map(c -> {
+        
+        herramienta.setNombre(herramienta.getNombre());
+        herramienta.setEstado(herramienta.getEstado());
+	 	herramienta.setFoto(herramienta.getFoto());
+	 	herramienta.setPrecio(herramienta.getPrecio());
+	 	herramienta.setEstaAlquilada(herramienta.getEstaAlquilada());
+	 	herramienta.setFechasDisponibles(herramienta.getFechasDisponibles());
+	 	herramientaRepository.save(herramienta);
+        return ResponseEntity.ok().body(herramienta);
+        })
+        .orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
+      }
 }

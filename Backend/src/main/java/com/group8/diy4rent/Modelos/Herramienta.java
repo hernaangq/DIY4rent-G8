@@ -1,4 +1,6 @@
 package com.group8.diy4rent.Modelos;
+
+import com.group8.diy4rent.Enums.EstadoEnum;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Herramienta {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ESTADO")
-    private Estado estado;
+    private EstadoEnum estado;
 
     @Column(name = "PRECIO")
     private Double precio;
@@ -44,12 +46,12 @@ public class Herramienta {
     @OneToMany(mappedBy = "herramienta")
     private List<Alquiler> alquileres;
 
-    
+
     public Herramienta() {
 
     }
     
-    public Herramienta(Long id, String nombre, byte[] foto, Estado estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
+    public Herramienta(Long id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -83,11 +85,11 @@ public class Herramienta {
         this.foto = foto;
     }
 
-    public Estado getEstado() {
+    public EstadoEnum getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoEnum estado) {
         this.estado = estado;
     }
 
