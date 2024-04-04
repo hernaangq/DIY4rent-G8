@@ -1,0 +1,22 @@
+# POST http://localhost:8080/demo/add
+# Content-Type: application/json
+
+# {
+#     "nombre": "Pablo",
+#     "apellidos": "Bote",
+#     "email": "pablo@email.com",
+#     "latitud": 40.203,
+#     "longitud": -39.232,
+#     "iban": "ES2345"
+# }
+
+POST http://localhost:8080/propietarios/herramientas
+Content-Type: application/json
+
+{
+    "nombre": "Martillo",
+    "estado": "BUENO",
+    "precio": 25.99,
+    "estaAlquilada": false,
+    "fechasDisponibles": "2024-04-10"
+}

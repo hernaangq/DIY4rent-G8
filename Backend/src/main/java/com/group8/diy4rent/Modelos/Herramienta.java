@@ -1,6 +1,8 @@
 package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 
 
 @Entity
@@ -23,7 +25,7 @@ public class Herramienta {
     private Estado estado;
 
     @Column(name = "PRECIO")
-    private Boolean precio;
+    private Double precio;
 
     @Column(name = "ESTA_ALQUILADA")
     private Boolean estaAlquilada;
@@ -31,11 +33,23 @@ public class Herramienta {
     @Column(name = "FECHAS_DISPONIBLES")
     private Date fechasDisponibles;
 
+    
+    // Una o varias herramientas pertenecen a un propietario 
+    @ManyToOne
+    @JoinColumn(name = "propietario_id")
+    private Propietario propietario;
+
+    // Una o varias herramientas pertenecen a un propietario 
+
+    @OneToMany(mappedBy = "herramienta")
+    private List<Alquiler> alquileres;
+
+    
     public Herramienta() {
 
     }
     
-    public Herramienta(Long id, String nombre, byte[] foto, Estado estado, Boolean precio, Boolean estaAlquilada, Date fechasDisponibles) {
+    public Herramienta(Long id, String nombre, byte[] foto, Estado estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -77,11 +91,11 @@ public class Herramienta {
         this.estado = estado;
     }
 
-    public Boolean getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Boolean precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

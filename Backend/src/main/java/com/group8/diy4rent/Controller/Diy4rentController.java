@@ -58,10 +58,10 @@ public class Diy4rentController {
 	  return "Saved";
 	}
 
-	    @PostMapping("/clientes")
-    	ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
-        Cliente result = clienteRepository.save(newCliente);
-        return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
+	@PostMapping("/clientes")
+    ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
+    Cliente result = clienteRepository.save(newCliente);
+    return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
 
     }
 	@GetMapping

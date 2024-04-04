@@ -1,0 +1,12 @@
+PUT http://localhost:8080/clientes/2
+Content-Type: application/json
+
+{
+    "id": "2",
+    "nombre": "Pablo",
+    "apellidos": "Bote",
+    "email": "pablobotenuevo@email.com",
+    "latitud": 40.203,
+    "longitud": -39.232,
+    "iban": "ES2345"
+}
