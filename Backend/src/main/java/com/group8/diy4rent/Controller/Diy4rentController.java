@@ -46,7 +46,6 @@ public class Diy4rentController {
 	  // @ResponseBody means the returned String is the response, not a view name
 	  // @RequestParam means it is a parameter from the GET or POST request
 
-
 	  Cliente n = new Cliente();
 	  n.setNombre(clienterequest.getNombre());
 	  n.setApellidos(clienterequest.getApellidos());
@@ -58,12 +57,6 @@ public class Diy4rentController {
 	  return "Saved";
 	}
 
-	@PostMapping("/clientes")
-    ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
-    Cliente result = clienteRepository.save(newCliente);
-    return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
-
-    }
 	@GetMapping
 	List<Cliente> getClientes() {
 	// return (List<Cliente>) clienteRepository.findBynombre("hernan");

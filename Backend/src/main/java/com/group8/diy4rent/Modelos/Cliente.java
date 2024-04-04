@@ -3,6 +3,7 @@ import javax.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import com.group8.diy4rent.Enums.TipoClienteEnum;
 
 
 /*INSERT INTO clientes VALUES (1, 'hernan', 'garcia', 'hernan@gmail.com', ST_GeomFromText('POINT(23.3334 -81.4555)'), 'ES1234'); */
@@ -39,13 +40,17 @@ public class Cliente {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "TIPO")
+    @Enumerated(EnumType.STRING)
+    private TipoClienteEnum tipo;
+
 
     // private Set<Rol> roles = new HashSet<>();
     public Cliente() {
 
     }
 
-    public Cliente(String nombre, String apellidos, String email, Double latitud, Double longitud, String iban, String username, String password) {
+    public Cliente(String nombre, String apellidos, String email, Double latitud, Double longitud, String iban, String username, String password, TipoClienteEnum tipo) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -54,8 +59,10 @@ public class Cliente {
         this.iban = iban;
         this.username = username;
         this.password = password;
+        this.tipo = tipo;
 
     }
+
 
     public Integer getId() {
         return id;
@@ -128,6 +135,15 @@ public class Cliente {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public TipoClienteEnum getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoClienteEnum tipo) {
+        this.tipo = tipo;
+    }
+
 
     // public Set<Rol> getRoles() {
     //     return roles;

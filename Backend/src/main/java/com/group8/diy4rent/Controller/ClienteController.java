@@ -1,7 +1,11 @@
 package com.group8.diy4rent.Controller;
 
 import com.group8.diy4rent.Modelos.Cliente;
+import com.group8.diy4rent.Modelos.Propietario;
 import com.group8.diy4rent.Repository.ClienteRepository;
+import com.group8.diy4rent.Repository.PropietarioRepository;
+import com.group8.diy4rent.Enums.TipoClienteEnum;
+
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +37,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ClienteController {
 
     private final ClienteRepository clienteRepository;
+    private final PropietarioRepository propietarioRepository;
 
-    public ClienteController(ClienteRepository clienteRepository) {
+    public ClienteController(ClienteRepository clienteRepository, PropietarioRepository propietarioRepository) {
         this.clienteRepository = clienteRepository;
+        this.propietarioRepository = propietarioRepository;
     }
 
     // Primero, los de acceso permitido a clientes normales y corrientes
@@ -67,6 +73,28 @@ public class ClienteController {
         })
         .orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
       }
+
+      @PostMapping("/clientes")
+      ResponseEntity<Cliente> añadirCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
+      Cliente result = clienteRepository.save(newCliente);
+      return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
+      }
+
+      @PostMapping("/propietarios")
+      ResponseEntity<Propietario> añadirPropietario(@RequestBody Cliente newCliente) throws URISyntaxException {
+      Propietario propietario = new Propietario();
+      propietario.setId(newCliente.getId());
+      TipoClienteEnum tipo = newCliente.getTipo();
+      if (tipo.equals(TipoClienteEnum.PROPIETARIO)){
+        propietario.setId(newCliente.getId());
+        Propietario result = propietarioRepository.save(propietario);
+        return ResponseEntity.created(new URI("/propietarios/" + propietario.getId())).body(result);
+      } else {
+        // En caso de que el tipo de cliente no sea "PROPIETARIO", puedes devolver un ResponseEntity con un estado de error
+        return ResponseEntity.badRequest().build();
+    }
+      }
+
 
       // Para admins
       @GetMapping("/clientes")

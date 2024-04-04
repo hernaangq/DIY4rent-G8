@@ -1,6 +1,6 @@
-# POST http://localhost:8080/demo/add
+# POST http://localhost:8080/clientes
 # Content-Type: application/json
-
+ 
 # {
 #     "nombre": "Pablo",
 #     "apellidos": "Bote",
@@ -10,13 +10,40 @@
 #     "iban": "ES2345"
 # }
 
-POST http://localhost:8080/propietarios/herramientas
-Content-Type: application/json
+# POST http://localhost:8080/propietarios
+# Content-Type: application/json
+ 
+# {
+#     "nombre": "Sara",
+#     "apellidos": "Lola",
+#     "email": "lola@email.com",
+#     "latitud": 40.203,
+#     "longitud": -39.232,
+#     "iban": "ES2355",
+#     "tipo": "USUARIO"
+# }
 
+POST http://localhost:8080/propietarios
+Content-Type: application/json
+ 
 {
-    "nombre": "Martillo",
-    "estado": "BUENO",
-    "precio": 25.99,
-    "estaAlquilada": false,
-    "fechasDisponibles": "2024-04-10"
+    "nombre": "Carlo",
+    "apellidos": "Ñero",
+    "email": "carlos@email.com",
+    "latitud": 40.203,
+    "longitud": -39.232,
+    "iban": "ES6372",
+    "tipo": "PROPIETARIO"
 }
+
+
+# POST http://localhost:8080/propietarios/herramientas
+# Content-Type: application/json
+
+# {
+#     "nombre": "Martillo",
+#     "estado": "BUENO",
+#     "precio": 25.99,
+#     "estaAlquilada": false,
+#     "fechasDisponibles": "2024-04-10"
+# }
