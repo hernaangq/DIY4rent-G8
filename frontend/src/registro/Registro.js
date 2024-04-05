@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './Registro.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 function Registro() {
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [correo, setCorreo] = useState('');
+  const [username, setUsername] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
   const [rol, setRol] = useState('');
@@ -17,24 +19,32 @@ function Registro() {
     console.log('Nombre:', nombre);
     console.log('Apellidos:', apellidos);
     console.log('Correo:', correo);
+    console.log('Nombre de usuario:', username);
     console.log('Contraseña:', contrasena);
     console.log('Confirmar Contraseña:', confirmarContrasena);
     console.log('Rol:', rol);
     // Aquí puedes agregar lógica para registrar al usuario
-    let ruta;
-    let email = correo;
-    let username = email;
-    let password = contrasena;
-    if (rol == 'propietario') { ruta = 'http://localhost:8443/propietarios' }
-    else { ruta = 'http://localhost:8443/usuarios' };
+
+    // Verificar si las contraseñas coinciden
+    if (contrasena !== confirmarContrasena) {
+      console.error('Las contraseñas no coinciden');
+      return;
+    }
+
     try {
+      // Envía una solicitud al servidor para registrar al usuario
+      const ruta = rol === 'propietario' ? 'http://localhost:8443/propietarios' : 'http://localhost:8443/usuarios';
       const response = await axios.post(ruta, {
         nombre,
         apellidos,
-        username,
-        password,
-        email
+        username: correo, // Asumiendo que el correo es el nombre de usuario
+        password: contrasena,
+        email: correo
       });
+
+      console.log('Registro exitoso:', response.data);
+      // Realiza otras acciones necesarias después del registro exitoso, como redirigir al usuario a otra página
+      navigate('/inicio');
     } catch { };
     setTimeout(()=>{
       navigate('/');
@@ -55,6 +65,10 @@ function Registro() {
           <div className="form-group">
             <label>Correo:</label>
             <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label>Nombre de usuario:</label>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
           </div>
           <div className="form-group">
             <label>Contraseña:</label>
