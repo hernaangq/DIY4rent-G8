@@ -12,7 +12,6 @@ import Publicartool from "./herramienta/Publicartool";
 
 
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Footer from "./main/Footer";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
           <Route path="/registrar" element={<Registro />} />
           <Route path="/publicar" element={<Publicartool/>} />
         </Routes>
-        <Footer lowerColor="#4caf50" upperColor="#ffffff" animationNegativeDelay={4} />
       </div>
     </Router>
   );
