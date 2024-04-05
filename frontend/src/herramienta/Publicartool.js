@@ -1,18 +1,50 @@
 import React, { useState } from 'react';
 import './Publicartool.css'; // Importar el archivo de estilos
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function Publicartool() {
   const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
+  // const [descripcion, setDescripcion] = useState('');
+  const [precio, setPrecio] = useState('');
+  const [foto, setFoto] = useState('');
+  const [estado, setEstado] = useState('');
+  // const [, set] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  // Leer la imagen como un búfer
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Aquí puedes enviar los datos del formulario a tu servidor o hacer cualquier otra acción necesaria
-    console.log('Nombre:', nombre);
-    console.log('Descripción:', descripcion);
-    // Luego puedes resetear los campos del formulario si es necesario
-    setNombre('');
-    setDescripcion('');
+    //   fs.readFile(foto, (error, data) => {
+    // if (error) {
+    //   console.error('Error al leer la imagen:', error);
+    //   return;
+    // }
+    // // Convertir el búfer de la imagen a una cadena Base64
+    // const base64String = data.toString('base64');});
+    let ruta = 'http://localhost:8443/herramientas';
+    try {
+      const response = await axios.post(ruta, {
+        nombre,
+        precio,
+        // foto,
+        estado
+      });
+    } catch { };
+    setTimeout(()=>{
+      navigate('/');
+    },1000);
+  };
+
+  const handleFoto = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    setFoto(file);
+    setFoto(null);
   };
 
   return (
@@ -30,6 +62,26 @@ function Publicartool() {
           />
         </div>
         <div className="form-group">
+        <label htmlFor="nombre">Precio:</label>
+          <input
+            type="text"
+            id="precio"
+            value={precio}
+            onChange={(event) => setPrecio(event.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+        <label htmlFor="foto">Adjuntar Foto:</label>
+        <input
+          type="file"
+          id="foto"
+          accept="image/*"
+          onChange={handleFoto}
+          required
+        />
+      </div>
+        {/* <div className="form-group">
           <label htmlFor="descripcion">Descripción:</label>
           <textarea
             id="descripcion"
@@ -37,11 +89,31 @@ function Publicartool() {
             onChange={(event) => setDescripcion(event.target.value)}
             required
           ></textarea>
-        </div>
+        </div> */}
+        <div className="form-group">
+            <label>Estado:</label>
+            <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
+              <option value="">Selecciona un estado</option>
+              <option value="COMO NUEVO">Como nuevo</option>
+              <option value="MUY BUENO">Muy bueno</option>
+              <option value="BUENO">Bueno</option>
+              <option value="ACEPTABLE">Aceptable</option>
+            </select>
+          </div>
         <button type="submit">Publicar</button>
       </form>
     </div>
   );
 }
 
+// </div>
+//         <label htmlFor="precio">Precio:</label>
+//           <input
+//             type="text"
+//             id="precio"
+//             value={precio}
+//             onChange={(event) => setPrecio(event.target.value)}
+//             required
+//           />
+//         </div>
 export default Publicartool;

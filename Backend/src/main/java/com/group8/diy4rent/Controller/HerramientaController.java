@@ -56,22 +56,28 @@ public class HerramientaController {
 
 	}
 
-    @PostMapping(path="/propietarios/herramientas") // Map ONLY POST Requests
-	public @ResponseBody String addNewClient (@RequestBody Herramienta herramientarequest) {
-	  // @ResponseBody means the returned String is the response, not a view name
-	  // @RequestParam means it is a parameter from the GET or POST request
+    // @PostMapping(path="/propietarios/herramientas") // Map ONLY POST Requests
+	// public @ResponseBody String addNewClient (@RequestBody Herramienta herramientarequest) {
+	//   // @ResponseBody means the returned String is the response, not a view name
+	//   // @RequestParam means it is a parameter from the GET or POST request
 
 
-	  Herramienta n = new Herramienta();
-	  n.setNombre(herramientarequest.getNombre());
-	  n.setEstado(herramientarequest.getEstado());
-	  n.setFoto(herramientarequest.getFoto());
-	  n.setPrecio(herramientarequest.getPrecio());
-	  n.setEstaAlquilada(herramientarequest.getEstaAlquilada());
-	  n.setFechasDisponibles(herramientarequest.getFechasDisponibles());
-	  herramientaRepository.save(n);
-	  return "Saved";
-	}
+	//   Herramienta n = new Herramienta();
+	//   n.setNombre(herramientarequest.getNombre());
+	//   n.setEstado(herramientarequest.getEstado());
+	//   n.setFoto(herramientarequest.getFoto());
+	//   n.setPrecio(herramientarequest.getPrecio());
+	//   n.setEstaAlquilada(herramientarequest.getEstaAlquilada());
+	//   n.setFechasDisponibles(herramientarequest.getFechasDisponibles());
+	//   herramientaRepository.save(n);
+	//   return "Saved";
+	// }
+
+	@PostMapping("/herramientas")
+    ResponseEntity<Herramienta> añadirPropietario(@RequestBody Herramienta newHerramienta) throws URISyntaxException {
+      Herramienta result = herramientaRepository.save(newHerramienta);
+      return ResponseEntity.created(new URI("/herramientas/" + newHerramienta.getId())).body(result);
+    }
 
 	@PutMapping("/propietarios/herramientas/{id}")
 	public ResponseEntity<Herramienta> actualizarHerramienta (@RequestBody Herramienta herramienta, @PathVariable Integer id) {
