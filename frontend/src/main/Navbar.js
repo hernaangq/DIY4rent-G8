@@ -15,7 +15,7 @@ function Navbar() {
           <li style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></li>
           <Link to="/publicar" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Publica tu herramienta</a></Link>
           <Link to="/mytools" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Mis herramientas</a></Link>
-          <li style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Ayuda</a></li>
+          <Link to="/ayuda" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Ayuda</a></Link>
           <Link to ="/registrar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid black', padding: '5px' }}><a href="#" style={{ color: 'black' }}>Registrarse</a></Link>
           <Link to="/iniciar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid black', padding: '5px' }}><a href="#" style={{ color: 'black' }}>Iniciar sesión</a></Link>
         </ul>

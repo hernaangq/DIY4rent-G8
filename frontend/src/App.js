@@ -9,6 +9,7 @@ import Editartool from "./herramienta/Editartool"
 import Inicio from "./registro/Inicio"
 import Registro from "./registro/Registro"
 import Publicartool from "./herramienta/Publicartool";
+import Ayuda from "./main/Ayuda";
 
 
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/iniciar" element={<Inicio />} />
           <Route path="/registrar" element={<Registro />} />
           <Route path="/publicar" element={<Publicartool/>} />
+          <Route parth="/ayuda" element={<Ayuda/>}/>
         </Routes>
       </div>
     </Router>
