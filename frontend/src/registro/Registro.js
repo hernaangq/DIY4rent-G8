@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import './Registro.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
 
 function Registro() {
   const [nombre, setNombre] = useState('');
@@ -11,9 +8,8 @@ function Registro() {
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
   const [rol, setRol] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Nombre:', nombre);
     console.log('Apellidos:', apellidos);
@@ -22,29 +18,7 @@ function Registro() {
     console.log('Confirmar Contraseña:', confirmarContrasena);
     console.log('Rol:', rol);
     // Aquí puedes agregar lógica para registrar al usuario
-    try {
-      let ruta;
-      let email = correo;
-      let password = contrasena;
-      let username = email;
-      if (rol == 'propietario') 
-      {ruta = 'http://localhost:8443/propietarios'}
-      else {ruta = 'http://localhost:8443/usuarios'}
-
-      const response = await axios.post(ruta, {
-        nombre,
-        apellidos,
-        email,
-        username,
-        password
-      })
-    }
-    catch (e) { }
-    setTimeout(() => {
-      navigate('/');
-    }, 1500);
-  }
-  
+  };
 
   return (
     <div className="registro-container">
@@ -74,8 +48,8 @@ function Registro() {
           <label>Rol:</label>
           <select value={rol} onChange={(e) => setRol(e.target.value)} className="form-control">
             <option value="">Selecciona un rol</option>
-            <option value="propietario">Vendedor</option>
-            <option value="usuario">Cliente Regular</option>
+            <option value="vendedor">Vendedor</option>
+            <option value="cliente">Cliente Regular</option>
           </select>
         </div>
         <button type="submit" className="btn btn-primary">Registrarse</button>
