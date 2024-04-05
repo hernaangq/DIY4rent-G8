@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.group8.diy4rent.Modelos.Cliente;
+// import com.group8.diy4rent.Modelos.Cliente;
 import com.group8.diy4rent.Modelos.Alquiler;
 
 @Repository

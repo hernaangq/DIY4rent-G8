@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-image {
+  margin-right: 20px; /* Espacio entre la imagen y los detalles de la herramienta */
+}
+
+.tool-details {
+  /* Estilos para los detalles de la herramienta */
+}
+
+.tool-info {
+  /* Estilos para la información de la herramienta */
+}
+
+.tool-description {
+  /* Estilos para la descripción de la herramienta */
+}
+
+.ratings {
+  /* Estilos para las calificaciones de la herramienta */
+}
+
+.location {
+  /* Estilos para las ubicaciones disponibles de la herramienta */
+}

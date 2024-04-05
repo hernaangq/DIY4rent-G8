@@ -1,14 +1,15 @@
-# POST http://localhost:8080/clientes
-# Content-Type: application/json
- 
-# {
-#     "nombre": "Pablo",
-#     "apellidos": "Bote",
-#     "email": "pablo@email.com",
-#     "latitud": 40.203,
-#     "longitud": -39.232,
-#     "iban": "ES2345"
-# }
+POST http://localhost:8080/clientes
+Content-Type: application/json
+  
+{ 
+    "nombre": "loco",
+    "apellidos": "Bote",
+    "email": "pablo@email.com",
+    "latitud": 40.203,
+    "longitud": -39.232,
+    "iban": "ES2345",
+    "tipo": "PROPIETARIO"
+}
 
 # POST http://localhost:8080/propietarios
 # Content-Type: application/json
@@ -23,18 +24,18 @@
 #     "tipo": "USUARIO"
 # }
 
-POST http://localhost:8080/propietarios
-Content-Type: application/json
+# POST http://localhost:8080/propietarios
+# Content-Type: application/json
  
-{
-    "nombre": "Carlo",
-    "apellidos": "Ñero",
-    "email": "carlos@email.com",
-    "latitud": 40.203,
-    "longitud": -39.232,
-    "iban": "ES6372",
-    "tipo": "PROPIETARIO"
-}
+# {
+#     "nombre": "Carlo",
+#     "apellidos": "Ñero",
+#     "email": "carlos@email.com",
+#     "latitud": 40.203,
+#     "longitud": -39.232,
+#     "iban": "ES6372",
+#     "tipo": "PROPIETARIO"
+# }
 
 
 # POST http://localhost:8080/propietarios/herramientas

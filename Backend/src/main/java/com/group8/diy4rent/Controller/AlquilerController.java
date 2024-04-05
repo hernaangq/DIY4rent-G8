@@ -1,7 +1,7 @@
 package com.group8.diy4rent.Controller;
 
-import com.group8.diy4rent.Modelos.Cliente;
-import com.group8.diy4rent.Repository.ClienteRepository;
+// import com.group8.diy4rent.Modelos.Cliente;
+// import com.group8.diy4rent.Repository.ClienteRepository;
 import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
 import com.group8.diy4rent.Modelos.Alquiler;

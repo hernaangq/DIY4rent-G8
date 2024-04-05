@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.group8.diy4rent.Modelos.Cliente;
+// import com.group8.diy4rent.Modelos.Cliente;
+import com.group8.diy4rent.Modelos.Usuario;
 
 
 // @Repository
@@ -21,7 +22,7 @@ import com.group8.diy4rent.Modelos.Cliente;
 
 
 
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-    List<Cliente> findBynombre(String nombre);
-    ResponseEntity<Cliente> findByid(Integer id);
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+    List<Usuario> findBynombre(String nombre);
+    ResponseEntity<Usuario> findByid(Integer id);
 }
