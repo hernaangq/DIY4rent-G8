@@ -1,14 +1,17 @@
 package com.group8.diy4rent.Controller;
 
 import com.group8.diy4rent.Modelos.Herramienta;
+import com.group8.diy4rent.Modelos.Propietario;
 import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
+import com.group8.diy4rent.Repository.PropietarioRepository;
 import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -36,9 +39,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 public class HerramientaController {
     private final HerramientaRepository herramientaRepository;
+	private final PropietarioRepository propietarioRepository;
 
-    public HerramientaController(HerramientaRepository herramientaRepository) {
+    public HerramientaController(HerramientaRepository herramientaRepository, PropietarioRepository propietarioRepository) {
         this.herramientaRepository = herramientaRepository;
+		this.propietarioRepository = propietarioRepository;
     }
 
     @GetMapping("/herramientas")
@@ -73,9 +78,12 @@ public class HerramientaController {
 	//   return "Saved";
 	// }
 
-	@PostMapping("/herramientas")
-    ResponseEntity<Herramienta> añadirPropietario(@RequestBody Herramienta newHerramienta) throws URISyntaxException {
-      Herramienta result = herramientaRepository.save(newHerramienta);
+	@PostMapping("/herramientas/{id}")
+    ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer id) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
+		newHerramienta.setPropietario(propietario);
+		Herramienta result = herramientaRepository.save(newHerramienta);
       return ResponseEntity.created(new URI("/herramientas/" + newHerramienta.getId())).body(result);
     }
 
