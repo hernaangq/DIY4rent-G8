@@ -6,9 +6,14 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Tool from "../herramienta/Tool";
 import './ToolList.css';
 import logo from "../images/logo1ejemplov.png";
+import axios from 'axios';
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 function ToolList() {
+  
+
   const tools = [
     { name: "Herramienta1", owner: "Propietario1", src: logo1 },
     { name: "Herramienta2", owner: "Propietario2", src: logo2 },
@@ -23,6 +28,27 @@ function ToolList() {
     { name: "Herramienta11", owner: "Propietario11", src: logo3 },
     { name: "Herramienta12", owner: "Propietario12", src: logo3 },
   ];
+  const [items, setItems] = useState(tools);
+
+
+// useEffect(() => {
+//   setTimeout(() => {
+//     setIsLoading(false);
+//   },200)
+// }, []);
+
+useEffect(() => {
+  callServer()
+}, []);
+
+
+const callServer = async () => {
+
+      const response = await axios.get('http://localhost:8443/herramientas');
+      // const datos = await response.json();
+      setItems(response.data);
+  }
+
 
   return (
     <div>
@@ -43,11 +69,11 @@ function ToolList() {
         </header>
     
       <div className="ToolList">
-        {tools.map((tool, index) => (
+        {items.map((item, index) => (
           <div className="ToolList-item" key={index}>
-            <img src={tool.src} alt={tool.name} />
-            <div>{tool.owner}</div>
-            <div>{tool.name}</div>
+            <img src={item.foto} alt={item.name} />
+            <div>{item.nombre}</div>
+            <div>{item.precio}</div>
             <Link to="/tool/1">Link a la herramienta</Link>
           </div>
         ))}
