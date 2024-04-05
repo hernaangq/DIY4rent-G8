@@ -1,10 +1,14 @@
 package com.group8.diy4rent.Modelos;
+
+import com.group8.diy4rent.Enums.EstadoEnum;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 
 
 @Entity
-@Table(name = "Herramientas")
+@Table(name = "HERRAMIENTAS")
 
 public class Herramienta {
     @Id
@@ -14,16 +18,13 @@ public class Herramienta {
     @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column(name = "MODELO")
-    private String modelo;
-
     @Lob
     @Column(name = "FOTO")
     private byte[] foto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ESTADO")
-    private Estado estado;
+    private EstadoEnum estado;
 
     @Column(name = "PRECIO")
     private Double precio;
@@ -34,14 +35,25 @@ public class Herramienta {
     @Column(name = "FECHAS_DISPONIBLES")
     private Date fechasDisponibles;
 
+    
+    // Una o varias herramientas pertenecen a un propietario 
+    @ManyToOne
+    @JoinColumn(name = "propietario_id")
+    private Propietario propietario;
+
+    // Una o varias herramientas pertenecen a un propietario 
+
+    @OneToMany(mappedBy = "herramienta")
+    private List<Alquiler> alquileres;
+
+
     public Herramienta() {
 
     }
     
-    public Herramienta(Long id, String nombre, String modelo, byte[] foto, Estado estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
+    public Herramienta(Long id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
         this.id = id;
         this.nombre = nombre;
-        this.modelo = modelo;
         this.foto = foto;
         this.estado = estado;
         this.precio = precio;
@@ -65,14 +77,6 @@ public class Herramienta {
         this.nombre = nombre;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
     public byte[] getFoto() {
         return foto;
     }
@@ -81,11 +85,11 @@ public class Herramienta {
         this.foto = foto;
     }
 
-    public Estado getEstado() {
+    public EstadoEnum getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoEnum estado) {
         this.estado = estado;
     }
 

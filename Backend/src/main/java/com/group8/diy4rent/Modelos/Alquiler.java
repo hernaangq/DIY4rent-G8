@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "Alquileres")
+@Table(name = "ALQUILER")
 
 public class Alquiler {
     @Id
@@ -25,6 +25,18 @@ public class Alquiler {
 
     @Column(name = "VALORACION")
     private String valoracion;
+
+    // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    // Un alquiler está asociado a una herramienta única que se alquila (one) y varios alquileres pueden estar asociados a una herramienta (many)
+
+    @ManyToOne
+    @JoinColumn(name = "herramienta_id")
+    private Herramienta herramienta;
+
 
 
     public Alquiler() {
