@@ -5,7 +5,6 @@ import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import Tool from "../herramienta/Tool";
 import './ToolList.css';
-import logo from "../images/logo1ejemplov.png";
 
 
 function ToolList() {
@@ -25,23 +24,6 @@ function ToolList() {
   ];
 
   return (
-    <div>
-        <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
-        {/* Línea separadora */}
-        <header className="App-header-custom">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <p className="Header-text" style={{ marginRight: "10px" }}>
-              La plataforma líder de alquiler de herramientas
-            </p>
-            <img
-              src={logo}
-              alt="Foto"
-              style={{ width: "100px", height: "100px" }}
-            />{" "}
-            {/* Cambia la ruta y el nombre del archivo según corresponda */}
-          </div>
-        </header>
-    
       <div className="ToolList">
         {tools.map((tool, index) => (
           <div className="ToolList-item" key={index}>
@@ -51,7 +33,6 @@ function ToolList() {
             <Link to="/tool/1">Link a la herramienta</Link>
           </div>
         ))}
-      </div>
       </div>
   );
 }

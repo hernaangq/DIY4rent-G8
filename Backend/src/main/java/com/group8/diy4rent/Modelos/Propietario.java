@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "PROPIETARIO")
+@Table(name = "PROPIETARIOS")
 public class Propietario {
     // Como hereda de cliente y no tiene ningún atributo extra, no hace falta emter getters setters o atributos aquí
 

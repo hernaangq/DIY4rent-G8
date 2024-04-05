@@ -1,4 +1,4 @@
-import logo from '../images/logo1ejemplov.png';
+import logo from '../logo.svg';
 import '../App.css';
 import './Navbar.css'
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
@@ -13,15 +13,13 @@ function Navbar() {
             <Link to="/" href="#" style={{ fontSize: '24px', color: 'black' }}>DIY4RENT</Link>
           </li>
           <li style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></li>
-          <Link to="/publicar" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Publica tu herramienta</a></Link>
+          <li style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Publica tu herramienta</a></li>
           <Link to="/mytools" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Mis herramientas</a></Link>
           <li style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Ayuda</a></li>
           <Link to ="/registrar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid black', padding: '5px' }}><a href="#" style={{ color: 'black' }}>Registrarse</a></Link>
           <Link to="/iniciar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid black', padding: '5px' }}><a href="#" style={{ color: 'black' }}>Iniciar sesión</a></Link>
         </ul>
-        
       </nav>
-      
     );
   }
 

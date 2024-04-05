@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "Herramientas")
+@Table(name = "HERRAMIENTAS")
 
 public class Herramienta {
     @Id
@@ -17,9 +17,6 @@ public class Herramienta {
 
     @Column(name = "NOMBRE")
     private String nombre;
-
-    @Column(name = "MODELO")
-    private String modelo;
 
     @Lob
     @Column(name = "FOTO")
@@ -30,7 +27,6 @@ public class Herramienta {
     private EstadoEnum estado;
 
     @Column(name = "PRECIO")
-    private Double precio;
     private Double precio;
 
     @Column(name = "ESTA_ALQUILADA")
@@ -58,7 +54,6 @@ public class Herramienta {
     public Herramienta(Long id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles) {
         this.id = id;
         this.nombre = nombre;
-        this.modelo = modelo;
         this.foto = foto;
         this.estado = estado;
         this.precio = precio;
@@ -82,14 +77,6 @@ public class Herramienta {
         this.nombre = nombre;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
     public byte[] getFoto() {
         return foto;
     }
@@ -107,11 +94,9 @@ public class Herramienta {
     }
 
     public Double getPrecio() {
-    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }

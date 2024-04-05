@@ -8,17 +8,29 @@ import Mytools from "./herramienta/Mytools";
 import Editartool from "./herramienta/Editartool"
 import Inicio from "./registro/Inicio"
 import Registro from "./registro/Registro"
-import Publicartool from "./herramienta/Publicartool";
-
 
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Footer from "./main/Footer";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Navbar/>
+        <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
+        {/* Línea separadora */}
+        <header className="App-header-custom">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <p className="Header-text" style={{ marginRight: "10px" }}>
+              La plataforma líder de alquiler de herramientas
+            </p>
+            <img
+              src={logo}
+              alt="Foto"
+              style={{ width: "100px", height: "100px" }}
+            />{" "}
+            {/* Cambia la ruta y el nombre del archivo según corresponda */}
+          </div>
+        </header>
         <Routes>
           <Route path="/" element={<ToolList />} />
           <Route path="/tool/:id" element={<Tool />} />
@@ -26,9 +38,7 @@ function App() {
           <Route path="/mytools" element={<Mytools />} />
           <Route path="/iniciar" element={<Inicio />} />
           <Route path="/registrar" element={<Registro />} />
-          <Route path="/publicar" element={<Publicartool/>} />
         </Routes>
-        <Footer lowerColor="#4caf50" upperColor="#ffffff" animationNegativeDelay={4} />
       </div>
     </Router>
   );
