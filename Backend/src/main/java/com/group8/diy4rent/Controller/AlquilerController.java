@@ -74,7 +74,7 @@ public class AlquilerController {
         return ResponseEntity.created(new URI("/alquileres/" + newAlquiler.getId())).body(result);
     }
 
-    @PatchMapping("/alquiler/{id}")
+    @PatchMapping("/alquileres/{id}")
     ResponseEntity<Alquiler> partialUpdate(@RequestBody Alquiler newAlquiler, @PathVariable Integer id) {
         return alquilerRepository.findById(id).map(alquiler -> {
             if(newAlquiler.getEstrellaUsuario() != null){
