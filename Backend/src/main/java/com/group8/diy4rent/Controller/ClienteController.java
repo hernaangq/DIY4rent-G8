@@ -1,9 +1,8 @@
 package com.group8.diy4rent.Controller;
 
-// import com.group8.diy4rent.Modelos.Cliente;
 import com.group8.diy4rent.Modelos.Propietario;
 import com.group8.diy4rent.Modelos.Usuario;
-// import com.group8.diy4rent.Repository.ClienteRepository;
+
 import com.group8.diy4rent.Repository.PropietarioRepository;
 import com.group8.diy4rent.Repository.UsuarioRepository;
 import com.group8.diy4rent.Enums.TipoClienteEnum;
@@ -19,8 +18,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-
-// import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.*;
@@ -68,7 +65,7 @@ public class ClienteController {
 
     // Para que el cliente pueda actualizar sus datos
   @PutMapping("/propietarios/{id}")
-	public ResponseEntity<Propietario> actualizarCliente (@RequestBody Propietario cliente, @PathVariable Integer id) {
+	public ResponseEntity<Propietario> actualizarPropietario (@RequestBody Propietario cliente, @PathVariable Integer id) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
@@ -87,7 +84,7 @@ public class ClienteController {
       }
   
   @PutMapping("/usuarios/{id}")
-  public ResponseEntity<Usuario> actualizarCliente (@RequestBody Usuario cliente, @PathVariable Integer id) {
+  public ResponseEntity<Usuario> actualizarUsuario (@RequestBody Usuario cliente, @PathVariable Integer id) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
@@ -105,45 +102,27 @@ public class ClienteController {
         .orElse(new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND));
       }
 
-    // @PostMapping("/clientes")
-    // @Transactional
-    // ResponseEntity<Cliente> añadirCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
-    // TipoClienteEnum tipo = newCliente.getTipo();
-    // if (tipo.equals(TipoClienteEnum.PROPIETARIO)){
-    //   Propietario propietario = new Propietario();
-    //   propietario.setId(newCliente.getId());
-    //   propietarioRepository.save(propietario);
-    // } else if (tipo.equals(TipoClienteEnum.USUARIO)){
-    //   Usuario usuario = new Usuario();
-    //   usuario.setId(newCliente.getId());
-    //   usuarioRepository.save(usuario);
-    //   // En caso de que el tipo de cliente no sea "PROPIETARIO"
-    // }
-    // // Cliente clientresult = clienteRepository.save(newCliente);
-    // return ResponseEntity.created(new URI("/clientes/")).build();
-    // }
+
     @PostMapping("/propietarios")
-       ResponseEntity<Propietario> añadirPropietario(@RequestBody Propietario newCliente) throws URISyntaxException {
-         Propietario result = propietarioRepository.save(newCliente);
-         return ResponseEntity.created(new URI("/propietarios/" + newCliente.getId())).body(result);
-       }
+    ResponseEntity<Propietario> añadirPropietario(@RequestBody Propietario newCliente) throws URISyntaxException {
+      Propietario result = propietarioRepository.save(newCliente);
+      return ResponseEntity.created(new URI("/propietarios/" + newCliente.getId())).body(result);
+    }
 
     @PostMapping("/usuarios")
-    ResponseEntity<Usuario> añadirPropietario(@RequestBody Usuario newCliente) throws URISyntaxException {
+    ResponseEntity<Usuario> añadirUsuario(@RequestBody Usuario newCliente) throws URISyntaxException {
       Usuario result = usuarioRepository.save(newCliente);
       return ResponseEntity.created(new URI("/usuarios/" + newCliente.getId())).body(result);
     }
     
-    // Para admins
+
     @GetMapping("/propietarios")
-    List<Propietario> getPropietarios() {
-    // return (List<Cliente>) clienteRepository.findBynombre("hernan");
-    return propietarioRepository.findAll();
+      List<Propietario> getPropietarios() {
+      return propietarioRepository.findAll();
     }
 
     @GetMapping("/usuarios")
-    List<Usuario> getUsuarios() {
-    // return (List<Cliente>) clienteRepository.findBynombre("hernan");
-    return usuarioRepository.findAll();
+      List<Usuario> getUsuarios() {
+      return usuarioRepository.findAll();
     }
 }
