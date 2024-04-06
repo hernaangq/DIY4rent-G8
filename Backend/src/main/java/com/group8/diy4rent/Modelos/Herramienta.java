@@ -29,11 +29,11 @@ public class Herramienta {
     @Column(name = "PRECIO")
     private Double precio;
 
-    @Column(name = "ESTA_ALQUILADA")
-    private Boolean estaAlquilada;
+    @Column(name = "FECHA_INICIO")
+    private Date fechaInicio;
 
-    @Column(name = "FECHAS_DISPONIBLES")
-    private Date fechasDisponibles;
+    @Column(name = "FECHA_FINAL")
+    private Date fechaFinal;
 
     
     // Una o varias herramientas pertenecen a un propietario 
@@ -51,14 +51,14 @@ public class Herramienta {
 
     }
     
-    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles, Propietario propietario) {
+    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Date fechaInicio, Date fechaFinal, Propietario propietario) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
         this.estado = estado;
         this.precio = precio;
-        this.estaAlquilada = estaAlquilada;
-        this.fechasDisponibles = fechasDisponibles;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
         this.propietario = propietario; 
     }
 
@@ -102,21 +102,24 @@ public class Herramienta {
         this.precio = precio;
     }
 
-    public Boolean getEstaAlquilada() {
-        return estaAlquilada;
+
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setEstaAlquilada(Boolean estaAlquilada) {
-        this.estaAlquilada = estaAlquilada;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechasDisponibles() {
-        return fechasDisponibles;
+
+    public Date getFechaFinal() {
+        return fechaFinal;
     }
 
-    public void setFechasDisponibles(Date fechasDisponibles) {
-        this.fechasDisponibles = fechasDisponibles;
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
+
 
     public Propietario getPropietario() {
         return propietario;
