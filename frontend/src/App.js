@@ -48,7 +48,7 @@ function App() {
         <Navbar herramientas={items} onFilterChange={handleFilterChange}/>
         <Routes>
           <Route path="/" element={<ToolList herramientas={(filteredData.length > 0) ? filteredData : items}  />} />
-          <Route path="/tool/:id" element={<Tool />} />
+          <Route path="/herramientas/:herramientaId" element={<Tool herramientas = {items} />} />
           <Route path="/tool/:id/editar" element={<Editartool />} />
           <Route path="/mytools" element={<Mytools />} />
           <Route path="/iniciar" element={<Inicio />} />

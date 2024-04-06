@@ -72,7 +72,7 @@ function filtrarInput(items, palabra) {
             <div>{item.precio}</div>
             <div>{item.estado}</div>
             <div>{new Date(item.fechasDisponibles).toLocaleString()}</div>
-            <Link to="/tool/1">Link a la herramienta</Link>
+            <Link to={"/herramientas/" + item.id}>Link a la herramienta</Link>
           </div>
         ))}
       </div>

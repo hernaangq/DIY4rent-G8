@@ -44,7 +44,7 @@ function Registro() {
 
       console.log('Registro exitoso:', response.data);
       // Realiza otras acciones necesarias después del registro exitoso, como redirigir al usuario a otra página
-      navigate('/inicio');
+      // navigate('/');
     } catch { };
     setTimeout(()=>{
       navigate('/');
