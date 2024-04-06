@@ -133,7 +133,7 @@ public class ClienteController {
       Usuario result = usuarioRepository.save(newCliente);
       return ResponseEntity.created(new URI("/usuarios/" + newCliente.getId())).body(result);
     }
-
+    
     // Para admins
     @GetMapping("/propietarios")
     List<Propietario> getPropietarios() {

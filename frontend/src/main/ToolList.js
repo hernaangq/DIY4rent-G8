@@ -28,7 +28,8 @@ function ToolList() {
     { name: "Herramienta11", owner: "Propietario11", src: logo3 },
     { name: "Herramienta12", owner: "Propietario12", src: logo3 },
   ];
-  const [items, setItems] = useState(tools);
+
+
 
 
 // useEffect(() => {
@@ -37,18 +38,30 @@ function ToolList() {
 //   },200)
 // }, []);
 
-useEffect(() => {
-  callServer()
-}, []);
+// useEffect(() => {
+//   callServer()
+// }, []);
 
 
-const callServer = async () => {
+// const callServer = async () => {
 
-      const response = await axios.get('http://localhost:8443/herramientas');
-      // const datos = await response.json();
-      setItems(response.data);
-  }
+//       const response = await axios.get('http://localhost:8443/herramientas');
+//       // const datos = await response.json();
+//       setItems(response.data);
+//   }
 
+const [input, setInput] = useState('');
+const [items, setItems] = useState([]);
+
+  
+    // const [lista, setLista] = useState(response.data);
+    
+    function filtrarInput(items, palabra) {
+      let res = [];
+          res = items.filter((producto) =>
+           producto.nombre.toLowerCase().includes(palabra.toLowerCase()));
+      return res;
+    }
   return (
     <div>
         <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
