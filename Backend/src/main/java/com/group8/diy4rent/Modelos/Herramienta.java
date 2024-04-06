@@ -35,6 +35,9 @@ public class Herramienta {
     @Column(name = "FECHA_FINAL")
     private Date fechaFinal;
 
+    @Column(name = "estaAlquilada")
+    private Boolean estaAlquilada;
+
     
     // Una o varias herramientas pertenecen a un propietario 
     @ManyToOne
@@ -51,7 +54,7 @@ public class Herramienta {
 
     }
     
-    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Date fechaInicio, Date fechaFinal, Propietario propietario) {
+    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Date fechaInicio, Date fechaFinal, Propietario propietario, Boolean estaAlquilada) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -60,6 +63,7 @@ public class Herramienta {
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.propietario = propietario; 
+        this.estaAlquilada = estaAlquilada;
     }
 
     public Integer getId() {
@@ -127,6 +131,14 @@ public class Herramienta {
 
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
+    }
+
+    public Boolean getEstaAlquilada() {
+        return estaAlquilada;
+    }
+
+    public void setEstaAlquilada(Boolean estaAlquilada) {
+        this.estaAlquilada = estaAlquilada;
     }
 
     public enum Estado {

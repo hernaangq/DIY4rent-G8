@@ -9,10 +9,7 @@ import java.util.Date;
 public class Alquiler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "FECHA_ALQUILADA")
-    private Date FechaAlquilada;
+    private Integer id;
 
     @Column(name = "PRECIO_PAGADO")
     private Double precioPagado;
@@ -44,76 +41,71 @@ public class Alquiler {
     }
 
 
-    public Alquiler(Long id, Date fechaAlquilada, Double precioPagado, Integer estrellaUsuario,
-            Integer estrellasServicio, String valoracion) {
+    public Alquiler(Integer id, Double precioPagado, Integer estrellaUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta) {
         this.id = id;
-        FechaAlquilada = fechaAlquilada;
         this.precioPagado = precioPagado;
         this.estrellaUsuario = estrellaUsuario;
         this.estrellasServicio = estrellasServicio;
         this.valoracion = valoracion;
+        this.usuario = usuario;
+        this.herramienta = herramienta;
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-
-    public Date getFechaAlquilada() {
-        return FechaAlquilada;
-    }
-
-
-    public void setFechaAlquilada(Date fechaAlquilada) {
-        FechaAlquilada = fechaAlquilada;
-    }
-
 
     public Double getPrecioPagado() {
         return precioPagado;
     }
 
-
     public void setPrecioPagado(Double precioPagado) {
         this.precioPagado = precioPagado;
     }
-
 
     public Integer getEstrellaUsuario() {
         return estrellaUsuario;
     }
 
-
     public void setEstrellaUsuario(Integer estrellaUsuario) {
         this.estrellaUsuario = estrellaUsuario;
     }
-
 
     public Integer getEstrellasServicio() {
         return estrellasServicio;
     }
 
-
     public void setEstrellasServicio(Integer estrellasServicio) {
         this.estrellasServicio = estrellasServicio;
     }
-
 
     public String getValoracion() {
         return valoracion;
     }
 
-
     public void setValoracion(String valoracion) {
         this.valoracion = valoracion;
     }
 
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Herramienta getHerramienta() {
+        return herramienta;
+    }
+
+    public void setHerramienta(Herramienta herramienta) {
+        this.herramienta = herramienta;
+    }
+    
 }

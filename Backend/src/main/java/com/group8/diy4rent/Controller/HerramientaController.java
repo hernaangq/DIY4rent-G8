@@ -51,7 +51,7 @@ public class HerramientaController {
 	//OKEY
     @GetMapping("/herramientas")
 	List<Herramienta> getHerramientas() {
-	return herramientaRepository.findAll();
+		return herramientaRepository.findAll();
 	}
 
 	//OKEY
@@ -107,6 +107,9 @@ public class HerramientaController {
 			}
 			if(newHerramienta.getNombre() != null){
 				herramienta.setNombre(newHerramienta.getNombre());
+			}
+			if(newHerramienta.getEstaAlquilada() != null){
+				herramienta.setEstaAlquilada(newHerramienta.getEstaAlquilada());
 			}
 
 			herramientaRepository.save(herramienta);

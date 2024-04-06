@@ -37,6 +37,11 @@ public class Usuario {
     @Column(name = "PASSWORD")
     private String password;
 
+    // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
+    @OneToMany(mappedBy = "usuario")
+    private List<Alquiler> alquileres;
+
+
     public Usuario() {
 
     }
@@ -127,9 +132,7 @@ public class Usuario {
         this.password = password;
     }
 
-    // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
-    @OneToMany(mappedBy = "usuario")
-    private List<Alquiler> alquileres;
+
 
 
 }
