@@ -13,7 +13,7 @@ import java.util.List;
 public class Herramienta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "NOMBRE")
     private String nombre;
@@ -35,6 +35,7 @@ public class Herramienta {
     @Column(name = "FECHAS_DISPONIBLES")
     private Date fechasDisponibles;
 
+    
     // Una o varias herramientas pertenecen a un propietario 
     @ManyToOne
     @JoinColumn(name = "propietario_id")
@@ -50,7 +51,7 @@ public class Herramienta {
 
     }
     
-    public Herramienta(Long id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles, Propietario propietario) {
+    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Boolean estaAlquilada, Date fechasDisponibles, Propietario propietario) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -58,14 +59,14 @@ public class Herramienta {
         this.precio = precio;
         this.estaAlquilada = estaAlquilada;
         this.fechasDisponibles = fechasDisponibles;
-        this.propietario = propietario;
+        this.propietario = propietario; 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -125,6 +126,11 @@ public class Herramienta {
         this.propietario = propietario;
     }
 
-    
+    public enum Estado {
+        COMO_NUEVO,
+        MUY_BUENO,
+        BUENO,
+        ACEPTABLE
+    }
 
 }

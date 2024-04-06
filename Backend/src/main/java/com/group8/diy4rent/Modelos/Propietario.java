@@ -1,6 +1,9 @@
 package com.group8.diy4rent.Modelos;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -36,6 +39,11 @@ public class Propietario {
 
     @Column(name = "PASSWORD")
     private String password;
+
+
+    // Un propietario es dueño de una o varias herramientas
+    @JsonIgnore @OneToMany(mappedBy = "propietario")
+    List<Herramienta> herramientas;
 
 
     public Propietario() {

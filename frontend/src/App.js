@@ -42,7 +42,7 @@ function App() {
           <Route path="/iniciar" element={<Inicio />} />
           <Route path="/registrar" element={<Registro />} />
           <Route path="/publicar" element={<Publicartool/>} />
-          <Route parth="/ayuda" element={<Ayuda/>}/>
+          <Route path="/ayuda" element={<Ayuda/>}/>
         </Routes>
       </div>
     </Router>
