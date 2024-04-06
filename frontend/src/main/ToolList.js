@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-function ToolList() {
+function ToolList(props) {
   
 
   const tools = [
@@ -30,38 +30,18 @@ function ToolList() {
   ];
 
 
-
-
-// useEffect(() => {
-//   setTimeout(() => {
-//     setIsLoading(false);
-//   },200)
-// }, []);
-
-// useEffect(() => {
-//   callServer()
-// }, []);
-
-
-// const callServer = async () => {
-
-//       const response = await axios.get('http://localhost:8443/herramientas');
-//       // const datos = await response.json();
-//       setItems(response.data);
-//   }
-
 const [input, setInput] = useState('');
-const [items, setItems] = useState([]);
+const [items, setItems] = useState(props.herramientas);
 
   
-    // const [lista, setLista] = useState(response.data);
     
-    function filtrarInput(items, palabra) {
-      let res = [];
-          res = items.filter((producto) =>
-           producto.nombre.toLowerCase().includes(palabra.toLowerCase()));
-      return res;
-    }
+function filtrarInput(items, palabra) {
+  let res = [];
+  res = items.filter((producto) =>
+    producto.nombre.toLowerCase().includes(palabra.toLowerCase()));
+  return res;
+}
+
   return (
     <div>
         <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
@@ -81,7 +61,11 @@ const [items, setItems] = useState([]);
         </header>
     
       <div className="ToolList">
-        {items.map((item, index) => (
+        {/* <div>Buscador:
+        <input id="filtro" onChange={e => setInput(e.target.value)}></input>
+          <button onClick={() => setItems(filtrarInput(props.herramientas, input))} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
+        </div> */}
+        {props.herramientas.map((item, index) => (
           <div className="ToolList-item" key={index}>
             <img src={item.foto} alt={item.name} />
             <div>{item.nombre}</div>

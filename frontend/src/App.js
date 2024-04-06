@@ -17,25 +17,37 @@ import { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
 function App() {
 
   const [items, setItems] = useState([]);
+  const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
     callServer()
   }, []);
-  
+
   let response;
   const callServer = async () => {
-  
-        response = await axios.get('http://localhost:8443/herramientas');
-        // const datos = await response.json();
-        setItems(response.data);
-    }
+
+    response = await axios.get('http://localhost:8443/herramientas');
+    // const datos = await response.json();
+    setItems(response.data);
+  }
+  // const handleFilterChange = (filteredResults) => {
+  //   setFilteredData(filteredResults);
+  // };
+
+  function handleFilterChange(items, palabra) {
+  let res = [];
+      res = (items.filter((producto) =>
+       producto.nombre.toLowerCase().includes(palabra.toLowerCase())));
+  setFilteredData(res);
+}
+
 
   return (
     <Router>
       <div className="App">
-        <Navbar herramientas={items}/>
+        <Navbar herramientas={items} onFilterChange={handleFilterChange}/>
         <Routes>
-          <Route path="/" element={<ToolList herramientas={items} />} />
+          <Route path="/" element={<ToolList herramientas={(filteredData.length > 0) ? filteredData : items}  />} />
           <Route path="/tool/:id" element={<Tool />} />
           <Route path="/tool/:id/editar" element={<Editartool />} />
           <Route path="/mytools" element={<Mytools />} />

@@ -15,11 +15,19 @@ const [items, setItems] = useState([]);
   
     // const [lista, setLista] = useState(response.data);
     
-    function filtrarInput(items, palabra) {
-      let res = [];
-          res = items.filter((producto) =>
-           producto.nombre.toLowerCase().includes(palabra.toLowerCase()));
-      return res;
+    // function filtrarInput(items, palabra) {
+    //   let res = [];
+    //       res = (items.filter((producto) =>
+    //        producto.nombre.toLowerCase().includes(palabra.toLowerCase())));
+    //   props.onFilterChange(res);
+    // }
+
+    useEffect(() => {
+      handleClick()
+    }, []);
+
+    function handleClick (){
+      props.onFilterChange(props.herramientas, input);
     }
 
     return (
@@ -30,8 +38,8 @@ const [items, setItems] = useState([]);
             <Link to="/" href="#" style={{ fontSize: '24px', color: 'black' }}>DIY4RENT</Link>
           </li>
           <div>
-          <input id="filtro" onChange={e => setInput(e.target.value)}></input>
-          <button onClick={() => setItems(filtrarInput(props.herramientas, input))} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
+            <input id="filtro" onChange={e => setInput(e.target.value)}></input>
+            <button onClick={handleClick} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
           </div>
           <Link to="/publicar" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Publica tu herramienta</a></Link>
           <Link to="/mytools" href="#" style={{ marginTop: '10px', marginLeft: '50px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Mis herramientas</a></Link>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Registro.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 
 function Registro() {
   const [nombre, setNombre] = useState('');
