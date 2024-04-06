@@ -61,10 +61,6 @@ public class Propietario {
         this.password = password;
     }
 
-        // Un propietario es dueño de una o varias herramientas
-
-        @OneToMany(mappedBy = "propietario")
-        private List<Herramienta> herramientas;
 
     //GETTERS Y SETTERS
 
