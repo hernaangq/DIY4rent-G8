@@ -46,47 +46,60 @@ public class HerramientaController {
 		this.propietarioRepository = propietarioRepository;
     }
 
+	//OKEY
     @GetMapping("/herramientas")
 	List<Herramienta> getHerramientas() {
-	// return (List<herramienta>) herramientaRepository.findBynombre("hernan");
 	return herramientaRepository.findAll();
-
 	}
 
-    @GetMapping("/propietarios/herramientas/{id}")
-	ResponseEntity<Herramienta> getHerramienta(@PathVariable Integer id) {
-	// return (List<herramienta>) herramientaRepository.findBynombre("hernan");
-	return herramientaRepository.findById(id).map(h -> ResponseEntity.ok().body(h))
-            .orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
-
-	}
-
-    // @PostMapping(path="/propietarios/herramientas") // Map ONLY POST Requests
-	// public @ResponseBody String addNewClient (@RequestBody Herramienta herramientarequest) {
-	//   // @ResponseBody means the returned String is the response, not a view name
-	//   // @RequestParam means it is a parameter from the GET or POST request
-
-
-	//   Herramienta n = new Herramienta();
-	//   n.setNombre(herramientarequest.getNombre());
-	//   n.setEstado(herramientarequest.getEstado());
-	//   n.setFoto(herramientarequest.getFoto());
-	//   n.setPrecio(herramientarequest.getPrecio());
-	//   n.setEstaAlquilada(herramientarequest.getEstaAlquilada());
-	//   n.setFechasDisponibles(herramientarequest.getFechasDisponibles());
-	//   herramientaRepository.save(n);
-	//   return "Saved";
-	// }
-
-	@PostMapping("/herramientas/{id}")
-    ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer id) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(
+	//OKEY
+	@PostMapping("/herramientas/{propietario_id}")
+    ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer propietario_id) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		newHerramienta.setPropietario(propietario);
 		Herramienta result = herramientaRepository.save(newHerramienta);
       return ResponseEntity.created(new URI("/herramientas/" + newHerramienta.getId())).body(result);
     }
 
+	//OKEY
+	@GetMapping("/herramientas/{id}")
+    ResponseEntity<Herramienta> readOne(@PathVariable Integer id) throws URISyntaxException {
+		return herramientaRepository.findById(id).map(herramienta ->
+		ResponseEntity.ok().body(herramienta)
+		).orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
+    }
+
+	//@GetMapping("/herramientas/propietario/{propietario_id}")
+    //ResponseEntity<Herramienta> readHerramientasDe(@PathVariable Integer propietario_id) throws URISyntaxException {
+	//	Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
+	//			HttpStatus.NOT_FOUND, "Propietario no encontrado"));
+		
+		
+	//	return ((Optional<Propietario>) herramientaRepository.findByPropietario(propietario)).map(herramientas ->
+	//	ResponseEntity.ok().body(herramienta)
+	//	).orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
+    //S}
+
+
+
+
+
+
+
+
+
+
+
+
+	/* 
+	@GetMapping("/propietarios/herramientas/{id}")
+	ResponseEntity<Herramienta> getHerramienta(@PathVariable Integer id) {
+	// return (List<herramienta>) herramientaRepository.findBynombre("hernan");
+	return herramientaRepository.findById(id).map(h -> ResponseEntity.ok().body(h))
+            .orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
+
+	}
 	@PutMapping("/propietarios/herramientas/{id}")
 	public ResponseEntity<Herramienta> actualizarHerramienta (@RequestBody Herramienta herramienta, @PathVariable Integer id) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -105,4 +118,7 @@ public class HerramientaController {
         })
         .orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
       }
+	*/
+
+
 }
