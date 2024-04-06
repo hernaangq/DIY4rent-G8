@@ -41,40 +41,39 @@ function filtrarInput(items, palabra) {
     producto.nombre.toLowerCase().includes(palabra.toLowerCase()));
   return res;
 }
+return (
+  <div>
+    <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
+    {/* Línea separadora */}
+    <header className="App-header-custom">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <img
+          src={logo}
+          alt="Foto"
+          style={{ width: "100px", height: "100px" }}
+        />{" "}
+        {/* Cambia la ruta y el nombre del archivo según corresponda */}
+      </div>
+    </header>
 
-  return (
-    <div>
-        <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
-        {/* Línea separadora */}
-        <header className="App-header-custom">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={logo}
-              alt="Foto"
-              style={{ width: "100px", height: "100px" }}
-            />{" "}
-            {/* Cambia la ruta y el nombre del archivo según corresponda */}
-          </div>
-        </header>
-    
-      <div className="ToolList">
-        {/* <div>Buscador:
-        <input id="filtro" onChange={e => setInput(e.target.value)}></input>
-          <button onClick={() => setItems(filtrarInput(props.herramientas, input))} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
-        </div> */}
-        {props.herramientas.map((item, index) => (
-          <div className="ToolList-item" key={index}>
-            <img src={item.foto} alt={item.name} />
-            <div>{item.nombre}</div>
-            <div>{item.precio}</div>
-            <div>{item.estado}</div>
-            <div>{new Date(item.fechasDisponibles).toLocaleString()}</div>
-            <Link to={"/herramientas/" + item.id}>Link a la herramienta</Link>
-          </div>
-        ))}
-      </div>
-      </div>
-  );
+    <div className="ToolList">
+      {/* <div>Buscador:
+      <input id="filtro" onChange={e => setInput(e.target.value)}></input>
+        <button onClick={() => setItems(filtrarInput(props.herramientas, input))} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
+      </div> */}
+      {props.herramientas.filter(item => !item.estaAlquilada).map((item, index) => (
+        <div className="ToolList-item" key={index}>
+          <img src={item.foto} alt={item.name} />
+          <div>{item.nombre}</div>
+          <div>{item.precio}</div>
+          <div>{item.estado}</div>
+          <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
+          <Link to={"/herramientas/" + index}>Link a la herramienta</Link>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 }
 
 export default ToolList;
