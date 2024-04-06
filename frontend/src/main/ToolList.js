@@ -48,9 +48,6 @@ function filtrarInput(items, palabra) {
         {/* Línea separadora */}
         <header className="App-header-custom">
           <div style={{ display: "flex", alignItems: "center" }}>
-            <p className="Header-text" style={{ marginRight: "10px" }}>
-              La plataforma líder de alquiler de herramientas
-            </p>
             <img
               src={logo}
               alt="Foto"
