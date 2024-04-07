@@ -62,6 +62,10 @@ function App() {
           <Route path="/publicar" element={<Publicartool/>} />
           <Route path="/ayuda" element={<Ayuda/>}/>
         </Routes>
+
+        <footer className="footer">
+          <p style={{ color: 'white' }}>¡Gracias por visitar nuestra página!</p>
+        </footer>
       </div>
     </Router>
   );

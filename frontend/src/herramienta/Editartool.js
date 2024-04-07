@@ -39,6 +39,7 @@ const Editartool = (props) => {
         'Access-Control-Allow-Origin': '*'
      }
     });
+
     setTimeout(() => {
       navigate('/');
     }, 1000);
@@ -56,12 +57,8 @@ const Editartool = (props) => {
           <input type="text" value={precio} onChange={(e) => setPrecio(e.target.value)} className="form-control" />
         </div>
         <div className="form-group">
-          <label>Localización:</label>
-          <input type="text" value={localizacion} onChange={(e) => setLocalizacion(e.target.value)} className="form-control" />
-        </div>
-        <div className="form-group">
           <label>Foto:</label>
-          <input type="file" accept="image/*" onChange={(e) => setFoto(e.target.files[0])} className="form-control-file" />
+          <input type="file" accept="image/*" onChange={(e) => {console.log(e.target.files[0]);  setFoto(e.target.files[0])}} className="form-control-file" />
         </div>
         <button type="submit" className="btn btn-primary">Guardar</button>
       </form>
