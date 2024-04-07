@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
-import './Editartool.css'; // Importa el archivo de estilos para este componente
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import './Editartool.css';
+import { useParams } from "react-router-dom";
+import axios from 'axios';
 
-function Editartool() {
+const Editartool = (props) => {
+
+  let { rutaId } = useParams();
+  console.log(props);
+  let herramienta = props.herramientas[rutaId];
+  console.log(herramienta);
+  // let herramientaId = herramienta.id;
+
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [localizacion, setLocalizacion] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [foto, setFoto] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Nombre:', nombre);
-    console.log('Precio:', precio);
-    console.log('Localización:', localizacion);
-    console.log('Descripción:', descripcion);
-    console.log('Foto:', foto);
-  };
 
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    const response = await axios.patch('http://localhost:8443/herramientas/' + herramienta.id, {
+      // nombre,
+      precio,
+      localizacion
+    });
+  };
   return (
     <div className="editartool-container">
-      <h2>Editar Herramienta</h2>
+      <h2>Editar datos de {herramienta.nombre}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Nombre:</label>
@@ -34,10 +46,6 @@ function Editartool() {
           <input type="text" value={localizacion} onChange={(e) => setLocalizacion(e.target.value)} className="form-control" />
         </div>
         <div className="form-group">
-          <label>Descripción:</label>
-          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} className="form-control" />
-        </div>
-        <div className="form-group">
           <label>Foto:</label>
           <input type="file" accept="image/*" onChange={(e) => setFoto(e.target.files[0])} className="form-control-file" />
         </div>
@@ -46,5 +54,6 @@ function Editartool() {
     </div>
   );
 }
+
 
 export default Editartool;

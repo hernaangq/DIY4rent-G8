@@ -26,7 +26,7 @@
 
 .ToolList {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 columnas */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
   gap: 20px; /* Espacio entre las herramientas */
 }
 
@@ -35,8 +35,6 @@
   padding: 10px;
   box-sizing: border-box; /* Incluye el padding en el cálculo del tamaño */
 }
-
-
 
 
 
