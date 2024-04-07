@@ -22,14 +22,14 @@ function Navbar(props) {
     <nav className="navbar" style={{ marginBottom: '20px' }}>
       <ul style={{ display: 'flex', listStyleType: 'none', padding: 0 }}>
         <li style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={logo} alt="Logo" style={{ width: '75px', height: '75px', marginRight: '10px' }} />
+          <Link to="/" href="#"><img src={logo} alt="Logo" style={{ width: '75px', height: '75px', marginRight: '10px' }} /></Link> 
           <Link className="letras" to="/" href="#" style={{ fontSize: '24px' }}><strong style={{ color: 'white' }}>DIY4RENT</strong></Link>
         </li>
         <div style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
           <input id="filtro" onChange={e => setInput(e.target.value)} style={{ marginRight: '10px', height: '30px', fontSize: '18px' }}></input>
           <button onClick={handleClick} style={{ backgroundColor: '#606C38', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center'}}>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px'}}>
         <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Publica tu herramienta</strong></a></Link>
         <Link className="letras" to={"/misherramientas/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Mis herramientas</strong></a></Link>
         <Link className="letras" to="/ayuda" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Ayuda</strong></a></Link>

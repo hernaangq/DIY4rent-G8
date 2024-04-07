@@ -4,7 +4,7 @@ import './Ayuda.css';
 function Ayuda() {
   return (
     <div className="Ayuda">
-      <h1>Bienvenido a DIY4RENT - Tu fuente de ayuda y soporte</h1>
+      <h1>Bienvenido a DIY4RENT - La página líder de alquiler de herramientas</h1>
       <div className="content">
         <p>
           En DIY4RENT, entendemos que a veces puedes encontrarte en situaciones difíciles donde necesitas ayuda o soporte. Ya sea que tengas preguntas sobre nuestros productos o servicios, o necesites asistencia técnica, estamos aquí para ayudarte en cada paso del camino.

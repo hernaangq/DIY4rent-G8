@@ -1,7 +1,7 @@
 .navbar{
-background-color: green;
-
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ejemplo de sombra con desplazamiento horizontal de 2px, desplazamiento vertical de 2px, desenfoque de 5px y color RGBA */
-  
-  
+background-color: #283618;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+display: flex;
+justify-content: center;
+align-items: center;
 }
