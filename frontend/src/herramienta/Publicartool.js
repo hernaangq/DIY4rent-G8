@@ -26,26 +26,41 @@ function Publicartool() {
     // }
     // // Convertir el búfer de la imagen a una cadena Base64
     // const base64String = data.toString('base64');});
-    let ruta = 'http://localhost:8443/herramientas';
-    try {
-      const response = await axios.post(ruta, {
-        nombre,
-        precio,
-        foto,
-        estado,
-        estaAlquilada: false
-      });
-    } catch { };
-    setTimeout(()=>{
+    let id = 1; // Cambiar por el id del usuario actual
+    let ruta = 'http://localhost:8443/herramientas/' + id;
+    let herramientaId;
+
+    const response = await axios.post(ruta, {
+      nombre,
+      precio,
+      estado,
+      estaAlquilada: false
+    });
+    herramientaId = response.data.id;
+    //console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
+    console.log(herramientaId);
+    let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
+    let formData = new FormData();
+    formData.append('foto', foto);
+    const response2 = await axios.put(ruta2, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*'
+     }
+    });
+    setTimeout(() => {
       navigate('/');
-    },1000);
+    }, 1000);
   };
 
   const handleFoto = (event) => {
     event.preventDefault();
     const file = event.target.files[0];
-    setFoto(file);
-    setFoto(null);
+    if (file && file.type === 'image/jpeg') {
+      setFoto(file);
+    } else {
+      alert('Please upload a JPEG image');
+    }
   };
 
   return (
