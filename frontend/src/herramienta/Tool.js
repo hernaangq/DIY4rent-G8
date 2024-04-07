@@ -62,17 +62,14 @@ const Tool = (props) => {
 
   console.log(renderEmojis());
   
-  var rawResponse = herramienta.foto; // truncated for example
-  //console.log(rawResponse);
-
-  var blob = new Blob( [ herramienta.foto ], { type: "image/jpg" } );
-  var imageUrl = URL.createObjectURL( blob );;
+  var rawResponse = herramienta.foto; 
+  console.log(rawResponse);
 
   return (
     <div className="container">
       <div className="tool-image" style={{ width: '25vw' }}>
       
-      <img src={imageUrl} alt="Tool" />
+      <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" />
       </div>
       <div className="tool-details">
         <div className="tool-info">
