@@ -78,32 +78,36 @@ const Tool = (props) => {
 
   return (
     <div className="container">
-      <div className="tool-image" style={{float: 'left' }}>
-        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{  height: '550px', width: '450px', height: 'auto' }} />
-        <div className="ratings">
-          <h3>Ratings</h3>
-          <p>{renderEmojis()}   {estrellasNum} estrellas</p>
-        </div>
-        <div className="valoracion">
+      <div className="tool-image" style={{float: 'none' }}>
+        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto' }} />
+        
+        <div className="valoracion" >
           <h3>Valoraciones</h3>
           <div>{valoraciones}</div>
         </div>
       </div>
       
       <div className="tool-details" style={{ maxWidth: '100%', width: '800px' }}>
+        
         <div className="tool-info">
-          <h2>{herramienta.nombre}</h2>
+          <h1 style={{fontSize : '50px'}}>{herramienta.nombre}</h1>
+          <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
           <p>Estado: {herramienta.estado}</p>
+          <p>Fecha Inicial: {new Date(herramienta.fechaInicio).toLocaleString()}</p>
+          <p>Fecha Final: {new Date(herramienta.fechaFinal).toLocaleString()}</p>
+          <p style={{fontSize : '30px'}}>Precio: <strong>{herramienta.precio}€/día</strong></p>
+          
+
+          <button onClick={handleAlquilarClick} className='btn' style={{alignItems:'center', display: 'flex', justifyContent: 'center' }}>Alquílalo</button>
         </div>
-        <div className="alquila">
-          <button onClick={handleAlquilarClick}>Alquílalo</button>
+        <div style={{fontSize : '30px'}} className="ratings">
+
+          <p>{renderEmojis()}   {estrellasNum} estrellas</p>
         </div>
 
-        <div className="location">
-          <h3>Localización</h3>
-        </div>
-        <div class="google-map">
-        <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="10" height="20" style={{border:'1'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div className="google-map" style={{ justifyContent: 'center', height: '300px'}}>
+          <h3 style={{ verticalAlign: 'top'}} >Localización</h3>
+          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000"  style={{ justifyContent: 'center'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>

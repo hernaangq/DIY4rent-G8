@@ -4,7 +4,6 @@ import logo3 from "../images/toolbasic.jpg";
 import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import './Mytools.css';
-import { useParams } from "react-router-dom";
 
 function Mytools(props) {
     const tools = [
@@ -22,21 +21,25 @@ function Mytools(props) {
       { name: "Herramienta12", owner: "Propietario12", src: logo3 },
     ];
   
+  
     return (
-      <div className="ToolList">
+<div className="ToolList">
         {props.herramientas.map((item, index) => (
+          
           <div className="ToolList-item" key={index}>
-            <div className="tool-image-list" style={{ width: '15vw', float: 'left' }}>
-              <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
+            <Link to={"/herramientas/" + index} style={{ textDecoration: 'none' }}>
+            <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
+              <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
             </div>
             <p><b>{item.nombre}</b></p>
+            </Link>
             <div><strong> {item.precio}€/día</strong> </div>
             <div><strong>Estado:</strong> {item.estado}</div>
             <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
+            <p> </p>
             <Link to={"/tool/editar/" + index}>Editar</Link> 
-            <Link to={`/herramientas-propias/${index}`}>Link a la herramienta</Link> 
-
-          </div>
+            
+            </div>
         ))}
       </div>
     );
