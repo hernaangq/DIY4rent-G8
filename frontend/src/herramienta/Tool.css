@@ -6,7 +6,7 @@
 
 .tool-image {
   margin-right: 50px; /* Espacio entre la imagen y los detalles de la herramienta */
-
+  justify-content: center;
 }
 
 
@@ -21,6 +21,8 @@
   left: 0;
   top: 0;
   position: absolute;
+  align-items: center;
+  justify-content: center;
 }
 .tool-details {
   /* Estilos para los detalles de la herramienta */
