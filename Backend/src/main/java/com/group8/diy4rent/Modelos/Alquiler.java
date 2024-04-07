@@ -23,6 +23,13 @@ public class Alquiler {
     @Column(name = "VALORACION")
     private String valoracion;
 
+    @Column(name = "FECHA_INICIO")
+    private Date fechaInicioAlquiler;
+
+    @Column(name = "FECHA_FINAL")
+    private Date fechaFinalAlquiler;
+
+
     // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -35,13 +42,11 @@ public class Alquiler {
     private Herramienta herramienta;
 
 
-
     public Alquiler() {
 
     }
 
-
-    public Alquiler(Integer id, Double precioPagado, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta) {
+    public Alquiler(Integer id, Double precioPagado, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta, Date fechaInicioAlquiler, Date fechaFinalAlquiler) {
         this.id = id;
         this.precioPagado = precioPagado;
         this.estrellasUsuario = estrellasUsuario;
@@ -49,8 +54,9 @@ public class Alquiler {
         this.valoracion = valoracion;
         this.usuario = usuario;
         this.herramienta = herramienta;
+        this.fechaInicioAlquiler = fechaInicioAlquiler;
+        this.fechaFinalAlquiler = fechaFinalAlquiler;
     }
-
 
     public Integer getId() {
         return id;
@@ -108,4 +114,20 @@ public class Alquiler {
         this.herramienta = herramienta;
     }
     
+    public Date getFechaInicioAlquiler() {
+        return fechaInicioAlquiler;
+    }
+
+    public void setFechaInicioAlquiler(Date fechaInicioAlquiler) {
+        this.fechaInicioAlquiler = fechaInicioAlquiler;
+    }
+
+    public Date getFechaFinalAlquiler() {
+        return fechaFinalAlquiler;
+    }
+
+    public void setFechaFinalAlquiler(Date fechaFinalAlquiler) {
+        this.fechaFinalAlquiler = fechaFinalAlquiler;
+    }
+
 }

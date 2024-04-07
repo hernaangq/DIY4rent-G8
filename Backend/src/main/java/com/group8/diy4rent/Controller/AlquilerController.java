@@ -62,10 +62,22 @@ public class AlquilerController {
         
     }
 
+    @GetMapping("/alquileres/herramienta/{herramienta_id}")
+	List<Alquiler> readHerramientasDe(@PathVariable Integer herramienta_id) throws URISyntaxException {
+        Herramienta herramienta = herramientaRepository.findById(herramienta_id).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
+		
+		return alquilerRepository.findByHerramienta(herramienta);
+	}
+
     @PostMapping("/alquileres/{usuario_id}/{herramienta_id}")
-    ResponseEntity<Alquiler> anadirAlquiler(@RequestBody Alquiler newAlquiler, @PathVariable Integer usuario_id, @PathVariable Integer herramienta_id) throws URISyntaxException {
+    ResponseEntity<Alquiler> anadirAlquiler(@PathVariable Integer usuario_id, @PathVariable Integer herramienta_id) throws URISyntaxException {
+        
+        Alquiler newAlquiler = new Alquiler();
+
         Usuario usuario = usuarioRepository.findById(usuario_id).orElseThrow(() -> new ResponseStatusException(
             HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        
         newAlquiler.setUsuario(usuario);
 
         Herramienta herramienta = herramientaRepository.findById(herramienta_id).orElseThrow(() -> new ResponseStatusException(
@@ -74,6 +86,9 @@ public class AlquilerController {
 
         long diffInMillies = Math.abs(herramienta.getFechaFinal().getTime() - herramienta.getFechaInicio().getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        newAlquiler.setFechaInicioAlquiler(herramienta.getFechaInicio()); 
+        newAlquiler.setFechaFinalAlquiler(herramienta.getFechaFinal());
 
         newAlquiler.setPrecioPagado(diff*herramienta.getPrecio());   
 
