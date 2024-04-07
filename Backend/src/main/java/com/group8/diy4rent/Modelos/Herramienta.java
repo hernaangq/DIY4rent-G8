@@ -99,11 +99,6 @@ public class Herramienta {
         this.foto = foto;
     }
 
-    @JsonGetter("foto")
-    public URI getDireccionFoto() throws URISyntaxException {
-        return new URI("./foto");
-    }
-
     public EstadoEnum getEstado() {
         return estado;
     }
