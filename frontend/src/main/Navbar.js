@@ -31,12 +31,11 @@ function Navbar(props) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center'}}>
         <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Publica tu herramienta</strong></a></Link>
-        <Link className="letras" to="/mytools" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Mis herramientas</strong></a></Link>
+        <Link className="letras" to={"/misherramientas/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Mis herramientas</strong></a></Link>
         <Link className="letras" to="/ayuda" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Ayuda</strong></a></Link>
         <Link className="letras" to="/registrar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Registrarse</strong></a></Link>
         <Link className="letras" to="/iniciar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px' }}><a className="letras" href="#"><strong style={{ color: 'white' }}>Iniciar sesión</strong></a></Link>
         </div>
-       
       </ul>
     </nav>
   );

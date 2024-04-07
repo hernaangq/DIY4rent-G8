@@ -5,7 +5,7 @@ import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import './Mytools.css';
 
-function Mytools() {
+function Mytools(props) {
     const tools = [
       { name: "Herramienta1", owner: "Propietario1", src: logo1 },
       { name: "Herramienta2", owner: "Propietario2", src: logo1 },
@@ -23,15 +23,17 @@ function Mytools() {
   
     return (
         <div className="ToolList">
-          {tools.map((tool, index) => (
-            <div className="ToolList-item" key={index}>
-              <img src={tool.src} alt={tool.name} />
-              <Link to="/tool/1/editar">Editar</Link>
-              <div>{tool.name}</div>
-              <Link to="/tool/1">Ver herramienta en la página</Link>
-            </div>
-          ))}
-        </div>
+        {props.herramientas.map((item, index) => (
+          <div className="ToolList-item" key={index}>
+            <img src={item.foto} alt={item.name} />
+            <div>{item.nombre}</div>
+            <div>{item.precio}</div>
+            <div>{item.estado}</div>
+            <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
+            <Link to={"/herramientas-propias/" + index}>Link a la herramienta</Link>
+          </div>
+        ))}
+      </div>
     );
   }
   
