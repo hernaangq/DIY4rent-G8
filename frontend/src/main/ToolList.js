@@ -61,7 +61,7 @@ return (
       <input id="filtro" onChange={e => setInput(e.target.value)}></input>
         <button onClick={() => setItems(filtrarInput(props.herramientas, input))} style={{ marginTop: '10px', marginLeft: '500px', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
       </div> */}
-      {props.herramientas.filter(item => !item.estaAlquilada).map((item, index) => (
+      {props.herramientas.map((item, index) => (
         <div className="ToolList-item" key={index}>
           <img src={item.foto} alt={item.name} />
           <div>{item.nombre}</div>
