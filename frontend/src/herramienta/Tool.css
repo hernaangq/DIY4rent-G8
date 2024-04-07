@@ -17,18 +17,30 @@
 
 }
 
+.tool-description{
+  border: 1px solid black;
+  padding: 10px;
+  background-color: white;
+  box-sizing: border-box; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.913);
+  border-radius:15px ;
+}
 
-
+.fotoVista{
+  border: 1px solid black;
+  padding: 10px;
+  background-color: white;
+  box-sizing: border-box; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.913);
+}
 
 .btn{
-
-
 font-weight: 900;
 font-size: 31px;
-color: #264653;
-background: linear-gradient(90deg, #0096c7 0%, #0096c7 100%);
+color:#606C38;
+background: linear-gradient(90deg,#606C38 0%, #606C38 100%);
 padding: 10px 30px;
-border: solid #264653 2px;
+border: solid #606C38 2px;
 box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
 border-radius: 15px;
 transition : 1284ms;
@@ -50,7 +62,7 @@ color: rgb(255, 255, 255);
 border: solid 2px #0066cc;
 }
 
-
+.card {   width: 100%; } .card-body {   background-color:#BC6C25;   margin: 10px;   padding: 10px;   border-radius: 5px;   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   transition: 0.3s; } .card-body:hover {   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); } .card-title {   color: white;   font-weight: bold;   margin-bottom: 5px; } .card-text {   color: white; }
 
 .google-map {
   padding-bottom: 50%;

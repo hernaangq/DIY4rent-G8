@@ -9,5 +9,6 @@
   .ToolList-item {
     text-align: center; /* Centra el contenido dentro del contenedor */
     margin-bottom: 20px; /* Agrega un espacio entre los elementos */
+    background-color: white;
   }
   

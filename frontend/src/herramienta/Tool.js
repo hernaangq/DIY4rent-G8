@@ -66,48 +66,46 @@ const Tool = (props) => {
   var rawResponse = herramienta.foto; 
   
 
-  const valoraciones = alquileres.map(alquiler => {
-    return (
-      <div>
-        <p>{alquiler.usuario.nombre} {alquiler.usuario.apellidos}: {alquiler.valoracion}</p> 
-      </div>
-    );
-  });
-
+  const valoraciones = alquileres.map((alquiler, index) => { return (<div key={index} className="card" style={{ backgroundColor: '#DDA15E', margin: '10px', padding: '10px', borderRadius: '5px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}><div className="card-body"><h5 className="card-title">{alquiler.usuario.nombre} {alquiler.usuario.apellidos}</h5><p className="card-text" style={{ fontSize : '20px', fontStyle:'italic'}}>"{alquiler.valoracion}"</p></div></div>); });
   console.log(valoraciones);
 
   return (
     <div className="container">
-      <div className="tool-image" style={{float: 'none' }}>
-        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto' }} />
-        
-        <div className="valoracion" >
-          <h3>Valoraciones</h3>
-          <div>{valoraciones}</div>
+      <div className="tool-image" style={{float: 'none', marginLeft:'75px' }}>
+        <img className='fotoVista' src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto', borderRadius:'15px' }} />
+        <div style={{ fontSize: '30px' }} className="ratings">
+
+          <p>{renderEmojis()}   {estrellasNum} estrellas</p>
         </div>
+        <div>
+
+          <h3>Valoraciones</h3>
+          <div className="valoracion-container">{valoraciones}</div>
+        </div>
+        <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
+
       </div>
       
       <div className="tool-details" style={{ maxWidth: '100%', width: '800px' }}>
         
         <div className="tool-info">
           <h1 style={{fontSize : '50px'}}>{herramienta.nombre}</h1>
-          <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
-          <p>Estado: {herramienta.estado}</p>
+  
+          <p style={{fontSize : '30px'}}>Estado: <strong>{herramienta.estado}</strong></p>
+
+          <div className="tool-description" style={{alignItems:'center'}}>
           <p>Fecha Inicial: {new Date(herramienta.fechaInicio).toLocaleString()}</p>
           <p>Fecha Final: {new Date(herramienta.fechaFinal).toLocaleString()}</p>
           <p style={{fontSize : '30px'}}>Precio: <strong>{herramienta.precio}€/día</strong></p>
-          
+          <button onClick={handleAlquilarClick} className='btn' >Alquílalo</button>
+          </div>
+         
+           </div>
 
-          <button onClick={handleAlquilarClick} className='btn' style={{alignItems:'center', display: 'flex', justifyContent: 'center' }}>Alquílalo</button>
-        </div>
-        <div style={{fontSize : '30px'}} className="ratings">
-
-          <p>{renderEmojis()}   {estrellasNum} estrellas</p>
-        </div>
 
         <div className="google-map" style={{ justifyContent: 'center', height: '300px'}}>
           <h3 style={{ verticalAlign: 'top'}} >Localización</h3>
-          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000"  style={{ justifyContent: 'center'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000"  style={{ justifyContent: 'center', borderRadius:'15px'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>

@@ -36,14 +36,15 @@ console.log(props.herramientas);
 
 return (
   <div>
-    <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
+    
     {/* Línea separadora */}
     <header className="App-header-custom">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <h1>La plataforma líder de alquiler de herramientas</h1>
         <img
           src={logo}
           alt="Foto"
-          style={{ width: "100px", height: "100px" }}
+          style={{ width: "70px", height: "70px" }}
         />{" "}
         {/* Cambia la ruta y el nombre del archivo según corresponda */}
       </div>
@@ -52,7 +53,7 @@ return (
       <div className="ToolList">
         {props.herramientas.map((item, index) => (
           <div className="ToolList-item" key={index}>
-            <Link to={"/herramientas/" + index}>
+            <Link to={"/herramientas/" + index} style={{ textDecoration: 'none' }}>
             <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
               <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
             </div>
