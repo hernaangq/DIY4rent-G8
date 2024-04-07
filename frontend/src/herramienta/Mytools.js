@@ -4,6 +4,7 @@ import logo3 from "../images/toolbasic.jpg";
 import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import './Mytools.css';
+import { useParams } from "react-router-dom";
 
 function Mytools(props) {
     const tools = [
@@ -32,7 +33,7 @@ function Mytools(props) {
             <div>{item.precio}</div>
             <div>{item.estado}</div>
             <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
-            <Link to={"/herramientas-propias/" + index}>Link a la herramienta</Link>
+            <Link to={{ pathname: `/tool/${item.id}/editar`, state: { tool: item } }}>Editar</Link> 
           </div>
         ))}
       </div>

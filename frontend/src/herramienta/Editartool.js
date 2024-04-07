@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Editartool.css'; // Importa el archivo de estilos para este componente
+import { useParams } from "react-router-dom";
 
-function Editartool() {
+function Editartool(props) {
+  const location = useLocation();
+  const toolFromLocation = location.state?.tool || {}; // Si location.state es null, establece un objeto vacío como valor predeterminado
+  const [tool, setTool] = useState(toolFromLocation);
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [localizacion, setLocalizacion] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [foto, setFoto] = useState('');
+
+  let { rutaId } = useParams();
+  let herramienta = props.herramientas[rutaId];
+  console.log(herramienta)
+  let herramientaId = herramienta.id;
+
+  useEffect(() => {
+    setNombre(herramienta.nombre || '');
+    // Actualiza los otros estados según sea necesario
+  }, [tool]);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +35,7 @@ function Editartool() {
 
   return (
     <div className="editartool-container">
-      <h2>Editar Herramienta</h2>
+      <h2>Editar Herramienta  de {nombre}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Nombre:</label>
