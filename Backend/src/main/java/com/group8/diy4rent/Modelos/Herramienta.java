@@ -1,7 +1,14 @@
 package com.group8.diy4rent.Modelos;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.group8.diy4rent.Enums.EstadoEnum;
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +25,7 @@ public class Herramienta {
     @Column(name = "NOMBRE")
     private String nombre;
 
-    @Lob
+    @JsonIgnore @Lob
     @Column(name = "FOTO")
     private byte[] foto;
 
@@ -32,6 +39,7 @@ public class Herramienta {
     @Column(name = "FECHA_INICIO")
     private Date fechaInicio;
 
+    @Future
     @Column(name = "FECHA_FINAL")
     private Date fechaFinal;
 
@@ -86,8 +94,14 @@ public class Herramienta {
         return foto;
     }
 
+    @JsonProperty
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+
+    @JsonGetter("foto")
+    public URI getDireccionFoto() throws URISyntaxException {
+        return new URI("./foto");
     }
 
     public EstadoEnum getEstado() {

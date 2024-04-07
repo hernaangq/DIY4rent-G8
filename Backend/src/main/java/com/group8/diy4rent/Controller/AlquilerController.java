@@ -22,6 +22,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.beans.*;
@@ -70,6 +72,11 @@ public class AlquilerController {
             HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
         newAlquiler.setHerramienta(herramienta);
 
+        long diffInMillies = Math.abs(herramienta.getFechaFinal().getTime() - herramienta.getFechaInicio().getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        newAlquiler.setPrecioPagado(diff*herramienta.getPrecio());   
+
         Alquiler result = alquilerRepository.save(newAlquiler);
         return ResponseEntity.created(new URI("/alquileres/" + newAlquiler.getId())).body(result);
     }
@@ -77,8 +84,8 @@ public class AlquilerController {
     @PatchMapping("/alquileres/{id}")
     ResponseEntity<Alquiler> partialUpdate(@RequestBody Alquiler newAlquiler, @PathVariable Integer id) {
         return alquilerRepository.findById(id).map(alquiler -> {
-            if(newAlquiler.getEstrellaUsuario() != null){
-                alquiler.setEstrellaUsuario(newAlquiler.getEstrellaUsuario());
+            if(newAlquiler.getEstrellasUsuario() != null){
+                alquiler.setEstrellasUsuario(newAlquiler.getEstrellasUsuario());
             }
             if(newAlquiler.getEstrellasServicio() != null){
                 alquiler.setEstrellasServicio(newAlquiler.getEstrellasServicio());

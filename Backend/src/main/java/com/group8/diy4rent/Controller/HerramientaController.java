@@ -2,11 +2,11 @@ package com.group8.diy4rent.Controller;
 
 import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Modelos.Propietario;
-import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Repository.HerramientaRepository;
 import com.group8.diy4rent.Repository.PropietarioRepository;
-import com.group8.diy4rent.Modelos.Herramienta;
-import com.group8.diy4rent.Repository.HerramientaRepository;
+
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,11 +19,13 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.beans.*;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.http.HttpHeaders;
+
 
 
 
@@ -40,37 +44,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin
 
 public class HerramientaController {
-    private final HerramientaRepository herramientaRepository;
+	private final HerramientaRepository herramientaRepository;
 	private final PropietarioRepository propietarioRepository;
 
-    public HerramientaController(HerramientaRepository herramientaRepository, PropietarioRepository propietarioRepository) {
-        this.herramientaRepository = herramientaRepository;
+	public HerramientaController(HerramientaRepository herramientaRepository, PropietarioRepository propietarioRepository) {
+		this.herramientaRepository = herramientaRepository;
 		this.propietarioRepository = propietarioRepository;
-    }
+	}
 
 	//OKEY
-    @GetMapping("/herramientas")
+	@GetMapping("/herramientas")
 	List<Herramienta> getHerramientas() {
 		return herramientaRepository.findAll();
 	}
 
 	//OKEY
 	@PostMapping("/herramientas/{propietario_id}")
-    ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer propietario_id) throws URISyntaxException {
+	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer propietario_id) throws URISyntaxException {
 		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		newHerramienta.setPropietario(propietario);
 		Herramienta result = herramientaRepository.save(newHerramienta);
-      return ResponseEntity.created(new URI("/herramientas/" + newHerramienta.getId())).body(result);
-    }
+	  return ResponseEntity.created(new URI("/herramientas/" + newHerramienta.getId())).body(result);
+	}
 
 	//OKEY
 	@GetMapping("/herramientas/{id}")
-    ResponseEntity<Herramienta> readOne(@PathVariable Integer id) throws URISyntaxException {
+	ResponseEntity<Herramienta> readOne(@PathVariable Integer id) throws URISyntaxException {
 		return herramientaRepository.findById(id).map(herramienta ->
 		ResponseEntity.ok().body(herramienta)
 		).orElse(new ResponseEntity<Herramienta>(HttpStatus.NOT_FOUND));
-    }
+	}
 
 	//OKEY
 	@GetMapping("/herramientas/propietario/{propietario_id}")
@@ -80,7 +84,7 @@ public class HerramientaController {
 		
 		
 		return herramientaRepository.findByPropietario(propietario);
-    }
+	}
 
 	//OKEY
 	@DeleteMapping("/herramientas/{id}")
@@ -119,8 +123,38 @@ public class HerramientaController {
 
 
 
+	@PutMapping(value = "/herramientas/{id}/foto", consumes = "application/jpg")
+	@io.swagger.v3.oas.annotations.Operation(requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = {
+			@Content(mediaType = "application/jpg", schema = @Schema(type = "string", format = "binary")) }))
+	public ResponseEntity<?> subeFoto(@PathVariable Integer id,
+			@RequestBody byte[] fileContent) {
+		return herramientaRepository.findById(id).map(herramienta -> {
+			herramienta.setFoto(fileContent);
+			herramientaRepository.save(herramienta);
+			return ResponseEntity.ok("Foto subida correctamente");
+		}).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Herramienta no encontrada"));
+	}
 
 
+
+
+	@GetMapping(value = "/herramientas/{id}/foto", produces = "application/jpg")
+	public ResponseEntity<?> descargaFoto(@PathVariable Integer id) {
+		Herramienta herramienta = herramientaRepository.findById(id).orElseThrow(
+			() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Herramienta no encontrada"));
+		if (herramienta.getFoto() == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok()
+			.header(HttpHeaders.CONTENT_DISPOSITION,
+				"attachment; filename=\"herramienta_foto_" + id + ".jpg" + "\"")
+			.body(new ByteArrayResource(herramienta.getFoto()));
+
+	
+	}
 
 
 

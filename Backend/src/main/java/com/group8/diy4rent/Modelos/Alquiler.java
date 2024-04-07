@@ -15,7 +15,7 @@ public class Alquiler {
     private Double precioPagado;
 
     @Column(name = "ESTRELLA_USUARIO")
-    private Integer estrellaUsuario;
+    private Integer estrellasUsuario;
 
     @Column(name = "ESTRELLAS_SERVICIO")
     private Integer estrellasServicio;
@@ -41,10 +41,10 @@ public class Alquiler {
     }
 
 
-    public Alquiler(Integer id, Double precioPagado, Integer estrellaUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta) {
+    public Alquiler(Integer id, Double precioPagado, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta) {
         this.id = id;
         this.precioPagado = precioPagado;
-        this.estrellaUsuario = estrellaUsuario;
+        this.estrellasUsuario = estrellasUsuario;
         this.estrellasServicio = estrellasServicio;
         this.valoracion = valoracion;
         this.usuario = usuario;
@@ -68,12 +68,12 @@ public class Alquiler {
         this.precioPagado = precioPagado;
     }
 
-    public Integer getEstrellaUsuario() {
-        return estrellaUsuario;
+    public Integer getEstrellasUsuario() {
+        return estrellasUsuario;
     }
 
-    public void setEstrellaUsuario(Integer estrellaUsuario) {
-        this.estrellaUsuario = estrellaUsuario;
+    public void setEstrellasUsuario(Integer estrellasUsuario) {
+        this.estrellasUsuario = estrellasUsuario;
     }
 
     public Integer getEstrellasServicio() {
