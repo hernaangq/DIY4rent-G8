@@ -28,6 +28,17 @@ const Editartool = (props) => {
       precio,
       localizacion
     });
+
+    let ruta2 = 'http://localhost:8443/herramientas/' + herramienta.Id + '/foto';
+    let formData = new FormData();
+    formData.append('foto', foto);
+    const response2 = await axios.put(ruta2, formData, {
+      headers: {
+        "Accept": "application/json",
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*'
+     }
+    });
     setTimeout(() => {
       navigate('/');
     }, 1000);

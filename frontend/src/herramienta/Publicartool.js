@@ -29,25 +29,34 @@ function Publicartool() {
     let id = 1; // Cambiar por el id del usuario actual
     let ruta = 'http://localhost:8443/herramientas/' + id;
     let herramientaId;
+    try {
+      let formData = new FormData();
+      formData.append('foto', foto);
+      const response = await axios.post(ruta, {
+        nombre,
+        precio,
+        estado,
+        formData,
+        estaAlquilada: false
+      });
+      herramientaId = response.data.id;
+    } catch (error) { };
 
-    const response = await axios.post(ruta, {
-      nombre,
-      precio,
-      estado,
-      estaAlquilada: false
-    });
-    herramientaId = response.data.id;
-    //console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
-    console.log(herramientaId);
-    let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
-    let formData = new FormData();
-    formData.append('foto', foto);
-    const response2 = await axios.put(ruta2, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*'
-     }
-    });
+    // try {
+    //   // console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
+    //   console.log(herramientaId);
+    //   let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
+    //   let formData = new FormData();
+    //   formData.append('foto', foto);
+    //   console.log(formData);
+    //   const response2 = await axios.put(ruta2, formData, {
+    //     headers: {
+    //       Accept: "*/*",
+    //       'Content-Type': 'application/jpg',
+    //       'Access-Control-Allow-Origin': '*'
+    //     }
+    //   });
+    // } catch (error) { };
     setTimeout(() => {
       navigate('/');
     }, 1000);
@@ -78,7 +87,7 @@ function Publicartool() {
           />
         </div>
         <div className="form-group">
-        <label htmlFor="nombre">Precio:</label>
+          <label htmlFor="nombre">Precio:</label>
           <input
             type="text"
             id="precio"
@@ -88,15 +97,15 @@ function Publicartool() {
           />
         </div>
         <div className="form-group">
-        <label htmlFor="foto">Adjuntar Foto:</label>
-        <input
-          type="file"
-          id="foto"
-          accept="image/*"
-          onChange={handleFoto}
-          required
-        />
-      </div>
+          <label htmlFor="foto">Adjuntar Foto:</label>
+          <input
+            type="file"
+            id="foto"
+            accept="image/*"
+            onChange={handleFoto}
+            required
+          />
+        </div>
         {/* <div className="form-group">
           <label htmlFor="descripcion">Descripción:</label>
           <textarea
@@ -107,15 +116,15 @@ function Publicartool() {
           ></textarea>
         </div> */}
         <div className="form-group">
-            <label>Estado:</label>
-            <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
-              <option value="">Selecciona un estado</option>
-              <option value="COMO NUEVO">Como nuevo</option>
-              <option value="MUY BUENO">Muy bueno</option>
-              <option value="BUENO">Bueno</option>
-              <option value="ACEPTABLE">Aceptable</option>
-            </select>
-          </div>
+          <label>Estado:</label>
+          <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
+            <option value="">Selecciona un estado</option>
+            <option value="COMO NUEVO">Como nuevo</option>
+            <option value="MUY BUENO">Muy bueno</option>
+            <option value="BUENO">Bueno</option>
+            <option value="ACEPTABLE">Aceptable</option>
+          </select>
+        </div>
         <button type="submit">Publicar</button>
       </form>
     </div>
