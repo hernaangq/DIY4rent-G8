@@ -6,8 +6,24 @@ import axios from 'axios';
 
 const Tool = (props) => {
 
-  let { herramientaId } = useParams();
-  let herramienta = props.herramientas[herramientaId];
+  let { rutaId } = useParams();
+  let herramienta = props.herramientas[rutaId];
+  console.log(herramienta)
+  let herramientaId = herramienta.id;
+
+  const handleAlquilarClick = async () => {
+    const body = {
+      herramienta: {
+        estaAlquilada: true
+      }
+    };
+    let id = 1; // Cambiar por el id del usuario actual
+    let response = await axios.post('http://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
+    let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
+    console.log(respuesta);
+
+    // const datos = await response.json();
+  }
 
   const [alquileres, setAlquileres] = useState([]);
   const [foto, setFoto] = useState(null);
@@ -62,6 +78,9 @@ const Tool = (props) => {
         <div className="tool-info">
           <h2>{herramienta.nombre}</h2>
           <p>Estado: {herramienta.estado}</p>
+        </div>
+        <div className="alquila">
+          <button onClick={handleAlquilarClick}>Alquílalo</button>
         </div>
         <div className="tool-description">
         </div>
