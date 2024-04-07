@@ -36,27 +36,27 @@ function Publicartool() {
         nombre,
         precio,
         estado,
-        formData,
+        foto,
         estaAlquilada: false
       });
       herramientaId = response.data.id;
     } catch (error) { };
 
-    // try {
-    //   // console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
-    //   console.log(herramientaId);
-    //   let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
-    //   let formData = new FormData();
-    //   formData.append('foto', foto);
-    //   console.log(formData);
-    //   const response2 = await axios.put(ruta2, formData, {
-    //     headers: {
-    //       Accept: "*/*",
-    //       'Content-Type': 'application/jpg',
-    //       'Access-Control-Allow-Origin': '*'
-    //     }
-    //   });
-    // } catch (error) { };
+    try {
+      // console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
+      console.log(herramientaId);
+      let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
+      let formData = new FormData();
+      formData.append('foto', foto);
+      console.log(formData);
+      const response2 = await axios.put(ruta2, formData, {
+        headers: {
+          Accept: "*/*",
+          'Content-Type': 'application/jpg',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    } catch (error) { };
     setTimeout(() => {
       navigate('/');
     }, 1000);
@@ -67,6 +67,7 @@ function Publicartool() {
     const file = event.target.files[0];
     if (file && file.type === 'image/jpeg') {
       setFoto(file);
+      console.log(file);
     } else {
       alert('Please upload a JPEG image');
     }
