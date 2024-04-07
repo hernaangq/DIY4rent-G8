@@ -22,15 +22,15 @@ function Mytools(props) {
     ];
   
     return (
-        <div className="ToolList">
+      <div className="ToolList">
         {props.herramientas.map((item, index) => (
           <div className="ToolList-item" key={index}>
-            <div className="tool-image" style={{ width: '15vw', float: 'left' }}>
+            <div className="tool-image-list" style={{ width: '15vw', float: 'left' }}>
               <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
             </div>
-            <div>{item.nombre}</div>
-            <div>{item.precio}</div>
-            <div>{item.estado}</div>
+            <p><b>{item.nombre}</b></p>
+            <div><strong> {item.precio}€/día</strong> </div>
+            <div><strong>Estado:</strong> {item.estado}</div>
             <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
             <Link to={"/herramientas-propias/" + index}>Link a la herramienta</Link>
           </div>
