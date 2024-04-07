@@ -31,8 +31,9 @@ function Publicartool() {
       const response = await axios.post(ruta, {
         nombre,
         precio,
-        // foto,
-        estado
+        foto,
+        estado,
+        estaAlquilada: false
       });
     } catch { };
     setTimeout(()=>{

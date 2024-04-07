@@ -67,9 +67,8 @@ const Tool = (props) => {
 
   return (
     <div className="container">
-      <div className="tool-image" style={{ width: '25vw' }}>
-      
-      <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" />
+      <div className="tool-image" style={{ width: '15vw', float: 'left' }}>
+        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
       </div>
       <div className="tool-details">
         <div className="tool-info">
@@ -84,8 +83,6 @@ const Tool = (props) => {
         <div className="ratings">
           <h3>Ratings</h3>
           <p>{renderEmojis()}   {estrellasNum} estrellas</p>
-          
-        
         </div>
         <div className="location">
           <h3>Available Locations</h3>

@@ -32,6 +32,8 @@ function ToolList(props) {
 console.log(props.herramientas);  
 
 
+
+
 return (
   <div>
     <hr style={{ margin: "0", borderTop: "2px solid black" }} />{" "}
@@ -47,20 +49,22 @@ return (
       </div>
     </header>
 
-    <div className="ToolList">
-      {props.herramientas.map((item, index) => (
-        <div className="ToolList-item" key={index}>
-          <img src={item.foto} alt={item.name} />
-          <div>{item.nombre}</div>
-          <div>{item.precio}</div>
-          <div>{item.estado}</div>
-          <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
-          <Link to={"/herramientas/" + index}>Link a la herramienta</Link>
-        </div>
-      ))}
+      <div className="ToolList">
+        {props.herramientas.map((item, index) => (
+          <div className="ToolList-item" key={index}>
+            <div className="tool-image" style={{ width: '15vw', float: 'left' }}>
+              <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
+            </div>
+            <div>{item.nombre}</div>
+            <div>{item.precio}</div>
+            <div>{item.estado}</div>
+            <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
+            <Link to={"/herramientas/" + index}>Link a la herramienta</Link>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default ToolList;

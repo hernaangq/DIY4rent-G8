@@ -25,7 +25,9 @@ function Mytools(props) {
         <div className="ToolList">
         {props.herramientas.map((item, index) => (
           <div className="ToolList-item" key={index}>
-            <img src={item.foto} alt={item.name} />
+            <div className="tool-image" style={{ width: '15vw', float: 'left' }}>
+              <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
+            </div>
             <div>{item.nombre}</div>
             <div>{item.precio}</div>
             <div>{item.estado}</div>
