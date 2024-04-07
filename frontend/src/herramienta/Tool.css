@@ -5,11 +5,26 @@
 }
 
 .tool-image {
-  margin-right: 25px; /* Espacio entre la imagen y los detalles de la herramienta */
+  margin-right: 50px; /* Espacio entre la imagen y los detalles de la herramienta */
+
 }
 
+
+.google-map {
+  padding-bottom: 50%;
+  position: relative;
+}
+
+.google-map iframe {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
 .tool-details {
   /* Estilos para los detalles de la herramienta */
+
 }
 
 .tool-info {

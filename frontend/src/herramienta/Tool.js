@@ -67,10 +67,10 @@ const Tool = (props) => {
 
   return (
     <div className="container">
-      <div className="tool-image" style={{ width: '15vw', float: 'left' }}>
-        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ maxWidth: '100%', height: 'auto' }} />
+      <div className="tool-image" style={{float: 'left' }}>
+        <img src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{  height: '450px', width: '350px', height: 'auto' }} />
       </div>
-      <div className="tool-details">
+      <div className="tool-details" style={{ maxWidth: '100%', width: '800px' }}>
         <div className="tool-info">
           <h2>{herramienta.nombre}</h2>
           <p>Estado: {herramienta.estado}</p>
@@ -78,15 +78,15 @@ const Tool = (props) => {
         <div className="alquila">
           <button onClick={handleAlquilarClick}>Alquílalo</button>
         </div>
-        <div className="tool-description">
-        </div>
         <div className="ratings">
           <h3>Ratings</h3>
           <p>{renderEmojis()}   {estrellasNum} estrellas</p>
         </div>
         <div className="location">
           <h3>Available Locations</h3>
-          <p>Location 1</p> 
+        </div>
+        <div class="google-map">
+        <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="500" height="350" style={{border:'1'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
