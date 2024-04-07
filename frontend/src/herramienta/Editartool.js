@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import './Editartool.css';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Editartool = (props) => {
 
@@ -11,6 +11,7 @@ const Editartool = (props) => {
   let herramienta = props.herramientas[rutaId];
   console.log(herramienta);
   // let herramientaId = herramienta.id;
+  let navigate = useNavigate();
 
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
@@ -22,12 +23,14 @@ const Editartool = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
     const response = await axios.patch('http://localhost:8443/herramientas/' + herramienta.id, {
-      // nombre,
+      nombre,
       precio,
       localizacion
     });
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
   return (
     <div className="editartool-container">

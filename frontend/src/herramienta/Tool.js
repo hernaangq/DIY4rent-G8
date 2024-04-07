@@ -3,6 +3,8 @@ import './Tool.css'; // Importa el archivo de estilos para Tool
 import toolImage from '../images/martillo.jpg'; // Importa la imagen de la herramienta
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Tool = (props) => {
 
@@ -10,6 +12,8 @@ const Tool = (props) => {
   let herramienta = props.herramientas[rutaId];
   //console.log(herramienta)
   let herramientaId = herramienta.id;
+  let navigate = useNavigate();
+
 
   const handleAlquilarClick = async () => {
     const body = {
@@ -21,7 +25,9 @@ const Tool = (props) => {
     let response = await axios.post('http://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
     let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
     //console.log(respuesta);
-    
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
     // const datos = await response.json();
   }
 
