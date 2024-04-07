@@ -33,7 +33,9 @@ function Mytools(props) {
             <div><strong> {item.precio}€/día</strong> </div>
             <div><strong>Estado:</strong> {item.estado}</div>
             <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
-            <Link to={{ pathname: `/tool/${item.id}/editar`, state: { tool: item } }}>Editar</Link> 
+            <Link to={"/tool/editar/" + index}>Editar</Link> 
+            <Link to={`/herramientas-propias/${index}`}>Link a la herramienta</Link> 
+
           </div>
         ))}
       </div>

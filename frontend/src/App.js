@@ -54,7 +54,8 @@ function App() {
           <Route path="/" element={<ToolList herramientas={(filteredData.length > 0) ? filteredData : items}  />} />
           <Route path="/herramientas/:rutaId" element={<Tool herramientas = {items} />} />
           <Route path="/herramientas-propias/:rutaId" element={<Tool herramientas = {itemsPropietario} />} />
-          <Route path="/tool/:id/editar" element={<Editartool herramientas={itemsPropietario} />} />
+          {itemsPropietario.length > 0 && (
+          <Route path="/tool/editar/:rutaId" element={<Editartool herramientas = {itemsPropietario} />} />)}
           <Route path="/misherramientas/:rutaId" element={<Mytools herramientas={itemsPropietario} />} />
           <Route path="/iniciar" element={<Inicio />} />
           <Route path="/registrar" element={<Registro />} />
