@@ -72,7 +72,7 @@ const Tool = (props) => {
     <div className="container">
       <div className="tool-image" style={{ width: '25vw' }}>
       
-      <img src={imageUrl} alt="Tool" />
+      <img src={herramienta.foto} alt="Tool" />
       </div>
       <div className="tool-details">
         <div className="tool-info">

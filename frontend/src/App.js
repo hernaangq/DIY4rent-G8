@@ -31,7 +31,6 @@ function App() {
     response = await axios.get('http://localhost:8443/herramientas');
     response2 = await axios.get('http://localhost:8443/herramientas/propietario/'+ id);
 
-    // const datos = await response.json();
     setItems(response.data.filter(item => !item.estaAlquilada));
     setItemsPropietario(response2.data);
   }
