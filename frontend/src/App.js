@@ -64,7 +64,7 @@ function App() {
         </Routes>
 
         <footer className="footer">
-          <p style={{ color: 'white' }}>¡Gracias por visitar nuestra página!</p>
+          <p style={{ color: 'white' }}>¡Gracias por visitar nuestra página! <i>DIY4rent © 2024 Copyright</i></p>
         </footer>
       </div>
     </Router>

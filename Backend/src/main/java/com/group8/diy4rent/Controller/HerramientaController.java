@@ -115,6 +115,9 @@ public class HerramientaController {
 			if(newHerramienta.getEstaAlquilada() != null){
 				herramienta.setEstaAlquilada(newHerramienta.getEstaAlquilada());
 			}
+			if(newHerramienta.getPrecio() != null){
+				herramienta.setPrecio(newHerramienta.getPrecio());
+			}
 
 			herramientaRepository.save(herramienta);
 			return ResponseEntity.ok().body(herramienta);
