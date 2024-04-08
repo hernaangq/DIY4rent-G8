@@ -27,7 +27,7 @@ function Navbar(props) {
         </li>
         <div style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
           <input id="filtro" onChange={e => setInput(e.target.value)} style={{ marginRight: '10px', height: '30px', fontSize: '18px' }}></input>
-          <button  onClick={handleClick} style={{ backgroundColor: '#606C38', display: 'flex', alignItems: 'center' }}><a href="#" style={{ color: 'black' }}>Buscar</a></button>
+          <button  onClick={handleClick} style={{ backgroundColor: '#606C38', display: 'flex', alignItems: 'center',  }}><strong style={{ color: 'white', textDecoration: 'none' }}>Buscar</strong></button>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px'}}>
         <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Publica tu herramienta</strong></a></Link>
