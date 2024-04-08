@@ -30,13 +30,10 @@ function Publicartool() {
     let ruta = 'http://localhost:8443/herramientas/' + id;
     let herramientaId;
     try {
-      let formData = new FormData();
-      formData.append('foto', foto);
       const response = await axios.post(ruta, {
         nombre,
         precio,
         estado,
-        foto,
         estaAlquilada: false
       });
       herramientaId = response.data.id;
@@ -52,8 +49,7 @@ function Publicartool() {
       const response2 = await axios.put(ruta2, formData, {
         headers: {
           Accept: "*/*",
-          'Content-Type': 'application/jpg',
-          'Access-Control-Allow-Origin': '*'
+          'Content-Type': 'multipart/form-data'
         }
       });
     } catch (error) { };
