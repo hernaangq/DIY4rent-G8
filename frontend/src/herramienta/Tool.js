@@ -14,6 +14,9 @@ const Tool = (props) => {
   let herramientaId = herramienta.id;
   let navigate = useNavigate();
 
+  const [alquileres, setAlquileres] = useState([]);
+  const [foto, setFoto] = useState(null);
+  const [alquilado, setAlquilado] = useState(false);
 
   const handleAlquilarClick = async () => {
     const body = {
@@ -22,17 +25,22 @@ const Tool = (props) => {
       }
     };
     let id = 1; // Cambiar por el id del usuario actual
+    console.log(herramientaId);
     let response = await axios.post('http://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
     let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
-    //console.log(respuesta);
     setTimeout(() => {
-      navigate('/');
+      setAlquilado(true);
     }, 1000);
     // const datos = await response.json();
   }
 
-  const [alquileres, setAlquileres] = useState([]);
-  const [foto, setFoto] = useState(null);
+  const handleCorreoClick = () => {
+    let email = herramienta.propietario.email;
+    window.location.href = 'mailto:'+{email}+'.com';
+  }
+
+
+
 
   useEffect(() => {
     callServer()
@@ -91,27 +99,34 @@ const Tool = (props) => {
         <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
 
       </div>
-      
+
       <div className="tool-details" style={{ maxWidth: '100%', width: '800px' }}>
-        
+
         <div className="tool-info">
-          <h1 style={{fontSize : '50px'}}>{herramienta.nombre}</h1>
-  
-          <p style={{fontSize : '30px'}}>Estado: <strong>{herramienta.estado}</strong></p>
+          <h1 style={{ fontSize: '50px' }}>{herramienta.nombre}</h1>
 
-          <div className="tool-description" style={{alignItems:'center'}}>
-          <p>Fecha Inicial: {new Date(herramienta.fechaInicio).toLocaleString()}</p>
-          <p>Fecha Final: {new Date(herramienta.fechaFinal).toLocaleString()}</p>
-          <p style={{fontSize : '30px'}}>Precio: <strong>{herramienta.precio}€/día</strong></p>
-          <button onClick={handleAlquilarClick} className='btn' >Alquílalo</button>
+          <p style={{ fontSize: '30px' }}>Estado: <strong>{herramienta.estado}</strong></p>
+
+          <div className="tool-description" style={{ alignItems: 'center' }}>
+            <p>Fecha Inicial: {new Date(herramienta.fechaInicio).toLocaleString()}</p>
+            <p>Fecha Final: {new Date(herramienta.fechaFinal).toLocaleString()}</p>
+            <p style={{ fontSize: '30px' }}>Precio: <strong>{herramienta.precio}€/día</strong></p>
+            <button onClick={handleAlquilarClick} className='btn' >Alquílalo</button>
           </div>
-         
-           </div>
+          <br></br>
+          {alquilado ?
+            <div className="tool-description" style={{ alignItems: 'center' }}>
+              <h3>¡Ponte en contacto con el propietario de la herramienta!</h3>
+              <p>Escribe con correo a <strong>{herramienta.propietario.email}</strong></p>
+              <button onClick={handleCorreoClick} className='btn' >Ir a correo</button>
+            </div> : <div></div>}
+
+        </div>
 
 
-        <div className="google-map" style={{ justifyContent: 'center', height: '300px'}}>
-          <h3 style={{ verticalAlign: 'top'}} >Localización</h3>
-          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000"  style={{ justifyContent: 'center', borderRadius:'15px'}} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div className="google-map" style={{ justifyContent: 'center', height: '300px' }}>
+          <h3 style={{ verticalAlign: 'top' }} >Localización</h3>
+          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000" style={{ justifyContent: 'center', borderRadius: '15px' }} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
