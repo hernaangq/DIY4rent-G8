@@ -59,9 +59,9 @@ public class HerramientaController {
 	}
 
 	//OKEY
-	@PostMapping("/herramientas/{propietario_id}")
-	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer propietario_id) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
+	@PostMapping("/herramientas/{propietario_userName}")
+	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable String propietario_userName) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findByUsername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		newHerramienta.setPropietario(propietario);
 		Herramienta result = herramientaRepository.save(newHerramienta);
@@ -77,9 +77,9 @@ public class HerramientaController {
 	}
 
 	//OKEY
-	@GetMapping("/herramientas/propietario/{propietario_id}")
-	List<Herramienta> readHerramientasDe(@PathVariable Integer propietario_id) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
+	@GetMapping("/herramientas/propietario/{propietario_userName}")
+	List<Herramienta> readHerramientasDe(@PathVariable String propietario_userName) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findByUsername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		
 		

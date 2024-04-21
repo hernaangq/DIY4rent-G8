@@ -2,8 +2,10 @@ package com.group8.diy4rent.Modelos;
 
 import javax.persistence.*;
 
-
+import com.group8.diy4rent.Enums.RolEnum;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -40,6 +42,7 @@ public class Usuario {
     // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
     @OneToMany(mappedBy = "usuario")
     private List<Alquiler> alquileres;
+
 
 
     public Usuario() {
@@ -131,8 +134,6 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
 
 }

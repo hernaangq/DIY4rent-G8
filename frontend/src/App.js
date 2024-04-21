@@ -26,10 +26,11 @@ function App() {
 
   let response;
   let response2;
-  let id = 1; // Cambiar por el id del usuario actual
+  let id = "1"; // Cambiar por el id del usuario actual
+  let username = "juanito"; // Cambiar por el id del usuario actual
   const callServer = async () => {
     response = await axios.get('http://localhost:8443/herramientas');
-    response2 = await axios.get('http://localhost:8443/herramientas/propietario/'+ id);
+    response2 = await axios.get('http://localhost:8443/herramientas/propietario/'+ username);
 
     setItems(response.data.filter(item => !item.estaAlquilada));
     setItemsPropietario(response2.data);
@@ -49,7 +50,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar herramientas={items} onFilterChange={handleFilterChange} propietarioId ={id}/>
+        <Navbar herramientas={items} onFilterChange={handleFilterChange} />
         <Routes>
           <Route path="/" element={<ToolList herramientas={(filteredData.length > 0) ? filteredData : items}  />} />
           <Route path="/herramientas/:rutaId" element={<Tool herramientas = {items} />} />

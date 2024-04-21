@@ -11,7 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.time.LocalDate;
 
 
 @Entity
@@ -37,11 +39,13 @@ public class Herramienta {
     private Double precio;
 
     @Column(name = "FECHA_INICIO")
-    private Date fechaInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    private LocalDate fechaInicio;
 
-    @Future
+
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     @Column(name = "FECHA_FINAL")
-    private Date fechaFinal;
+    private LocalDate fechaFinal;
 
     @Column(name = "estaAlquilada")
     private Boolean estaAlquilada;
@@ -62,7 +66,7 @@ public class Herramienta {
 
     }
     
-    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, Date fechaInicio, Date fechaFinal, Propietario propietario, Boolean estaAlquilada) {
+    public Herramienta(Integer id, String nombre, byte[] foto, EstadoEnum estado, Double precio, LocalDate fechaInicio, LocalDate fechaFinal, Propietario propietario, Boolean estaAlquilada) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
@@ -116,20 +120,20 @@ public class Herramienta {
     }
 
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
 
-    public Date getFechaFinal() {
+    public LocalDate getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(LocalDate fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 

@@ -26,8 +26,8 @@ function Publicartool() {
     // }
     // // Convertir el búfer de la imagen a una cadena Base64
     // const base64String = data.toString('base64');});
-    let id = 1; // Cambiar por el id del usuario actual
-    let ruta = 'http://localhost:8443/herramientas/' + id;
+    let username = "juanito"; // Cambiar por el id del usuario actual
+    let ruta = 'http://localhost:8443/herramientas/' + username;
     let herramientaId;
     try {
       const response = await axios.post(ruta, {

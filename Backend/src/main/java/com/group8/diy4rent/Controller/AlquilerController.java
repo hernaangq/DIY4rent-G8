@@ -20,12 +20,14 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.beans.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,15 +69,14 @@ public class AlquilerController {
         Herramienta herramienta = herramientaRepository.findById(herramienta_id).orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
 		
-		return alquilerRepository.findByHerramienta(herramienta);
-	}
+        return alquilerRepository.findByHerramienta(herramienta);
+    }
 
-    @PostMapping("/alquileres/{usuario_id}/{herramienta_id}")
-    ResponseEntity<Alquiler> anadirAlquiler(@PathVariable Integer usuario_id, @PathVariable Integer herramienta_id) throws URISyntaxException {
-        
+    @PostMapping("/alquileres/{userName}/{herramienta_id}")
+    ResponseEntity<Alquiler> anadirAlquiler(@PathVariable String userName, @PathVariable Integer herramienta_id, @RequestParam("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha1, @RequestParam("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha2) throws URISyntaxException {
         Alquiler newAlquiler = new Alquiler();
 
-        Usuario usuario = usuarioRepository.findById(usuario_id).orElseThrow(() -> new ResponseStatusException(
+        Usuario usuario = usuarioRepository.findByUsername(userName).orElseThrow(() -> new ResponseStatusException(
             HttpStatus.NOT_FOUND, "Usuario no encontrado"));
         
         newAlquiler.setUsuario(usuario);
@@ -84,13 +85,13 @@ public class AlquilerController {
             HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
         newAlquiler.setHerramienta(herramienta);
 
-        long diffInMillies = Math.abs(herramienta.getFechaFinal().getTime() - herramienta.getFechaInicio().getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        //long diffInMillies = Math.abs(herramienta.getFechaFinal().getTime() - herramienta.getFechaInicio().getTime());
+        //long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        newAlquiler.setFechaInicioAlquiler(herramienta.getFechaInicio()); 
-        newAlquiler.setFechaFinalAlquiler(herramienta.getFechaFinal());
 
-        newAlquiler.setPrecioPagado(diff*herramienta.getPrecio());   
+        newAlquiler.setFechaInicioAlquiler(fecha1); 
+        newAlquiler.setFechaFinalAlquiler(fecha2);
+
 
         Alquiler result = alquilerRepository.save(newAlquiler);
         return ResponseEntity.created(new URI("/alquileres/" + newAlquiler.getId())).body(result);

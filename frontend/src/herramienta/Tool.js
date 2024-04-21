@@ -4,7 +4,11 @@ import toolImage from '../images/martillo.jpg'; // Importa la imagen de la herra
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Calendar from 'react-calendar';
+//import 'react-calendar/dist/Calendar.css';
+//import 'react-calendar/dist/Calendar.css';
+import styled from 'styled-components';
+import moment from 'moment'
 
 const Tool = (props) => {
 
@@ -17,21 +21,29 @@ const Tool = (props) => {
   const [alquileres, setAlquileres] = useState([]);
   const [foto, setFoto] = useState(null);
   const [alquilado, setAlquilado] = useState(false);
+  const [fechasYaAlquilado, setFechaYaAlquilado] = useState([]);
+
+  const [date, onChange] = useState([new Date("2024-04-01"), new Date("2024-04-01")]);
+
+  //onChange([new Date("2022-03-25"), new Date("2022-03-25")]);
+
+  const fecha1 = date[0].getFullYear() + '-' + ((date[0]).getMonth()+1).toString().padStart(2,0) + '-' + date[0].getDate().toString().padStart(2,0) ;
+  const fecha2 = date[1].getFullYear() + '-' + ((date[1]).getMonth()+1).toString().padStart(2,0) + '-' + date[1].getDate().toString().padStart(2,0) ;
+
 
   const handleAlquilarClick = async () => {
-    const body = {
-      herramienta: {
-        estaAlquilada: true
-      }
-    };
-    let id = 1; // Cambiar por el id del usuario actual
-    console.log(herramientaId);
-    let response = await axios.post('http://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
-    let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
+
+  
+    let username = 'laurita'; // Cambiar por el username del usuario actual
+    //console.log(herramientaId);
+    
+    let response = await axios.post('http://localhost:8443/alquileres/' + username + '/' + herramientaId +'?fecha1='+ fecha1 + '&fecha2=' + fecha2);
+    
+    //let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
     setTimeout(() => {
       setAlquilado(true);
     }, 1000);
-    // const datos = await response.json();
+
   }
 
   const handleCorreoClick = () => {
@@ -56,10 +68,41 @@ const Tool = (props) => {
     
   
     setAlquileres(response1.data.filter(alquiler => alquiler.estrellasServicio !== null));
-    //console.log(alquileres);
-    //setFoto(response2.data);
-    //console.log(response2.data);
+
+    
+    const tuplasFechas = response1.data.map(alquiler => ({dia1: alquiler.fechaInicioAlquiler, dia2: alquiler.fechaFinalAlquiler}) )
+    console.log(tuplasFechas);
+    
+    const fechas = tuplasFechas.map(tupla => enumerateDaysBetweenDates(tupla.dia1, tupla.dia2));
+
+
+    const concatenatedDates = [].concat(...fechas);
+    console.log(concatenatedDates);
+    setFechaYaAlquilado(concatenatedDates);
+    console.log(fechasYaAlquilado);
   }
+
+  var enumerateDaysBetweenDates = function(startDate, endDate) {
+    var dates = [];
+    
+    var currDate = moment(startDate, 'DD/MM/YYYY').startOf('day');
+    var lastDate = moment(endDate, 'DD/MM/YYYY').startOf('day');
+    dates.push(moment(currDate.clone().toDate()).format("DD/MM/YYYY"));
+
+    while(currDate.add(1, 'days').diff(lastDate) < 2) {
+        //console.log(moment(currDate.toDate()).format("DD/MM/YYYY"));
+        dates.push(moment(currDate.clone().toDate()).format("DD/MM/YYYY"));
+    }
+
+    return dates;
+};
+
+  //let dateArr = enumerateDaysBetweenDates('21/03/2024', '26/03/2024');
+  //console.log(dateArr.toString());
+
+  console.log(herramienta.fechaInicio);
+
+
 
   var estrellasNum = alquileres.reduce((acc, alquiler) => {
     return acc + alquiler.estrellasServicio
@@ -75,14 +118,12 @@ const Tool = (props) => {
     return stars;
   };
 
-  //console.log(renderEmojis());
-  
+ 
   var rawResponse = herramienta.foto; 
   
 
   const valoraciones = alquileres.map((alquiler, index) => { return (<div key={index} className="card" style={{ backgroundColor: '#DDA15E', margin: '10px', padding: '10px', borderRadius: '5px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}><div className="card-body"><h5 className="card-title">{alquiler.usuario.nombre} {alquiler.usuario.apellidos}</h5><p className="card-text" style={{ fontSize : '20px', fontStyle:'italic'}}>"{alquiler.valoracion}"</p></div></div>); });
-  console.log(valoraciones);
-
+  
   return (
     <div className="container">
       <div className="tool-image" style={{float: 'none', marginLeft:'75px' }}>
@@ -98,18 +139,56 @@ const Tool = (props) => {
         </div>
         <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
 
+
+
       </div>
+
+
 
       <div className="tool-details" style={{ maxWidth: '100%', width: '800px' }}>
 
         <div className="tool-info">
           <h1 style={{ fontSize: '50px' }}>{herramienta.nombre}</h1>
 
+
           <p style={{ fontSize: '30px' }}>Estado: <strong>{herramienta.estado}</strong></p>
 
+
+
+
           <div className="tool-description" style={{ alignItems: 'center' }}>
-            <p>Fecha Inicial: {new Date(herramienta.fechaInicio).toLocaleString()}</p>
-            <p>Fecha Final: {new Date(herramienta.fechaFinal).toLocaleString()}</p>
+
+            <div style={{ color: 'black' }}>
+
+                <div>
+                  <Calendar
+                    onChange={onChange}
+                    value={date}
+                    selectRange={true}
+                    tileClassName={({ date, view }) => {
+                      if(fechasYaAlquilado.find(x=>x===moment(date).format("DD/MM/YYYY"))){
+                       return  'highlight'
+                      }}}
+                      minDate={moment(herramienta.fechaInicio, "DD/MM/YYYY").toDate()}
+                      maxDate={moment(herramienta.fechaFinal, "DD/MM/YYYY").toDate()}
+                  />
+                </div>
+
+            </div>
+            {date.length > 0 ? (
+              <p className='text-center'>
+                <span className='bold'>De:</span>{' '}
+                {date[0].toLocaleDateString()}
+                &nbsp;|&nbsp;
+                <span className='bold'>Hasta:</span> {date[1].toLocaleDateString()}
+              </p>
+            ) : (
+              <p className='text-center'>
+                <span className='bold'>Default selected date:</span>{' '}
+                {date.toLocaleDateString()}
+              </p>
+            )}
+
             <p style={{ fontSize: '30px' }}>Precio: <strong>{herramienta.precio}€/día</strong></p>
             <button onClick={handleAlquilarClick} className='btn' >Alquílalo</button>
           </div>
@@ -129,8 +208,15 @@ const Tool = (props) => {
           <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000" style={{ justifyContent: 'center', borderRadius: '15px' }} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
+
+      
+
+
     </div>
   );
 };
+
+
+
 
 export default Tool;
