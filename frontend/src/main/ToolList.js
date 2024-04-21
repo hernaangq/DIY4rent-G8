@@ -31,6 +31,9 @@ function ToolList(props) {
 
 console.log(props.herramientas);  
 
+
+
+
 return (
   <div>
     

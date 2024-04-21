@@ -2,8 +2,10 @@ package com.group8.diy4rent.Modelos;
 
 import javax.persistence.*;
 
-
+import com.group8.diy4rent.Enums.RolEnum;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -41,6 +43,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Alquiler> alquileres;
 
+    private Set<Rol> roles = new HashSet<>();
 
     public Usuario() {
 
@@ -132,7 +135,12 @@ public class Usuario {
         this.password = password;
     }
 
+    public Set<Rol> getRoles() {
+        return roles;
+    }
 
-
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
 
 }
