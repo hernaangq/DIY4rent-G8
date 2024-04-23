@@ -29,39 +29,47 @@ function Publicartool() {
     let username = "juanito"; // Cambiar por el id del usuario actual
     let ruta = 'http://localhost:8443/herramientas/' + username;
     let herramientaId;
-    try {
-      const response = await axios.post(ruta, {
-        nombre,
-        precio,
-        estado,
-        estaAlquilada: false
-      });
-      herramientaId = response.data.id;
-    } catch (error) { };
+  
+    const data = {
+      nombre: nombre,
+      precio: precio,
+      estado: estado
+    };
 
     try {
-      // console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
-      console.log(herramientaId);
+      const response = await axios.post(ruta, data);
+      herramientaId = response.data.id;
+      console.log('Herramienta ID:', herramientaId);
+    } catch (error) {
+      console.error('Error al crear la herramienta:', error);
+    }
+
+    if (herramientaId && foto) {
       let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
-      let formData = new FormData();
-      formData.append('foto', foto);
-      console.log(formData);
-      const response2 = await axios.put(ruta2, formData, {
-        headers: {
-          Accept: "*/*",
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-    } catch (error) { };
+      const formData = new FormData();
+      formData.append('file', foto);
+
+      try {
+        const response2 = await axios.post(ruta2, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('Foto subida con éxito');
+      } catch (error) {
+        console.error('Error al subir la foto:', error);
+      }
+    }
+  
     setTimeout(() => {
       navigate('/');
     }, 1000);
   };
 
-  const handleFoto = (event) => {
+  const handleFoto = async (event) => {
     event.preventDefault();
     const file = event.target.files[0];
-    if (file && file.type === 'image/jpeg') {
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       setFoto(file);
       console.log(file);
     } else {

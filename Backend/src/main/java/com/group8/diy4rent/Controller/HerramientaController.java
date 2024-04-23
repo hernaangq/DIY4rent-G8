@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -140,6 +142,18 @@ public class HerramientaController {
 						"Herramienta no encontrada"));
 	}
 
+	@PostMapping(value = "/herramientas/{id}/foto", consumes = "multipart/form-data")
+public ResponseEntity<?> subeFotoNuevo(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
+    return herramientaRepository.findById(id).map(herramienta -> {
+        try {
+            herramienta.setFoto(file.getBytes());
+            herramientaRepository.save(herramienta);
+            return ResponseEntity.ok("Foto subida correctamente");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al leer el archivo", e);
+        }
+    }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
+}
 
 
 
