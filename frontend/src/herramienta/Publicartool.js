@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './Publicartool.css'; // Importar el archivo de estilos
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import moment from 'moment';
+
 
 
 function Publicartool() {
@@ -10,6 +13,8 @@ function Publicartool() {
   const [precio, setPrecio] = useState('');
   const [foto, setFoto] = useState('');
   const [estado, setEstado] = useState('');
+  const [fechainicio, setInicio] = useState('');
+  const [fechafinal, setFinal] = useState('');  
   // const [, set] = useState('');
   const navigate = useNavigate();
 
@@ -33,7 +38,10 @@ function Publicartool() {
     const data = {
       nombre: nombre,
       precio: precio,
-      estado: estado
+      estado: estado,
+      fechaInicio: fechainicio,
+      fechaFinal: fechafinal,
+      estaAlquilada: false,
     };
 
     try {
@@ -112,25 +120,29 @@ function Publicartool() {
             required
           />
         </div>
-        {/* <div className="form-group">
-          <label htmlFor="descripcion">Descripción:</label>
-          <textarea
-            id="descripcion"
-            value={descripcion}
-            onChange={(event) => setDescripcion(event.target.value)}
-            required
-          ></textarea>
-        </div> */}
+
+        <div className='form-group'>
+          <label>Fecha de inicio:</label>
+          <input type="date" id="fechaInicio" value={fechainicio} onChange={(event) => setInicio(event.target.value)} required />
+        </div>
+        <div className='form-group'>
+          <label>Fecha de final:</label>
+          <input type="date" id="fechaFinal" value={fechafinal} onChange={(event) => setFinal(event.target.value)} required />
+        </div>
+
+
+
         <div className="form-group">
           <label>Estado:</label>
           <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
             <option value="">Selecciona un estado</option>
-            <option value="COMO NUEVO">Como nuevo</option>
-            <option value="MUY BUENO">Muy bueno</option>
+            <option value="COMO_NUEVO">Como nuevo</option>
+            <option value="MUY_BUENO">Muy bueno</option>
             <option value="BUENO">Bueno</option>
             <option value="ACEPTABLE">Aceptable</option>
           </select>
         </div>
+
         <button type="submit">Publicar</button>
       </form>
     </div>

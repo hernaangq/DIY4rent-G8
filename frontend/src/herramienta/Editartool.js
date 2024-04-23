@@ -28,6 +28,7 @@ const Editartool = (props) => {
       precio
     });
 
+    if (foto) {
     let ruta2 = 'http://localhost:8443/herramientas/' + herramienta.id + '/foto';
     let formData = new FormData();
     formData.append('file', foto);
@@ -36,11 +37,11 @@ const Editartool = (props) => {
         "Accept": "*/*",
         'Content-Type': 'multipart/form-data'
      }
-    });
+    });}
     
-    console.log(response2.data);
     setTimeout(() => {
-      navigate('/');
+      navigate('/misherramientas/:rutaId');
+      window.location.reload();
     }, 1000);
   };
   return (

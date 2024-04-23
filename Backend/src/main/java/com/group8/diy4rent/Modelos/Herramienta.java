@@ -120,10 +120,16 @@ public class Herramienta {
     }
 
 
+
+
+
+
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @Column(name = "FECHA_INICIO")
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
@@ -133,6 +139,8 @@ public class Herramienta {
         return fechaFinal;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @Column(name = "FECHA_FINAL")
     public void setFechaFinal(LocalDate fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
