@@ -63,6 +63,7 @@ function Publicartool() {
   
     setTimeout(() => {
       navigate('/');
+      window.location.reload();
     }, 1000);
   };
 
