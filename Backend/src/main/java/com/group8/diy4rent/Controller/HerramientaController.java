@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -59,9 +61,9 @@ public class HerramientaController {
 	}
 
 	//OKEY
-	@PostMapping("/herramientas/{propietario_id}")
-	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable Integer propietario_id) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
+	@PostMapping("/herramientas/{propietario_userName}")
+	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable String propietario_userName) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findByUsername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		newHerramienta.setPropietario(propietario);
 		Herramienta result = herramientaRepository.save(newHerramienta);

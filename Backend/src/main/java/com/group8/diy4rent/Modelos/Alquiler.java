@@ -1,5 +1,9 @@
 package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -11,9 +15,6 @@ public class Alquiler {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "PRECIO_PAGADO")
-    private Double precioPagado;
-
     @Column(name = "ESTRELLA_USUARIO")
     private Integer estrellasUsuario;
 
@@ -24,10 +25,12 @@ public class Alquiler {
     private String valoracion;
 
     @Column(name = "FECHA_INICIO")
-    private Date fechaInicioAlquiler;
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    private LocalDate fechaInicioAlquiler;
 
     @Column(name = "FECHA_FINAL")
-    private Date fechaFinalAlquiler;
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    private LocalDate fechaFinalAlquiler;
 
 
     // Un alquiler está asociado a un usuario único (one) y varios alquileres pueden estar asociados a un usuario (many)
@@ -46,9 +49,8 @@ public class Alquiler {
 
     }
 
-    public Alquiler(Integer id, Double precioPagado, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta, Date fechaInicioAlquiler, Date fechaFinalAlquiler) {
+    public Alquiler(Integer id, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta, LocalDate fechaInicioAlquiler, LocalDate fechaFinalAlquiler) {
         this.id = id;
-        this.precioPagado = precioPagado;
         this.estrellasUsuario = estrellasUsuario;
         this.estrellasServicio = estrellasServicio;
         this.valoracion = valoracion;
@@ -66,13 +68,6 @@ public class Alquiler {
         this.id = id;
     }
 
-    public Double getPrecioPagado() {
-        return precioPagado;
-    }
-
-    public void setPrecioPagado(Double precioPagado) {
-        this.precioPagado = precioPagado;
-    }
 
     public Integer getEstrellasUsuario() {
         return estrellasUsuario;
@@ -114,19 +109,19 @@ public class Alquiler {
         this.herramienta = herramienta;
     }
     
-    public Date getFechaInicioAlquiler() {
+    public LocalDate getFechaInicioAlquiler() {
         return fechaInicioAlquiler;
     }
 
-    public void setFechaInicioAlquiler(Date fechaInicioAlquiler) {
+    public void setFechaInicioAlquiler(LocalDate fechaInicioAlquiler) {
         this.fechaInicioAlquiler = fechaInicioAlquiler;
     }
 
-    public Date getFechaFinalAlquiler() {
+    public LocalDate getFechaFinalAlquiler() {
         return fechaFinalAlquiler;
     }
 
-    public void setFechaFinalAlquiler(Date fechaFinalAlquiler) {
+    public void setFechaFinalAlquiler(LocalDate fechaFinalAlquiler) {
         this.fechaFinalAlquiler = fechaFinalAlquiler;
     }
 

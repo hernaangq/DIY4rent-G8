@@ -21,7 +21,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.*;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,46 +49,53 @@ public class ClienteController {
 
     // Primero, los de acceso permitido a clientes normales y corrientes
 
-  @GetMapping("/propietarios/{id}")
-	ResponseEntity<Propietario> getPropietario(@PathVariable Integer id) {
+
+  //OKEY SP3  
+  @GetMapping("/propietarios/{username}")
+	ResponseEntity<Propietario> getPropietario(@PathVariable String username) {
 	// return (List<Cliente>) clienteRepository.findBynombre("hernan");
-	return propietarioRepository.findById(id).map(c -> ResponseEntity.ok().body(c))
+	return propietarioRepository.findByUsername(username).map(c -> ResponseEntity.ok().body(c))
             .orElse(new ResponseEntity<Propietario>(HttpStatus.NOT_FOUND));
 	}
 
-  @GetMapping("/usuarios/{id}")
-	ResponseEntity<Usuario> getUsuario(@PathVariable Integer id) {
+  //OKEY SP3
+  @GetMapping("/usuarios/{username}")
+	ResponseEntity<Usuario> getUsuario(@PathVariable String username) {
 	// return (List<Cliente>) clienteRepository.findBynombre("hernan");
-	return usuarioRepository.findById(id).map(c -> ResponseEntity.ok().body(c))
-            .orElse(new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND));
+	return usuarioRepository.findByUsername(username).map(c -> ResponseEntity.ok().body(c))
+  .orElse(new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND));
 	}
 
-    // Para que el cliente pueda actualizar sus datos
-  @PutMapping("/propietarios/{id}")
-	public ResponseEntity<Propietario> actualizarPropietario (@RequestBody Propietario cliente, @PathVariable Integer id) {
+ 
+  //OKEY SP3
+  @PutMapping("/propietarios/{username}")
+	public ResponseEntity<Propietario> actualizarPropietario (@RequestBody Propietario newCliente, @PathVariable String username) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
-        return propietarioRepository.findById(id).map(c -> {
+        return propietarioRepository.findByUsername(username).map(cliente -> {
         
-        cliente.setNombre(cliente.getNombre());
-        cliente.setApellidos(cliente.getApellidos());
-        cliente.setEmail(cliente.getEmail());
-        cliente.setLatitud(cliente.getLatitud());
-        cliente.setLongitud(cliente.getLongitud());
-        cliente.setIban(cliente.getIban());
+        cliente.setNombre(newCliente.getNombre());
+        cliente.setApellidos(newCliente.getApellidos());
+        cliente.setEmail(newCliente.getEmail());
+        cliente.setLatitud(newCliente.getLatitud());
+        cliente.setLongitud(newCliente.getLongitud());
+        cliente.setIban(newCliente.getIban());
+        cliente.setPassword(newCliente.getPassword());
         propietarioRepository.save(cliente);
         return ResponseEntity.ok().body(cliente);
         })
         .orElse(new ResponseEntity<Propietario>(HttpStatus.NOT_FOUND));
       }
   
-  @PutMapping("/usuarios/{id}")
-  public ResponseEntity<Usuario> actualizarUsuario (@RequestBody Usuario cliente, @PathVariable Integer id) {
+
+  //OKEY SP3
+  @PutMapping("/usuarios/{username}")
+  public ResponseEntity<Usuario> actualizarUsuario (@RequestBody Usuario cliente, @PathVariable String username) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
-        return usuarioRepository.findById(id).map(c -> {
+        return usuarioRepository.findByUsername(username).map(c -> {
         
         cliente.setNombre(cliente.getNombre());
         cliente.setApellidos(cliente.getApellidos());

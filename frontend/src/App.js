@@ -11,8 +11,11 @@ import Registro from "./registro/Registro"
 import Publicartool from "./herramienta/Publicartool";
 import Ayuda from "./main/Ayuda";
 import axios from 'axios';
+import Myalquiler from "./herramienta/Myalquiler";
+import Valorar from "./herramienta/Valorar";
 
 import { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
+
 
 function App() {
 
@@ -55,7 +58,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar herramientas={items} onFilterChange={handleFilterChange} propietarioId ={id}/>
+        <Navbar herramientas={items} onFilterChange={handleFilterChange} />
         <Routes>
           <Route path="/" element={<ToolList herramientas={(filteredData.length > 0) ? filteredData : items}  />} />
           <Route path="/herramientas/:rutaId" element={<Tool herramientas = {items} />} />
@@ -63,7 +66,9 @@ function App() {
           {itemsPropietario.length > 0 && (
           <Route path="/tool/editar/:rutaId" element={<Editartool herramientas = {itemsPropietario} />} />)}
           <Route path="/misherramientas/:rutaId" element={<Mytools herramientas={itemsPropietario} />} />
+          <Route path="/misalquileres/:rutaId" element={<Myalquiler herramientas={itemsPropietario} />} />
           <Route path="/iniciar" element={<Inicio />} />
+          <Route path="/valorar/:rutaId" element={<Valorar herramientas = {items} />} />
           <Route path="/registrar" element={<Registro />} />
           <Route path="/publicar" element={<Publicartool/>} />
           <Route path="/ayuda" element={<Ayuda/>}/>
