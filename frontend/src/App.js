@@ -15,12 +15,14 @@ import Myalquiler from "./herramienta/Myalquiler";
 import Valorar from "./herramienta/Valorar";
 
 import { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
+import { set } from "@citation-js/core/lib/Cite/set";
 
 
 function App() {
 
   const [items, setItems] = useState([]);
   const [itemsPropietario, setItemsPropietario] = useState([]);
+  const [itemsAlquiladas, setItemsAlquiladas] = useState([]);
   const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
@@ -29,14 +31,17 @@ function App() {
 
   let response;
   let response2;
+  let response3;
   let id = "1"; // Cambiar por el id del usuario actual
-  let username = "juanito"; // Cambiar por el id del usuario actual
+  let username = "pedrito"; // Cambiar por el id del usuario actual
   const callServer = async () => {
     response = await axios.get('http://localhost:8443/herramientas');
     response2 = await axios.get('http://localhost:8443/herramientas/propietario/'+ username);
+    response3 = await axios.get('http://localhost:8443/alquileres');
 
     setItems(response.data.filter(item => !item.estaAlquilada));
     setItemsPropietario(response2.data);
+    setItemsAlquiladas(response3.data);
   }
   // const handleFilterChange = (filteredResults) => {
   //   setFilteredData(filteredResults);
@@ -61,7 +66,7 @@ function App() {
           {itemsPropietario.length > 0 && (
           <Route path="/tool/editar/:rutaId" element={<Editartool herramientas = {itemsPropietario} />} />)}
           <Route path="/misherramientas/:rutaId" element={<Mytools herramientas={itemsPropietario} />} />
-          <Route path="/misalquileres/:rutaId" element={<Myalquiler herramientas={itemsPropietario} />} />
+          <Route path="/misalquileres/:rutaId" element={<Myalquiler herramientas={itemsAlquiladas} />} />
           <Route path="/iniciar" element={<Inicio />} />
           <Route path="/valorar/:rutaId" element={<Valorar herramientas = {items} />} />
           <Route path="/registrar" element={<Registro />} />

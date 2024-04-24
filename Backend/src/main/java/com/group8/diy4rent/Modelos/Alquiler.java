@@ -2,6 +2,8 @@ package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -14,9 +16,6 @@ public class Alquiler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "ESTRELLA_USUARIO")
-    private Integer estrellasUsuario;
 
     @Column(name = "ESTRELLAS_SERVICIO")
     private Integer estrellasServicio;
@@ -51,7 +50,6 @@ public class Alquiler {
 
     public Alquiler(Integer id, Integer estrellasUsuario, Integer estrellasServicio, String valoracion, Usuario usuario, Herramienta herramienta, LocalDate fechaInicioAlquiler, LocalDate fechaFinalAlquiler) {
         this.id = id;
-        this.estrellasUsuario = estrellasUsuario;
         this.estrellasServicio = estrellasServicio;
         this.valoracion = valoracion;
         this.usuario = usuario;
@@ -68,14 +66,6 @@ public class Alquiler {
         this.id = id;
     }
 
-
-    public Integer getEstrellasUsuario() {
-        return estrellasUsuario;
-    }
-
-    public void setEstrellasUsuario(Integer estrellasUsuario) {
-        this.estrellasUsuario = estrellasUsuario;
-    }
 
     public Integer getEstrellasServicio() {
         return estrellasServicio;
