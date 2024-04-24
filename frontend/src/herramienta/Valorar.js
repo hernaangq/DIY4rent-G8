@@ -10,7 +10,7 @@ import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import moment from 'moment'
 
-const Tool = (props) => {
+const Valorar = (props) => {
 
   let { rutaId } = useParams();
   let herramienta = props.herramientas[rutaId];
@@ -62,9 +62,9 @@ const Tool = (props) => {
   let response2;
   const callServer = async () => {
 
-    response1 = await axios.get('https://localhost:8443/alquileres/herramienta/1');
+    response1 = await axios.get('http://localhost:8443/alquileres/herramienta/1');
     //const datos = await response.json();
-    //response2 = await axios.get('https://localhost:8443/herramienta/1/foto');
+    //response2 = await axios.get('http://localhost:8443/herramienta/1/foto');
     
   
     setAlquileres(response1.data.filter(alquiler => alquiler.estrellasServicio !== null));
@@ -155,58 +155,10 @@ const Tool = (props) => {
 
 
 
-
-          <div className="tool-description" style={{ alignItems: 'center' }}>
-
-            <div style={{ color: 'black' }}>
-
-                <div>
-                  <Calendar
-                    onChange={onChange}
-                    value={date}
-                    selectRange={true}
-                    tileClassName={({ date, view }) => {
-                      if(fechasYaAlquilado.find(x=>x===moment(date).format("DD/MM/YYYY"))){
-                       return  'highlight'
-                      }}}
-                      minDate={moment(herramienta.fechaInicio, "DD/MM/YYYY").toDate()}
-                      maxDate={moment(herramienta.fechaFinal, "DD/MM/YYYY").toDate()}
-                  />
-                </div>
-
-            </div>
-            {date.length > 0 ? (
-              <p className='text-center'>
-                <span className='bold'>De:</span>{' '}
-                {date[0].toLocaleDateString()}
-                &nbsp;|&nbsp;
-                <span className='bold'>Hasta:</span> {date[1].toLocaleDateString()}
-              </p>
-            ) : (
-              <p className='text-center'>
-                <span className='bold'>Default selected date:</span>{' '}
-                {date.toLocaleDateString()}
-              </p>
-            )}
-
-            <p style={{ fontSize: '30px' }}>Precio: <strong>{herramienta.precio}€/día</strong></p>
-            <button onClick={handleAlquilarClick} className='btn' >Alquílalo</button>
-          </div>
-          <br></br>
-          {alquilado ?
-            <div className="tool-description" style={{ alignItems: 'center' }}>
-              <h3>¡Ponte en contacto con el propietario de la herramienta!</h3>
-              <p>Escribe con correo a <strong>{herramienta.propietario.email}</strong></p>
-              <button onClick={handleCorreoClick} className='btn' >Ir a correo</button>
-            </div> : <div></div>}
-
         </div>
 
 
-        <div className="google-map" style={{ justifyContent: 'center', height: '300px' }}>
-          <h3 style={{ verticalAlign: 'top' }} >Localización</h3>
-          <iframe src={`https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d341488.5704903917!2d${herramienta.propietario.longitud}!3d${herramienta.propietario.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1sen!2ses!4v1712511678535!5m2!1sen!2ses`} width="100" height="2000" style={{ justifyContent: 'center', borderRadius: '15px' }} allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+        
       </div>
 
       
@@ -219,4 +171,4 @@ const Tool = (props) => {
 
 
 
-export default Tool;
+export default Valorar;

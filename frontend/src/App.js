@@ -24,7 +24,8 @@ function App() {
   const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
-    callServer()
+    callServer();
+    callServer2();
   }, []);
 
   let response;
@@ -32,19 +33,34 @@ function App() {
   let id = 1; // Cambiar por el id del usuario actual
   const jwt = localStorage.getItem('token')
   const callServer = async () => {
-    response = await axios.get('https://localhost:8443/herramientas', {
-      // headers: {
-      //   'Authorization': `Bearer ${jwt}`
-      // }
-  }
-  );
-    response2 = await axios.get('https://localhost:8443/herramientas/propietario/'+ id);
+    try {
+      response = await axios.get('https://localhost:8443/herramientas',
+        //{
+        // headers: {
+        //   'Authorization': `Bearer ${jwt}`
+        // }
+      );
+      setItems(response.data.filter(item => !item.estaAlquilada));
+      setItemsPropietario(response2.data);
+    } catch (error) { }
 
-    setItems(response.data.filter(item => !item.estaAlquilada));
-    setItemsPropietario(response2.data);
   }
-  // const handleFilterChange = (filteredResults) => {
-  //   setFilteredData(filteredResults);
+
+  const callServer2 = async () => {
+    try {
+      if (jwt) {
+      let username = localStorage.getItem('nombreUsuario');
+      response2 = await axios.get('https://localhost:8443/herramientas/propietario/' + username);
+        // {
+        //   headers: {
+        //     'Authorization': `Bearer ${jwt}`
+        //   }
+      setItemsPropietario(response2.data);}
+    } catch (error) { }
+  }
+
+// const handleFilterChange = (filteredResults) => {
+//   setFilteredData(filteredResults);
   // };
 
   function handleFilterChange(items, palabra) {

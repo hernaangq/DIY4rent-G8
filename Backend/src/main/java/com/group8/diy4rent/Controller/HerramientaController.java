@@ -63,7 +63,7 @@ public class HerramientaController {
 	//OKEY
 	@PostMapping("/herramientas/{propietario_userName}")
 	ResponseEntity<Herramienta> anadirHerramienta(@RequestBody Herramienta newHerramienta, @PathVariable String propietario_userName) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findByUsername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
+		Propietario propietario = propietarioRepository.findByusername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		newHerramienta.setPropietario(propietario);
 		Herramienta result = herramientaRepository.save(newHerramienta);
@@ -79,9 +79,9 @@ public class HerramientaController {
 	}
 
 	//OKEY
-	@GetMapping("/herramientas/propietario/{propietario_id}")
-	List<Herramienta> readHerramientasDe(@PathVariable Integer propietario_id) throws URISyntaxException {
-		Propietario propietario = propietarioRepository.findById(propietario_id).orElseThrow(() -> new ResponseStatusException(
+	@GetMapping("/herramientas/propietario/{propietario_userName}")
+	List<Herramienta> readHerramientasDe(@PathVariable String propietario_userName) throws URISyntaxException {
+		Propietario propietario = propietarioRepository.findByusername(propietario_userName).orElseThrow(() -> new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Propietario no encontrado"));
 		
 		
@@ -142,6 +142,18 @@ public class HerramientaController {
 						"Herramienta no encontrada"));
 	}
 
+	@PostMapping(value = "/herramientas/{id}/foto", consumes = "multipart/form-data")
+public ResponseEntity<?> subeFotoNuevo(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
+    return herramientaRepository.findById(id).map(herramienta -> {
+        try {
+            herramienta.setFoto(file.getBytes());
+            herramientaRepository.save(herramienta);
+            return ResponseEntity.ok("Foto subida correctamente");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al leer el archivo", e);
+        }
+    }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Herramienta no encontrada"));
+}
 
 
 
@@ -157,8 +169,6 @@ public class HerramientaController {
 			.header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"herramienta_foto_" + id + ".jpg" + "\"")
 			.body(new ByteArrayResource(herramienta.getFoto()));
-
-	
 	}
 
 

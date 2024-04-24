@@ -4,12 +4,16 @@ import logo3 from "../images/toolbasic.jpg";
 import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import './Mytools.css';
+import moment from 'moment';
+
+
 
 function Mytools(props) {
   
     return (
     <div className="ToolList">
       {props.herramientas.map((item, index) => (
+
 
         <div className="ToolList-item" key={index}>
           <Link to={"/herramientas-propias/" + index} style={{ textDecoration: 'none' }}>
@@ -19,11 +23,19 @@ function Mytools(props) {
             <p><b>{item.nombre}</b></p>
           </Link>
           <div><strong> {item.precio}€/día</strong> </div>
-          <div><strong>Estado:</strong> {item.estado}</div>
-          <div>{new Date(item.fechaInicio).toLocaleString()} - {new Date(item.fechaFinal).toLocaleString()}</div>
+          <div><strong>Estado:</strong> {item.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : item.estado === 'MUY_BUENO' ? 'MUY BUENO' : item.estado}</div>
+          <div>
+            {item.fechaInicio && item.fechaFinal ? (
+              <p className='text-center'>
+                <span className='bold'>De:</span>{' '}
+                {new Date(item.fechaInicio).toLocaleDateString()}
+                &nbsp;|&nbsp;
+                <span className='bold'>Hasta:</span> {new Date(item.fechaFinal).toLocaleDateString()}
+              </p>
+            ) : null}
+          </div>
           <p> </p>
           <Link to={"/tool/editar/" + index}>Editar</Link>
-
         </div>
       ))}
     </div>

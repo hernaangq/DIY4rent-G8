@@ -25,23 +25,23 @@ const Editartool = (props) => {
     event.preventDefault();
     const response = await axios.patch('https://localhost:8443/herramientas/' + herramienta.id, {
       nombre,
-      precio,
-      localizacion
+      precio
     });
 
-    let ruta2 = 'https://localhost:8443/herramientas/' + herramienta.Id + '/foto';
+    if (foto) {
+    let ruta2 = 'https://localhost:8443/herramientas/' + herramienta.id + '/foto';
     let formData = new FormData();
-    formData.append('foto', foto);
-    const response2 = await axios.put(ruta2, formData, {
+    formData.append('file', foto);
+    const response2 = await axios.post(ruta2, formData, {
       headers: {
-        "Accept": "application/json",
-        'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*'
+        "Accept": "*/*",
+        'Content-Type': 'multipart/form-data'
      }
-    });
-
+    });}
+    
     setTimeout(() => {
-      navigate('/');
+      navigate('/misherramientas/:rutaId');
+      window.location.reload();
     }, 1000);
   };
   return (
@@ -58,7 +58,7 @@ const Editartool = (props) => {
         </div>
         <div className="form-group">
           <label>Foto:</label>
-          <input type="file" accept="image/*" onChange={(e) => {console.log(e.target.files[0]);  setFoto(e.target.files[0])}} className="form-control-file" />
+          <input type="file" accept="*/*" onChange={(e) => {console.log(e.target.files[0]);  setFoto(e.target.files[0])}} className="form-control-file" />
         </div>
         <button type="submit" className="btn btn-primary">Guardar</button>
       </form>

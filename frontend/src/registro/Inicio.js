@@ -16,8 +16,8 @@ function Inicio() {
 
     try {
         const response = await axios.post('https://localhost:8443/auth/login', {
-            username,
-            password
+            username: username,
+            password: password
         });
 
         const token = response.data.token;
@@ -68,7 +68,7 @@ const handleSubmitPropietario = async (event) => {
       let id;
       try {
         console.log(response.data.username);
-        const response2 = await axios.get('https://localhost:8443/auth/propietariosName/' + response.data.username);
+        const response2 = await axios.get('https://localhost:8443/propietariosName/' + response.data.username);
         if (response2.data) {
           localStorage.setItem('id', response2.data.id);
           console.log(response2.data.id);
@@ -80,7 +80,7 @@ const handleSubmitPropietario = async (event) => {
 
       console.log('Inicio de sesión exitoso:', response.data);
       navigate('/');
-      // window.location.reload();
+      window.location.reload();
   } catch (error) {
     console.log(usernameProp, passwordProp)
       console.error('Error al iniciar sesión:', error);

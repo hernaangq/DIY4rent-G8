@@ -20,12 +20,14 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.beans.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -74,7 +76,7 @@ public class AlquilerController {
     ResponseEntity<Alquiler> anadirAlquiler(@PathVariable String userName, @PathVariable Integer herramienta_id, @RequestParam("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha1, @RequestParam("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha2) throws URISyntaxException {
         Alquiler newAlquiler = new Alquiler();
 
-        Usuario usuario = usuarioRepository.findByUsername(userName).orElseThrow(() -> new ResponseStatusException(
+        Usuario usuario = usuarioRepository.findByusername(userName).orElseThrow(() -> new ResponseStatusException(
             HttpStatus.NOT_FOUND, "Usuario no encontrado"));
         
         newAlquiler.setUsuario(usuario);

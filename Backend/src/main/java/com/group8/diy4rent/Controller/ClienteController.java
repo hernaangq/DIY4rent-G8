@@ -54,7 +54,7 @@ public class ClienteController {
   @GetMapping("/propietarios/{username}")
 	ResponseEntity<Propietario> getPropietario(@PathVariable String username) {
 	// return (List<Cliente>) clienteRepository.findBynombre("hernan");
-	return propietarioRepository.findByUsername(username).map(c -> ResponseEntity.ok().body(c))
+	return propietarioRepository.findByusername(username).map(c -> ResponseEntity.ok().body(c))
             .orElse(new ResponseEntity<Propietario>(HttpStatus.NOT_FOUND));
 	}
 
@@ -62,7 +62,7 @@ public class ClienteController {
   @GetMapping("/usuarios/{username}")
 	ResponseEntity<Usuario> getUsuario(@PathVariable String username) {
 	// return (List<Cliente>) clienteRepository.findBynombre("hernan");
-	return usuarioRepository.findByUsername(username).map(c -> ResponseEntity.ok().body(c))
+	return usuarioRepository.findByusername(username).map(c -> ResponseEntity.ok().body(c))
   .orElse(new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND));
 	}
 
@@ -73,7 +73,7 @@ public class ClienteController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
-        return propietarioRepository.findByUsername(username).map(cliente -> {
+        return propietarioRepository.findByusername(username).map(cliente -> {
         
         cliente.setNombre(newCliente.getNombre());
         cliente.setApellidos(newCliente.getApellidos());
@@ -95,7 +95,7 @@ public class ClienteController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
   
-        return usuarioRepository.findByUsername(username).map(c -> {
+        return usuarioRepository.findByusername(username).map(c -> {
         
         cliente.setNombre(cliente.getNombre());
         cliente.setApellidos(cliente.getApellidos());
