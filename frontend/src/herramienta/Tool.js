@@ -37,6 +37,7 @@ const Tool = (props) => {
     let username = 'laurita'; // Cambiar por el username del usuario actual
     //console.log(herramientaId);
     
+    
     let response = await axios.post('http://localhost:8443/alquileres/' + username + '/' + herramientaId +'?fecha1='+ fecha1 + '&fecha2=' + fecha2);
     
     //let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
@@ -113,7 +114,7 @@ const Tool = (props) => {
   const renderEmojis = () => {
     const stars = [];
     for (let i = 0; i < estrellasNum; i++) {
-      stars.push('⭐');
+      stars.push('🔨');
     }
     return stars;
   };
@@ -121,7 +122,6 @@ const Tool = (props) => {
  
   var rawResponse = herramienta.foto; 
   
-
   const valoraciones = alquileres.map((alquiler, index) => { return (<div key={index} className="card" style={{ backgroundColor: '#DDA15E', margin: '10px', padding: '10px', borderRadius: '5px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}><div className="card-body"><h5 className="card-title">{alquiler.usuario.nombre} {alquiler.usuario.apellidos}</h5><p className="card-text" style={{ fontSize : '20px', fontStyle:'italic'}}>"{alquiler.valoracion}"</p></div></div>); });
   
   return (
@@ -130,7 +130,7 @@ const Tool = (props) => {
         <img className='fotoVista' src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto', borderRadius:'15px' }} />
         <div style={{ fontSize: '30px' }} className="ratings">
 
-          <p>{renderEmojis()}   {estrellasNum} estrellas</p>
+          <p>{renderEmojis()}  {estrellasNum} Martillos </p>
         </div>
         <div>
 
@@ -151,7 +151,7 @@ const Tool = (props) => {
           <h1 style={{ fontSize: '50px' }}>{herramienta.nombre}</h1>
 
 
-          <p style={{ fontSize: '30px' }}>Estado: <strong>{herramienta.estado}</strong></p>
+          <p style={{ fontSize: '30px' }}>Estado: <strong>{herramienta.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : herramienta.estado === 'MUY_BUENO' ? 'MUY BUENO' : herramienta.estado}</strong></p>
 
 
 

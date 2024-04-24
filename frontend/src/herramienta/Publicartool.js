@@ -79,7 +79,7 @@ function Publicartool() {
   const handleFoto = async (event) => {
     event.preventDefault();
     const file = event.target.files[0];
-    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif')) {
       setFoto(file);
       console.log(file);
     } else {

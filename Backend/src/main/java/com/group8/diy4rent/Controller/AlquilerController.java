@@ -100,9 +100,6 @@ public class AlquilerController {
     @PatchMapping("/alquileres/{id}")
     ResponseEntity<Alquiler> partialUpdate(@RequestBody Alquiler newAlquiler, @PathVariable Integer id) {
         return alquilerRepository.findById(id).map(alquiler -> {
-            if(newAlquiler.getEstrellasUsuario() != null){
-                alquiler.setEstrellasUsuario(newAlquiler.getEstrellasUsuario());
-            }
             if(newAlquiler.getEstrellasServicio() != null){
                 alquiler.setEstrellasServicio(newAlquiler.getEstrellasServicio());
             }
@@ -114,5 +111,6 @@ public class AlquilerController {
             return ResponseEntity.ok().body(alquiler);
         }).orElse(new ResponseEntity<Alquiler>(HttpStatus.NOT_FOUND));
     }
+
 
 }
