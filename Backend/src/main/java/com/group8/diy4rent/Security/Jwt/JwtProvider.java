@@ -6,25 +6,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.group8.diy4rent.Security.Modelo.UsuarioSecure;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import io.jsonwebtoken.*;
 
 
 import java.util.Date;
 
 /**
- * Clase que genera el token y valida que este bien formado y no este expirado
+ * Esta clase se encarga de generar el token, validar el token y obtener el nombre del usuario
  */
 @Component
 public class JwtProvider {
 
-    // Implementamos un logger para ver cual metodo da error en caso de falla
-    private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
-
-    // Valores que tenemos en el aplicattion.properties
+    // Estos valores se sacan de application.properties
     @Value("${jwt.secret}")
     private String secret;
 
@@ -32,9 +25,11 @@ public class JwtProvider {
     private int expiration;
 
     /**
-     * setIssuedAt --> Asigna fecha de creción del token
-     * setExpiration --> Asigna fehca de expiración
-     * signWith --> Firma
+     * Metodo que genera el token
+     * setIssuedAt: Fecha de creación del token
+     * setExpiration: Fecha de expiración del token
+     * signWith: Firma del token
+     * compact: Compacta el token
      */
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -45,7 +40,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    // subject --> Nombre del usuario
+    // Para obtener el nombre del usuario a partir del token
     public String getUsernameFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
@@ -55,15 +50,15 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         } catch (MalformedJwtException e) {
-            logger.error("Token mal formado");
+            
         } catch (UnsupportedJwtException e) {
-            logger.error("Token no soportado");
+            
         } catch (ExpiredJwtException e) {
-            logger.error("Token expirado");
+            
         } catch (IllegalArgumentException e) {
-            logger.error("Token vacio");
+            
         } catch (SignatureException e) {
-            logger.error("Fallo con la firma");
+            
         }
         return false;
     }

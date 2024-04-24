@@ -19,27 +19,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Se ejecuta por cada petición, comprueba que sea valido el token
- * Utiliza el provider para validar que sea valido
- * Si es valido permite acceso al recurso si no lanza una excepción
+ * Esta clase comprueba si el token es valido y si el usuario tiene permisos para acceder al recurso
+ * Se ejecuta por cada petición que se haga al servidor
  */
 public class JwtTokenFilter extends OncePerRequestFilter {
-
-    private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
     JwtProvider jwtProvider;
 
+    /**
+     * Implementación de UserDetails específico para Usuario
+     */
     @Autowired
     UserDetailsServiceImpl usuarioDetailsService;
 
+    /**
+     * Implementación de UserDetails específico para Propietario
+     */
     @Autowired
     PropietarioDetailsServiceImpl propietarioDetailsService;
 
-    // El token esta formado por:
-     // cabecera --> Authorization: Bearer token
-    //Hace las comprobaciones
-    // Este metodo se hace cada vez que se le haga una peticion al sever
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                 HttpServletResponse response,
@@ -50,9 +49,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (token != null && jwtProvider.validateToken(token)) {
             String nombreUsuario = jwtProvider.getUsernameFromToken(token);
 
-            // Determine which UserDetailsService to use based on the request URL
+            // Dependiendo de la URL, usará un UserDetails u otro
             UserDetailsService userDetailsService;
-            if (request.getRequestURI().endsWith("/login/propietario")) {
+            if (request.getRequestURI().endsWith("/loginPropietario")) {
                 userDetailsService = propietarioDetailsService;
             } else {
                 userDetailsService = usuarioDetailsService;
@@ -65,12 +64,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
     } catch (Exception e) {
-        logger.error("Fail en el método doFilter " + e.getMessage());
     }
     filterChain.doFilter(request, response);
 }
 
-    //Obtenemos el token sin Bearer + el espacio
+    // Para obtener el token de la cabecera
     private String getToken(HttpServletRequest request){
 
         String header = request.getHeader("Authorization");
