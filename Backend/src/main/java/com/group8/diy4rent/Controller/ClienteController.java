@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClienteController {
 
     // private final ClienteRepository clienteRepository;
@@ -115,6 +115,17 @@ public class ClienteController {
       return ResponseEntity.created(new URI("/usuarios/" + newCliente.getId())).body(result);
     }
     
+    @GetMapping("/usuariosName/{username}")
+    ResponseEntity<Usuario> getUsuarioByName(@PathVariable String username) {
+      return usuarioRepository.findByusername(username).map(user -> ResponseEntity.ok().body(user))
+                .orElse(new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/propietariosName/{username}")
+    ResponseEntity<Propietario> getPropietarioByName(@PathVariable String username) {
+      return propietarioRepository.findByusername(username).map(user -> ResponseEntity.ok().body(user))
+                .orElse(new ResponseEntity<Propietario>(HttpStatus.NOT_FOUND));
+    }
 
     @GetMapping("/propietarios")
       List<Propietario> getPropietarios() {

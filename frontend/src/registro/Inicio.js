@@ -1,48 +1,129 @@
 import React, { useState } from 'react';
 import './Inicio.css';
 import axios from 'axios'; // Asegúrate de importar axios
+import { useNavigate } from 'react-router-dom';
 
 function Inicio() {
   const [username, setUsername] = useState('');
-  const [contrasena, setContrasena] = useState('');
+  const [password, setPassword] = useState('');
+  const [usernameProp, setUsernameProp] = useState('');
+  const [passwordProp, setPasswordProp] = useState('');
+  const [logged, setLogged] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const handleSubmitUsuario = async (event) => {
     event.preventDefault();
-    console.log('Correo:', username);
-    console.log('Contraseña:', contrasena);
-    // Aquí puedes agregar lógica para iniciar sesión
 
     try {
-      // Envía una solicitud al servidor para verificar las credenciales
-      const response = await axios.post('http://localhost:8443/login', {
-        username,
-        contrasena
-      });
+        const response = await axios.post('https://localhost:8443/auth/login', {
+            username,
+            password
+        });
 
-      // Si la solicitud tiene éxito, podrías manejar el resultado aquí
-      console.log('Inicio de sesión exitoso:', response.data);
-      
-      // Redirige al usuario a una página de inicio de sesión exitosa o realiza otras acciones necesarias
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        const rol = response.data.authorities[0] ? response.data.authorities[0].authority : '';
+        localStorage.setItem('rol', rol);
+        localStorage.setItem('nombreUsuario', response.data.username);
+
+        // Set the token in the default headers for subsequent requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        let id;
+        try {
+            const response2 = await axios.get('https://localhost:8443/auth/usuarioName/' + response.data.username);
+            if (response2.data) {
+                id = response2.data.id;
+            }
+        } catch (error) {
+            console.error('Error getting usuarioName:', error);
+        }
+
+        console.log('Inicio de sesión exitoso:', response.data);
+        navigate('/');
+        window.location.reload();
     } catch (error) {
-      // Si hay un error, podrías manejarlo aquí (por ejemplo, mostrar un mensaje de error al usuario)
-      console.error('Error al iniciar sesión:', error);
+        console.error('Error al iniciar sesión:', error);
     }
-  };
+};
 
+const handleSubmitPropietario = async (event) => {
+  event.preventDefault();
+
+  try {
+      const response = await axios.post('https://localhost:8443/auth/loginPropietario', {
+          username: usernameProp,
+          password: passwordProp
+      });
+      const token = response.data.token;
+      console.log(token);
+      localStorage.setItem('token', token);
+      const rol = response.data.authorities[0] ? response.data.authorities[0].authority : '';
+      localStorage.setItem('rol', rol);
+      localStorage.setItem('nombreUsuario', response.data.username);
+
+      // Set the token in the default headers for subsequent requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      let id;
+      try {
+        console.log(response.data.username);
+        const response2 = await axios.get('https://localhost:8443/auth/propietariosName/' + response.data.username);
+        if (response2.data) {
+          localStorage.setItem('id', response2.data.id);
+          console.log(response2.data.id);
+          id = response2.data.id;
+        }
+      } catch (error) {
+          console.error('Error getting usuarioName:', error);
+      }
+
+      console.log('Inicio de sesión exitoso:', response.data);
+      navigate('/');
+      // window.location.reload();
+  } catch (error) {
+    console.log(usernameProp, passwordProp)
+      console.error('Error al iniciar sesión:', error);
+  }
+};
+//  style={{display: 'flex'}}
   return (
-    <div className="inicio-container">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Nombre de usuario:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
+    <div style={{display: 'flex'}}>
+      <div className="inicio-container" >
+        <h2>Iniciar Sesión</h2>
+        <div className="login-forms-container">
+          <div className="form-box">
+            <form onSubmit={handleSubmitUsuario}>
+              <div className="form-group">
+                <label>Nombre de usuario:</label>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
+              </div>
+              <div className="form-group">
+                <label>Contraseña:</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" />
+              </div>
+              <button type="submit"  className="btn btn-primary">Iniciar Sesión</button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Contraseña:</label>
-          <input type="password" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="form-control" />
+      </div>
+      <div className="inicio-container">
+        <div className="form-box">
+        <h2>¿Eres propietario?</h2>
+          <form onSubmit={handleSubmitPropietario}>
+            <div className="form-group">
+              <label>Nombre de usuario:</label>
+              <input type="text" value={usernameProp} onChange={(e) => setUsernameProp(e.target.value)} className="form-control" />
+            </div>
+            <div className="form-group">
+              <label>Contraseña:</label>
+              <input type="password" value={passwordProp} onChange={(e) => setPasswordProp(e.target.value)} className="form-control" />
+            </div>
+            <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+          </form>
         </div>
-        <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
-      </form>
+      </div>
+
     </div>
   );
 }

@@ -3,19 +3,18 @@ package com.group8.diy4rent.Modelos;
 import javax.persistence.*;
 import com.group8.diy4rent.Enums.RolEnum;
 
+@Entity
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
 
     private RolEnum rolNombre;
 
     public Rol() {
     }
 
-    public Rol(Integer id, RolEnum rolNombre) {
-        this.id = id;
+    public Rol(RolEnum rolNombre) {
         this.rolNombre = rolNombre;
     }
 

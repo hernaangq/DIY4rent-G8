@@ -33,11 +33,11 @@ function Registro() {
 
     try {
       // Envía una solicitud al servidor para registrar al usuario
-      const ruta = rol === 'propietario' ? 'http://localhost:8443/propietarios' : 'http://localhost:8443/usuarios';
+      const ruta = rol === 'propietario' ? 'https://localhost:8443/auth/registroPropietario' : 'https://localhost:8443/auth/registroUsuario';
       const response = await axios.post(ruta, {
         nombre,
         apellidos,
-        username: correo, // Asumiendo que el correo es el nombre de usuario
+        username: username, // Asumiendo que el correo es el nombre de usuario
         password: contrasena,
         email: correo
       });

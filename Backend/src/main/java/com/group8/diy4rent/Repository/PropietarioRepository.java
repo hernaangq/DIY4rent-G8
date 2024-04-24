@@ -23,5 +23,8 @@ import com.group8.diy4rent.Modelos.Propietario;
 
 public interface PropietarioRepository extends JpaRepository<Propietario, Integer> {
     List<Propietario> findBynombre(String nombre);
+    Optional<Propietario> findByusername(String username);
     ResponseEntity<Propietario> findByid(Integer id);
+    Boolean existsByusername(String username);
+    Boolean existsByemail(String email);
 }

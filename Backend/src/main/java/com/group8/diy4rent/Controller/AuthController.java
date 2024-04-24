@@ -4,10 +4,13 @@ import com.group8.diy4rent.Modelos.Herramienta;
 import com.group8.diy4rent.Modelos.Propietario;
 import com.group8.diy4rent.Modelos.Usuario;
 import com.group8.diy4rent.Repository.HerramientaRepository;
+import com.group8.diy4rent.Repository.PropietarioRepository;
 import com.group8.diy4rent.Repository.UsuarioRepository;
 import com.group8.diy4rent.Modelos.Alquiler;
 import com.group8.diy4rent.Repository.AlquilerRepository;
-import com.group8.diy4rent.Security.dto.JwtGenerator;
+import com.group8.diy4rent.Security.Jwt.JwtProvider;
+import com.group8.diy4rent.Security.dto.JwtDto;
+import com.group8.diy4rent.Security.dto.UsuarioLogin;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.beans.*;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +42,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.*;
+import javax.validation.Valid;
+
 import java.util.Date;
 import java.util.stream.Collectors;
 
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,16 +66,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtGenerator jwtGenerator;
-    
+    // @Autowired
+    //  AuthenticationManager authenticationManager;
+
+    @Autowired
+    @Qualifier("usuarioAuthenticationManager")
+    AuthenticationManager usuarioAuthenticationManager;
+
+    @Autowired
+    @Qualifier("propietarioAuthenticationManager")
+    AuthenticationManager propietarioAuthenticationManager;
+    // @Autowired
+    //  UserDetailsService userDetailsService;
+    @Autowired
+     PasswordEncoder passwordEncoder;
+    @Autowired
+     JwtProvider jwtProvider;
+    @Autowired
+     UsuarioRepository usuarioRepository;
+    @Autowired
+    PropietarioRepository propietarioRepository;
     
     // Vamos a tener dos rutas: una para el login y otra para el registro
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+    public ResponseEntity<?> login(@Valid @RequestBody UsuarioLogin loginUsuario, BindingResult bindingResult) {
         // Check for validation errors in the request body
         if (bindingResult.hasErrors()) {
             // Collect all error messages
@@ -82,14 +105,14 @@ public class AuthController {
     
         try {
             // Attempt to authenticate the user
-            Authentication authentication = authenticationManager.authenticate(
+            Authentication authentication = usuarioAuthenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginUsuario.getUsername(), loginUsuario.getPassword()));
     
             // If authentication is successful, set the authentication in the SecurityContext
             SecurityContextHolder.getContext().setAuthentication(authentication);
     
             // Generate a JWT for the authenticated user
-            String jwt = jwtGenerator.generateToken(authentication);
+            String jwt = jwtProvider.generateToken(authentication);
     
             // Retrieve the UserDetails from the Authentication object
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -103,5 +126,116 @@ public class AuthController {
             // If authentication fails, return a ResponseEntity with an UNAUTHORIZED status
             return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping("/loginPropietario")
+    public ResponseEntity<?> loginPropietario(@Valid @RequestBody UsuarioLogin loginUsuario, BindingResult bindingResult) {
+        // Check for validation errors in the request body
+        if (bindingResult.hasErrors()) {
+            // Collect all error messages
+            List<String> errorMessages = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+    
+            // Return a ResponseEntity with the error messages and a BAD_REQUEST status
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
+    
+        try {
+            // Attempt to authenticate the user
+            Authentication authentication = propietarioAuthenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginUsuario.getUsername(), loginUsuario.getPassword()));
+    
+            // If authentication is successful, set the authentication in the SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+    
+            // Generate a JWT for the authenticated user
+            String jwt = jwtProvider.generateToken(authentication);
+    
+            // Retrieve the UserDetails from the Authentication object
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    
+            // Create a JwtDto with the JWT, username, and authorities
+            JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+    
+            // Return a ResponseEntity with the JwtDto and an OK status
+            return new ResponseEntity<>(jwtDto, HttpStatus.OK);
+        } catch (AuthenticationException e) {
+            // If authentication fails, return a ResponseEntity with an UNAUTHORIZED status
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("/registroUsuario")
+    public ResponseEntity<?> register(@Valid @RequestBody Usuario usuario, BindingResult bindingResult) {
+        // Check for validation errors in the request body
+        if (bindingResult.hasErrors()) {
+            // Collect all error messages
+            List<String> errorMessages = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+    
+            // Return a ResponseEntity with the error messages and a BAD_REQUEST status
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
+    
+        // Check if the username is already taken
+        if (usuarioRepository.existsByusername(usuario.getUsername())) {
+            // Return a ResponseEntity with an error message and a BAD_REQUEST status
+            return new ResponseEntity<>("Username is already taken", HttpStatus.BAD_REQUEST);
+        }
+    
+        // Check if the email is already taken
+        if (usuarioRepository.existsByemail(usuario.getEmail())) {
+            // Return a ResponseEntity with an error message and a BAD_REQUEST status
+            return new ResponseEntity<>("Email is already taken", HttpStatus.BAD_REQUEST);
+        }
+    
+        // Set the password for the user
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+    
+        // Save the user to the database
+        usuarioRepository.save(usuario);
+    
+        // Return a ResponseEntity with an OK status
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/registroPropietario")
+    public ResponseEntity<?> register(@Valid @RequestBody Propietario propietario, BindingResult bindingResult) {
+        // Check for validation errors in the request body
+        if (bindingResult.hasErrors()) {
+            // Collect all error messages
+            List<String> errorMessages = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+    
+            // Return a ResponseEntity with the error messages and a BAD_REQUEST status
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
+    
+        // Check if the username is already taken
+        if (propietarioRepository.existsByusername(propietario.getUsername())) {
+            // Return a ResponseEntity with an error message and a BAD_REQUEST status
+            return new ResponseEntity<>("Username is already taken", HttpStatus.BAD_REQUEST);
+        }
+    
+        // Check if the email is already taken
+        if (propietarioRepository.existsByemail(propietario.getEmail())) {
+            // Return a ResponseEntity with an error message and a BAD_REQUEST status
+            return new ResponseEntity<>("Email is already taken", HttpStatus.BAD_REQUEST);
+        }
+    
+        // Set the password for the user
+        propietario.setPassword(passwordEncoder.encode(propietario.getPassword()));
+    
+        // Save the user to the database
+        propietarioRepository.save(propietario);
+    
+        // Return a ResponseEntity with an OK status
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -27,9 +27,15 @@ function App() {
   let response;
   let response2;
   let id = 1; // Cambiar por el id del usuario actual
+  const jwt = localStorage.getItem('token')
   const callServer = async () => {
-    response = await axios.get('http://localhost:8443/herramientas');
-    response2 = await axios.get('http://localhost:8443/herramientas/propietario/'+ id);
+    response = await axios.get('https://localhost:8443/herramientas', {
+      // headers: {
+      //   'Authorization': `Bearer ${jwt}`
+      // }
+  }
+  );
+    response2 = await axios.get('https://localhost:8443/herramientas/propietario/'+ id);
 
     setItems(response.data.filter(item => !item.estaAlquilada));
     setItemsPropietario(response2.data);

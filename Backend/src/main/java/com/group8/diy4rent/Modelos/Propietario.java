@@ -5,7 +5,9 @@ import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PROPIETARIOS")
@@ -45,6 +47,12 @@ public class Propietario {
     @JsonIgnore @OneToMany(mappedBy = "propietario")
     List<Herramienta> herramientas;
 
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_roles", 
+        joinColumns = @JoinColumn(name = "usuario_id"), 
+        inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
 
     public Propietario() {
 
@@ -134,6 +142,14 @@ public class Propietario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 
 }

@@ -23,13 +23,13 @@ const Editartool = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.patch('http://localhost:8443/herramientas/' + herramienta.id, {
+    const response = await axios.patch('https://localhost:8443/herramientas/' + herramienta.id, {
       nombre,
       precio,
       localizacion
     });
 
-    let ruta2 = 'http://localhost:8443/herramientas/' + herramienta.Id + '/foto';
+    let ruta2 = 'https://localhost:8443/herramientas/' + herramienta.Id + '/foto';
     let formData = new FormData();
     formData.append('foto', foto);
     const response2 = await axios.put(ruta2, formData, {

@@ -26,8 +26,9 @@ function Publicartool() {
     // }
     // // Convertir el búfer de la imagen a una cadena Base64
     // const base64String = data.toString('base64');});
-    let id = 1; // Cambiar por el id del usuario actual
-    let ruta = 'http://localhost:8443/herramientas/' + id;
+    let id = localStorage.getItem('id');
+    console.log(id);
+    let ruta = 'https://localhost:8443/herramientas/' + id;
     let herramientaId;
     try {
       const response = await axios.post(ruta, {
@@ -39,35 +40,35 @@ function Publicartool() {
       herramientaId = response.data.id;
     } catch (error) { };
 
-    try {
-      // console.log((await axios.get('http://localhost:8443/herramientas/' + herramientaId)).data);
-      console.log(herramientaId);
-      let ruta2 = 'http://localhost:8443/herramientas/' + herramientaId + '/foto';
-      let formData = new FormData();
-      formData.append('foto', foto);
-      console.log(formData);
-      const response2 = await axios.put(ruta2, formData, {
-        headers: {
-          Accept: "*/*",
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-    } catch (error) { };
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
+  //   try {
+  //     // console.log((await axios.get('https://localhost:8443/herramientas/' + herramientaId)).data);
+  //     console.log(herramientaId);
+  //     let ruta2 = 'https://localhost:8443/herramientas/' + herramientaId + '/foto';
+  //     let formData = new FormData();
+  //     formData.append('foto', foto);
+  //     console.log(formData);
+  //     const response2 = await axios.put(ruta2, formData, {
+  //       headers: {
+  //         Accept: "*/*",
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     });
+  //   } catch (error) { };
+  //   setTimeout(() => {
+  //     navigate('/');
+  //   }, 1000);
   };
 
-  const handleFoto = (event) => {
-    event.preventDefault();
-    const file = event.target.files[0];
-    if (file && file.type === 'image/jpeg') {
-      setFoto(file);
-      console.log(file);
-    } else {
-      alert('Please upload a JPEG image');
-    }
-  };
+  // const handleFoto = (event) => {
+  //   event.preventDefault();
+  //   const file = event.target.files[0];
+  //   if (file && file.type === 'image/jpeg') {
+  //     setFoto(file);
+  //     console.log(file);
+  //   } else {
+  //     alert('Please upload a JPEG image');
+  //   }
+  // };
 
   return (
     <div className="publicar-tool-container">
@@ -93,7 +94,7 @@ function Publicartool() {
             required
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="foto">Adjuntar Foto:</label>
           <input
             type="file"
@@ -102,7 +103,7 @@ function Publicartool() {
             onChange={handleFoto}
             required
           />
-        </div>
+        </div> */}
         {/* <div className="form-group">
           <label htmlFor="descripcion">Descripción:</label>
           <textarea

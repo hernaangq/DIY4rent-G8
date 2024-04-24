@@ -8,9 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.group8.diy4rent.Modelos.Propietario;
 import com.group8.diy4rent.Modelos.Usuario;
 
-public class UsuarioSecure implements UserDetails {
+public class PropietarioSecure implements UserDetails {
     private String username;
     private String password;
     private String nombre;
@@ -18,10 +19,10 @@ public class UsuarioSecure implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UsuarioSecure() {
+    public PropietarioSecure() {
     }
 
-    public UsuarioSecure(String username, String password, String nombre, String email, Collection<? extends GrantedAuthority> authorities) {
+    public PropietarioSecure(String username, String password, String nombre, String email, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
@@ -30,12 +31,12 @@ public class UsuarioSecure implements UserDetails {
 
     }
 
-    public static UsuarioSecure build(Usuario usuario){
+    public static PropietarioSecure build(Propietario usuario){
 
         List<GrantedAuthority> authorities = usuario.getRoles().stream().map(rol ->
                 new SimpleGrantedAuthority(rol.getRolNombre().name())
         ).collect(Collectors.toList());
-        return new UsuarioSecure(
+        return new PropietarioSecure(
             usuario.getUsername(),
             usuario.getPassword(),
             usuario.getNombre(),

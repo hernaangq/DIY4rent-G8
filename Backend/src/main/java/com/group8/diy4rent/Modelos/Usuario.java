@@ -43,6 +43,11 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Alquiler> alquileres;
 
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_roles", 
+        joinColumns = @JoinColumn(name = "usuario_id"), 
+        inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
 
     public Usuario() {

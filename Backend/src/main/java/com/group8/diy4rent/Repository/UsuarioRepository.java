@@ -24,5 +24,8 @@ import com.group8.diy4rent.Modelos.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<Usuario> findBynombre(String nombre);
+    Optional<Usuario> findByusername(String username);
     ResponseEntity<Usuario> findByid(Integer id);
+    Boolean existsByusername(String username);
+    Boolean existsByemail(String email);
 }

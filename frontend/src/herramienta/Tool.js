@@ -26,8 +26,8 @@ const Tool = (props) => {
     };
     let id = 1; // Cambiar por el id del usuario actual
     console.log(herramientaId);
-    let response = await axios.post('http://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
-    let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
+    let response = await axios.post('https://localhost:8443/alquileres/' + id + '/' + herramientaId, {});
+    let respuesta = await axios.patch('https://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
     setTimeout(() => {
       setAlquilado(true);
     }, 1000);
@@ -50,9 +50,9 @@ const Tool = (props) => {
   let response2;
   const callServer = async () => {
 
-    response1 = await axios.get('http://localhost:8443/alquileres/herramienta/1');
+    response1 = await axios.get('https://localhost:8443/alquileres/herramienta/1');
     //const datos = await response.json();
-    //response2 = await axios.get('http://localhost:8443/herramienta/1/foto');
+    //response2 = await axios.get('https://localhost:8443/herramienta/1/foto');
     
   
     setAlquileres(response1.data.filter(alquiler => alquiler.estrellasServicio !== null));
