@@ -19,13 +19,13 @@ function Publicartool() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Aquí puedes enviar los datos del formulario a tu servidor o hacer cualquier otra acción necesaria
-    //   fs.readFile(foto, (error, data) => {
-    // if (error) {
-    //   console.error('Error al leer la imagen:', error);
-    //   return;
-    // }
-    // // Convertir el búfer de la imagen a una cadena Base64
-    // const base64String = data.toString('base64');});
+      fs.readFile(foto, (error, data) => {
+    if (error) {
+      console.error('Error al leer la imagen:', error);
+      return;
+    }
+    // Convertir el búfer de la imagen a una cadena Base64
+    const base64String = data.toString('base64');});
     let id = localStorage.getItem('id');
     console.log(id);
     let ruta = 'https://localhost:8443/herramientas/' + id;
@@ -40,35 +40,35 @@ function Publicartool() {
       herramientaId = response.data.id;
     } catch (error) { };
 
-  //   try {
-  //     // console.log((await axios.get('https://localhost:8443/herramientas/' + herramientaId)).data);
-  //     console.log(herramientaId);
-  //     let ruta2 = 'https://localhost:8443/herramientas/' + herramientaId + '/foto';
-  //     let formData = new FormData();
-  //     formData.append('foto', foto);
-  //     console.log(formData);
-  //     const response2 = await axios.put(ruta2, formData, {
-  //       headers: {
-  //         Accept: "*/*",
-  //         'Content-Type': 'multipart/form-data'
-  //       }
-  //     });
-  //   } catch (error) { };
-  //   setTimeout(() => {
-  //     navigate('/');
-  //   }, 1000);
+    try {
+      // console.log((await axios.get('https://localhost:8443/herramientas/' + herramientaId)).data);
+      console.log(herramientaId);
+      let ruta2 = 'https://localhost:8443/herramientas/' + herramientaId + '/foto';
+      let formData = new FormData();
+      formData.append('foto', foto);
+      console.log(formData);
+      const response2 = await axios.put(ruta2, formData, {
+        headers: {
+          Accept: "*/*",
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) { };
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
 
-  // const handleFoto = (event) => {
-  //   event.preventDefault();
-  //   const file = event.target.files[0];
-  //   if (file && file.type === 'image/jpeg') {
-  //     setFoto(file);
-  //     console.log(file);
-  //   } else {
-  //     alert('Please upload a JPEG image');
-  //   }
-  // };
+  const handleFoto = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    if (file && file.type === 'image/jpeg') {
+      setFoto(file);
+      console.log(file);
+    } else {
+      alert('Please upload a JPEG image');
+    }
+  };
 
   return (
     <div className="publicar-tool-container">
@@ -94,7 +94,7 @@ function Publicartool() {
             required
           />
         </div>
-        {/* <div className="form-group">
+        <div className="form-group">
           <label htmlFor="foto">Adjuntar Foto:</label>
           <input
             type="file"
@@ -103,8 +103,8 @@ function Publicartool() {
             onChange={handleFoto}
             required
           />
-        </div> */}
-        {/* <div className="form-group">
+        </div>
+        <div className="form-group">
           <label htmlFor="descripcion">Descripción:</label>
           <textarea
             id="descripcion"
@@ -112,7 +112,7 @@ function Publicartool() {
             onChange={(event) => setDescripcion(event.target.value)}
             required
           ></textarea>
-        </div> */}
+        </div>
         <div className="form-group">
           <label>Estado:</label>
           <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
