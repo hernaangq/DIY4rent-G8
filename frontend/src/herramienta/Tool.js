@@ -9,6 +9,7 @@ import Calendar from 'react-calendar';
 //import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
 import moment from 'moment'
+import { jwtDecode } from "jwt-decode";
 
 const Tool = (props) => {
 
@@ -34,12 +35,33 @@ const Tool = (props) => {
   const handleAlquilarClick = async () => {
 
   
-    let username = 'laurita'; // Cambiar por el username del usuario actual
+    let username = getCurrentUsername(); // Cambiar por la función que obtiene el username del usuario actual
+
+    const token = localStorage.getItem('token');
+
+    function getCurrentUsername() {
+      // Obtén el token JWT del almacenamiento local
+      const token = localStorage.getItem('token');
+    
+      if (!token) {
+        // Si no hay token, retorna null o algún valor por defecto
+        return null;
+      }
+    
+      // Decodifica el token JWT
+      const decodedToken = jwtDecode(token);
+    
+      // Retorna el nombre de usuario del token decodificado
+      return decodedToken.username;
+    }
     //console.log(herramientaId);
     
     
-    let response = await axios.post('http://localhost:8443/alquileres/' + username + '/' + herramientaId +'?fecha1='+ fecha1 + '&fecha2=' + fecha2);
-    
+    let response = await axios.post('https://localhost:8443/alquileres/' + username + '/' + herramientaId +'?fecha1='+ fecha1 + '&fecha2=' + fecha2, {}, {
+      headers: {
+          'Authorization': `Bearer ${token}`
+      }
+  });    
     //let respuesta = await axios.patch('http://localhost:8443/herramientas/' + herramientaId, {estaAlquilada: true});
     setTimeout(() => {
       setAlquilado(true);
@@ -63,7 +85,13 @@ const Tool = (props) => {
   let response2;
   const callServer = async () => {
 
-    response1 = await axios.get('https://localhost:8443/alquileres/herramienta/1');
+    const token = localStorage.getItem('token');
+
+    response1 = await axios.get('https://localhost:8443/alquileres/herramienta/'+ herramientaId, {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+});
     //const datos = await response.json();
     //response2 = await axios.get('https://localhost:8443/herramienta/1/foto');
     

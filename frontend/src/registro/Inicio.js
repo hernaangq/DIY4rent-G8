@@ -61,6 +61,10 @@ const handleSubmitPropietario = async (event) => {
       const rol = response.data.authorities[0] ? response.data.authorities[0].authority : '';
       localStorage.setItem('rol', rol);
       localStorage.setItem('nombreUsuario', response.data.username);
+      console.log(response.data);
+      console.log(response.data.authorities);
+      console.log(response.data.authorities[0]);
+      console.log(response.data.authorities[0].authority);
 
       // Set the token in the default headers for subsequent requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

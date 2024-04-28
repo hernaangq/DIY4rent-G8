@@ -19,8 +19,6 @@ public class PropietarioSecure implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public PropietarioSecure() {
-    }
 
     public PropietarioSecure(String username, String password, String nombre, String email, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;

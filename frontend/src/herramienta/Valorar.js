@@ -34,12 +34,15 @@ const Valorar = (props) => {
   const handleEnviarClick = async (event) => {
     event.preventDefault();
 
+    // Obtén el token JWT del almacenamiento local
+    const token = localStorage.getItem('token');
+
     // Obtén el ID de la herramienta
-    const responseHerramienta = await axios.get('http://localhost:8443/alquileres/herramienta/' + herramientaId);
+    const responseHerramienta = await axios.get('https://localhost:8443/alquileres/herramienta/' + herramientaId);
     const idAlquilada = responseHerramienta.data[0].id;
 
     // Usa el ID de "alquilada" para hacer la petición PATCH
-    const ruta = 'http://localhost:8443/alquileres/' + idAlquilada;
+    const ruta = 'https://localhost:8443/alquileres/' + idAlquilada;
 
     const data = {
         estrellasServicio: selectedStars,
@@ -49,7 +52,8 @@ const Valorar = (props) => {
     try {
         const response = await axios.patch(ruta, data, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Incluye el token JWT en el encabezado
             }
         });
     } catch (error) {

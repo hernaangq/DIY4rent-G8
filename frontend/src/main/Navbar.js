@@ -7,16 +7,30 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
+async function getRole() {
+  return await localStorage.getItem('rol');
+}
+
 function Navbar(props) {
   const [input, setInput] = useState('');
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
+  const [rol, setRol] = useState('');
+  console.log(rol);
+
   const [loggedOut, setLoggedOut] = useState(false);
   const jwt = localStorage.getItem('token')
-  const rol = localStorage.getItem('rol')
+  //const rol = localStorage.getItem('rol')
   const id = localStorage.getItem('id')
   const username = localStorage.getItem('nombreUsuario')
+
+  useEffect(() => {
+    getRole().then((role) => {
+      setRol(role);
+    });
+  }, []);
+
 
 const handleLogout = () => {
   localStorage.removeItem('token');
@@ -48,13 +62,15 @@ const handleLogout = () => {
           <button onClick={handleClick} style={{ backgroundColor: '#606C38', display: 'flex', alignItems: 'center', }}><strong style={{ color: 'white', textDecoration: 'none' }}>Buscar</strong></button>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-          <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Publica tu herramienta</strong></a></Link>
-          <Link className="letras" to={"/misherramientas/" + id} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Mis herramientas</strong></a></Link>
-          <Link className="letras" to={"/misalquileres/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white' , textDecoration: 'none'}}>Mis alquileres</strong></a></Link>
+          {rol === 'ROLE_ADMIN' && <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Publica tu herramienta</strong></a></Link>}
+          {rol === 'ROLE_ADMIN' && <Link className="letras" to={"/misherramientas/" + id} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Mis herramientas</strong></a></Link>}
+          {rol === 'ROLE_USER' && <Link className="letras" to={"/misalquileres/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white' , textDecoration: 'none'}}>Mis alquileres</strong></a></Link>}
         <Link className="letras" to="/ayuda" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Ayuda</strong></a></Link>
-            {jwt ? <div>
-              <Link className="letras" to="/" onClick={handleLogout} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Cerrar Sesión</strong></a></Link>
-            </div> :
+        {jwt ? <div>
+        <Link className="letras" to="/" onClick={handleLogout} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}>
+          <strong style={{ color: 'white', textDecoration: 'none' }}>{username} | Cerrar Sesión</strong>
+        </Link>
+        </div> :
               <div style={{display: 'flex', alignItems: 'center'}}><Link className="letras" to="/registrar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Registrarse</strong></a></Link>
                 <Link className="letras" to="/iniciar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Iniciar sesión</strong></a></Link>
               </div>}
