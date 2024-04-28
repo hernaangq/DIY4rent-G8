@@ -2,6 +2,7 @@ import logo from '../images/logo1ejemplov.png';
 import '../App.css';
 import './Navbar.css'
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ import axios from 'axios';
 function Navbar(props) {
   const [input, setInput] = useState('');
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   const [loggedOut, setLoggedOut] = useState(false);
   const jwt = localStorage.getItem('token')
@@ -22,6 +24,8 @@ const handleLogout = () => {
   localStorage.removeItem('id');
   localStorage.removeItem('nombreUsuario');
   setLoggedOut(true);
+  navigate('/');
+  window.location.reload();
 }
 
   useEffect(() => {

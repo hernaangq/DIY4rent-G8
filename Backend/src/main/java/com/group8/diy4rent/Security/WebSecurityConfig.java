@@ -115,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/auth/**", "/herramientas/**","/h2-console/**", "/usuariosName/**", "/propietariosName/**").permitAll()
+                .antMatchers("/auth/**", "/herramientas/**","/h2-console/**", "/usuariosName/**", "/propietariosName/**", "/alquileres/herramienta/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 //.exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

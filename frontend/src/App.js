@@ -15,7 +15,7 @@ import Myalquiler from "./herramienta/Myalquiler";
 import Valorar from "./herramienta/Valorar";
 
 import { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
-import { set } from "@citation-js/core/lib/Cite/set";
+// import { set } from "@citation-js/core/lib/Cite/set";
 
 
 function App() {
