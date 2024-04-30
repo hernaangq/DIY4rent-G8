@@ -9,7 +9,7 @@ import Calendar from 'react-calendar';
 //import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
 import moment from 'moment'
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
 const Tool = (props) => {
 
@@ -34,26 +34,27 @@ const Tool = (props) => {
 
   const handleAlquilarClick = async () => {
 
-  
-    let username = getCurrentUsername(); // Cambiar por la función que obtiene el username del usuario actual
+  let username = localStorage.getItem('nombreUsuario');
+  let token = localStorage.getItem('token');
+    // let username = getCurrentUsername(); // Cambiar por la función que obtiene el username del usuario actual
 
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
 
-    function getCurrentUsername() {
-      // Obtén el token JWT del almacenamiento local
-      const token = localStorage.getItem('token');
+    // function getCurrentUsername() {
+    //   // Obtén el token JWT del almacenamiento local
+    //   const token = localStorage.getItem('token');
     
-      if (!token) {
-        // Si no hay token, retorna null o algún valor por defecto
-        return null;
-      }
+    //   if (!token) {
+    //     // Si no hay token, retorna null o algún valor por defecto
+    //     return null;
+    //   }
     
-      // Decodifica el token JWT
-      const decodedToken = jwtDecode(token);
+    //   // Decodifica el token JWT
+    //   const decodedToken = jwtDecode(token);
     
-      // Retorna el nombre de usuario del token decodificado
-      return decodedToken.username;
-    }
+    //   // Retorna el nombre de usuario del token decodificado
+    //   return decodedToken.username;
+    // }
     //console.log(herramientaId);
     
     

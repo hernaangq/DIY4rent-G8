@@ -16,20 +16,20 @@ function Navbar(props) {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
-  const [rol, setRol] = useState('');
-  console.log(rol);
+  // const [rol, setRol] = useState('');
+  // console.log(rol);
 
   const [loggedOut, setLoggedOut] = useState(false);
   const jwt = localStorage.getItem('token')
-  //const rol = localStorage.getItem('rol')
+  const rol = localStorage.getItem('rol')
   const id = localStorage.getItem('id')
   const username = localStorage.getItem('nombreUsuario')
 
-  useEffect(() => {
-    getRole().then((role) => {
-      setRol(role);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getRole().then((role) => {
+  //     setRol(role);
+  //   });
+  // }, []);
 
 
 const handleLogout = () => {
@@ -42,10 +42,36 @@ const handleLogout = () => {
   window.location.reload();
 }
 
+const [isPropietario, setIsPropietario] = useState(false);
+const [isUsuario, setIsUsuario] = useState(false);
+
+useEffect(() => {
+  const checkIsPropietario = async () => {
+    try {
+      const response = await axios.get('https://localhost:8443/propietarios/isPropietario/' + username);
+      setIsPropietario(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const checkIsUsuario = async () => {
+    try {
+      const response = await axios.get('https://localhost:8443/usuarios/isUsuario/' + username);
+      setIsUsuario(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  checkIsUsuario();
+  checkIsPropietario();
+}, []);
+
   useEffect(() => {
     handleClick();
   }, []);
 
+  
   function handleClick() {
     props.onFilterChange(props.herramientas, input);
   }
@@ -62,9 +88,9 @@ const handleLogout = () => {
           <button onClick={handleClick} style={{ backgroundColor: '#606C38', display: 'flex', alignItems: 'center', }}><strong style={{ color: 'white', textDecoration: 'none' }}>Buscar</strong></button>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-          {rol === 'ROLE_ADMIN' && <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Publica tu herramienta</strong></a></Link>}
-          {rol === 'ROLE_ADMIN' && <Link className="letras" to={"/misherramientas/" + id} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Mis herramientas</strong></a></Link>}
-          {rol === 'ROLE_USER' && <Link className="letras" to={"/misalquileres/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white' , textDecoration: 'none'}}>Mis alquileres</strong></a></Link>}
+          {isPropietario && <Link className="letras" to="/publicar" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Publica tu herramienta</strong></a></Link>}
+          {isPropietario && <Link className="letras" to={"/misherramientas/" + id} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Mis herramientas</strong></a></Link>}
+          {(isUsuario && !isPropietario) && <Link className="letras" to={"/misalquileres/" + props.propietarioId} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white' , textDecoration: 'none'}}>Mis alquileres</strong></a></Link>}
         <Link className="letras" to="/ayuda" href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}><a className="letras" href="#"><strong style={{ color: 'white', textDecoration: 'none' }}>Ayuda</strong></a></Link>
         {jwt ? <div>
         <Link className="letras" to="/" onClick={handleLogout} href="#" style={{ marginTop: '20px', marginLeft: '50px', display: 'flex', alignItems: 'center', borderRadius: '10px', border: '2px solid #FEFAE0', padding: '5px', fontSize: '16px', textDecoration: 'none' }}>

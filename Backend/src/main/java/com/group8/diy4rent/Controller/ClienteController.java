@@ -143,4 +143,14 @@ public class ClienteController {
       List<Usuario> getUsuarios() {
       return usuarioRepository.findAll();
     }
+
+    @GetMapping("/propietarios/isPropietario/{username}")
+    public boolean isPropietario(@PathVariable String username) {
+      return propietarioRepository.existsByusername(username);
+    }
+
+    @GetMapping("/usuarios/isUsuario/{username}")
+    public boolean isUsuario(@PathVariable String username) {
+      return usuarioRepository.existsByusername(username);
+    }
 }
