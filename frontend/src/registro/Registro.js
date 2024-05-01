@@ -9,6 +9,8 @@ function Registro() {
   const [apellidos, setApellidos] = useState('');
   const [correo, setCorreo] = useState('');
   const [username, setUsername] = useState('');
+  const [latitud, setLatitud] = useState('');
+  const [longitud, setLongitud] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
   const [rol, setRol] = useState('');
@@ -38,6 +40,8 @@ function Registro() {
         nombre,
         apellidos,
         username: username, // Asumiendo que el correo es el nombre de usuario
+        latitud: latitud,
+        longitud: longitud,
         password: contrasena,
         email: correo
       });
@@ -69,6 +73,14 @@ function Registro() {
           <div className="form-group">
             <label>Nombre de usuario:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label>Latitud:</label>
+            <input type="text" value={latitud} onChange={(e) => setLatitud(e.target.value)} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label>Longitud:</label>
+            <input type="text" value={longitud} onChange={(e) => setLongitud(e.target.value)} className="form-control" />
           </div>
           <div className="form-group">
             <label>Contraseña:</label>
