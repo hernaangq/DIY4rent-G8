@@ -18,3 +18,6 @@ Content-Type: application/json
 GET https://localhost:8443/herramientas/propietariosName/garzy HTTP/1.1
 
 GET https://localhost:8443/propietarios/isPropietario/garzy HTTP/1.1
+
+
+GET https://localhost:8443/alquileres/usuario/lnunez HTTP/1.1

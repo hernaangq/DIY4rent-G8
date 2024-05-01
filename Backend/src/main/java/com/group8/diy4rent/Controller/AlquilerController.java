@@ -72,6 +72,17 @@ public class AlquilerController {
         return alquilerRepository.findByHerramienta(herramienta);
     }
 
+    @GetMapping("/alquileres/usuario/{userName}")
+    List<Alquiler> readAlquileresDe(@PathVariable String userName) throws URISyntaxException {
+        Usuario usuario = usuarioRepository.findByusername(userName).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        
+        return alquilerRepository.findByUsuario(usuario);
+    }
+
+
+
+
     @PostMapping("/alquileres/{userName}/{herramienta_id}")
     ResponseEntity<Alquiler> anadirAlquiler(@PathVariable String userName, @PathVariable Integer herramienta_id, @RequestParam("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha1, @RequestParam("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha2) throws URISyntaxException {
         Alquiler newAlquiler = new Alquiler();

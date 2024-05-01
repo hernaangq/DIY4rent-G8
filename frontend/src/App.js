@@ -34,6 +34,7 @@ function App() {
   useEffect(() => {
     callServer();
     callServer2();
+    callServer3();
   }, []);
 
   let response;
@@ -64,6 +65,20 @@ function App() {
         //     'Authorization': `Bearer ${jwt}`
         //   }
       setItemsPropietario(response2.data);}
+    } catch (error) { }
+  }
+
+
+  const callServer3 = async () => {
+    try {
+      if (jwt) {
+      let username = localStorage.getItem('nombreUsuario');
+      response2 = await axios.get('https://localhost:8443/alquileres/usuario/' + username);
+        // {
+        //   headers: {
+        //     'Authorization': `Bearer ${jwt}`
+        //   }
+      setItemsAlquiladas(response2.data);}
     } catch (error) { }
   }
 
@@ -110,9 +125,7 @@ function App() {
             <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
               <img src={insta} alt="Instagram" width="30" height="30" />
             </a>
-            <a href="https://www.youtube.com/watch?v=2iXByY2NQCU" target="_blank" rel="noopener noreferrer">
-            <img src={mono} alt="Instagram" width="30" height="30" />
-           </a>
+            
           </div>
         </footer>
         
