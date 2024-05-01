@@ -22,11 +22,18 @@
 
 .footer{
   background-color: #283618;
-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-display: flex;
-justify-content: center;
-align-items: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
 }
+
+.footer a {
+  margin: 0 10px;
+}
+
 
 .Header-text {
   font-weight: bold;

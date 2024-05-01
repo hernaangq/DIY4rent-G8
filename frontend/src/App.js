@@ -13,8 +13,14 @@ import Ayuda from "./main/Ayuda";
 import axios from 'axios';
 import Myalquiler from "./herramienta/Myalquiler";
 import Valorar from "./herramienta/Valorar";
+import insta from "../src/images/insta2.png"; 
+import twitter from "../src/images/x2.png"; 
+import facebook from "../src/images/facebook2.png";
+import mono from "../src/images/mono2.png";
+
 
 import { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
+import Footer from "./main/Footer";
 // import { set } from "@citation-js/core/lib/Cite/set";
 
 
@@ -94,7 +100,22 @@ function App() {
 
         <footer className="footer">
           <p style={{ color: 'white' }}>¡Gracias por visitar nuestra página! <i>DIY4rent © 2024 Copyright</i></p>
+          <div>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src={facebook} alt="Facebook" width="30" height="30" />
+            </a>
+            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+              <img src={twitter} alt="Twitter" width="30" height="30" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <img src={insta} alt="Instagram" width="30" height="30" />
+            </a>
+            <a href="https://www.youtube.com/watch?v=2iXByY2NQCU" target="_blank" rel="noopener noreferrer">
+            <img src={mono} alt="Instagram" width="30" height="30" />
+           </a>
+          </div>
         </footer>
+        
       </div>
     </Router>
   );
