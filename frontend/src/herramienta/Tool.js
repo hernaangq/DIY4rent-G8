@@ -151,6 +151,9 @@ const Tool = (props) => {
       console.log('Estrellas:', estrellasNum);
       stars.push(<img src={martillo2} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
     }
+    if (isNaN(estrellasNum)) {
+      return 'No hay valoraciones aún sobre esta herramienta';
+    } 
     return stars;
   };
   
@@ -163,12 +166,14 @@ const Tool = (props) => {
       <div className="tool-image" style={{float: 'none', marginLeft:'75px' }}>
         <img className='fotoVista' src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto', borderRadius:'15px' }} />
         <div style={{ fontSize: '30px' }} className="ratings">
-          <p>{renderEmojis()}  {estrellasNum} Martillos </p>
+        <p>{renderEmojis()}  {!isNaN(estrellasNum) && `${estrellasNum} Martillos`}</p>
+          
         </div>
         <div>
-
-          <h3>Valoraciones</h3>
-          <div className="valoracion-container">{valoraciones}</div>
+          {!isNaN(estrellasNum) && (
+            <><h3>Valoraciones</h3><div className="valoracion-container">{valoraciones}</div></>
+            )}
+          
         </div>
         <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
 
