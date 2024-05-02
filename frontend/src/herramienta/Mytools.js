@@ -28,9 +28,9 @@ function Mytools(props) {
             {item.fechaInicio && item.fechaFinal ? (
               <p className='text-center'>
                 <span className='bold'>De:</span>{' '}
-                {new Date(item.fechaInicio).toLocaleDateString()}
+                { moment(item.fechaInicio, 'DD/MM/YYYY').format('DD/MM/YYYY') }
                 &nbsp;|&nbsp;
-                <span className='bold'>Hasta:</span> {new Date(item.fechaFinal).toLocaleDateString()}
+                <span className='bold'>Hasta:</span>  {moment(item.fechaFinal, 'DD/MM/YYYY').format('DD/MM/YYYY')  }
               </p>
             ) : null}
           </div>

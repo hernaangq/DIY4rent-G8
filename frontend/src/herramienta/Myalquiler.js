@@ -32,8 +32,8 @@ function Myalquiler(props) {
           <div><strong> {item.herramienta.precio}€/día</strong> </div>
           <div><strong>Estado:</strong> {item.herramienta.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : item.herramienta.estado === 'MUY_BUENO' ? 'MUY BUENO' : item.herramienta.estado}</div>
           <div>
-          <div>{ moment(item.fechaInicioAlquiler).format('DD/MM/YYYY') }</div>
-            <div>{ moment(item.fechaFinalAlquiler).format('DD/MM/YYYY') }</div>          
+          <div>{ moment(item.herramienta.fechaInicio, 'DD/MM/YYYY').format('DD/MM/YYYY') }</div>
+          <div>{ moment(item.herramienta.fechaFinal, 'DD/MM/YYYY').format('DD/MM/YYYY') }</div>            
             
 
           </div>
