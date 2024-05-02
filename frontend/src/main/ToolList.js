@@ -39,8 +39,9 @@ return (
             <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
               <img src={`data:image/jpg;base64, ${item.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
             </div>
-            <p><b>{item.nombre}</b></p>
+            
             </Link>
+            <div><p><b>{item.nombre}</b></p></div>
             <div><strong> {item.precio}€/día</strong> </div>
             <div><strong>Estado:</strong> {item.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : item.estado === 'MUY_BUENO' ? 'MUY BUENO' : item.estado}</div>
             {/* <div>{new Date(item.fechaInicio).getFullYear() + '-' + ((new Date(item.fechaInicio)).getMonth() + 1).toString().padStart(2, 0) + '-' + new Date(item.fechaInicio).getDate().toString().padStart(2, 0)}</div> */}

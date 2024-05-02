@@ -96,7 +96,7 @@ const handleCityChange = async (e) => {
           </div>
           <div className="form-group">
             <label>IBAN:</label>
-            <input type="email" value={iban} onChange={(e) => setIban(e.target.value)} className="form-control" />
+            <input type="text" value={iban} onChange={(e) => setIban(e.target.value)} className="form-control" />
           </div>
 
           <div className="form-group">
