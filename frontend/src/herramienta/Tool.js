@@ -3,7 +3,7 @@ import './Tool.css'; // Importa el archivo de estilos para Tool
 import toolImage from '../images/martillo.jpg'; // Importa la imagen de la herramienta
 import { useParams } from "react-router-dom";
 import martillo2 from '../images/martillomitad2sinfondo.png';
-import martillo1 from '../images/martillomitad1sinfondo.png';
+import martillofinal from '../images/martilllofinal.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
@@ -145,7 +145,7 @@ const Tool = (props) => {
   const renderEmojis = () => {
     const stars = [];
     for (let i = 0; i < Math.floor(estrellasNum); i++) {
-      stars.push('🔨');
+      stars.push(<img src={martillofinal} alt="Half Hammer" style={{ width: '30px', height: '30px' }} />);
     }
     if (estrellasNum % 1 !== 0 && estrellasNum !== null && estrellasNum !== 0 && !isNaN(estrellasNum)) {
       console.log('Estrellas:', estrellasNum);

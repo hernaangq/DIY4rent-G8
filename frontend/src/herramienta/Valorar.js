@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Tool.css'; // Importa el archivo de estilos para Tool
 import toolImage from '../images/martillo.png'; // Importa la imagen de la herramienta
+import martillofinal from '../images/martilllofinal.png';
+
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -135,7 +137,7 @@ return (
                                                     setSelectedStars(Number(star));
                                             }}
                                     >
-                                            {star <= selectedStars ? '🔨' : <img src={toolImage} style={{ width: '30px', height: '30px' }} />}
+                                            {star <= selectedStars ? <img src={martillofinal} style={{ width: '30px', height: '30px' }} /> : <img src={toolImage} style={{ width: '30px', height: '30px' }} />}
                                     </span>
                             ))}
                     </div>
