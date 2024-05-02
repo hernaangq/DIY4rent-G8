@@ -97,19 +97,6 @@ return (
     <div className="container">
         <div className="tool-image" style={{float: 'none', marginLeft:'75px' }}>
             <img className='fotoVista' src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto', borderRadius:'15px' }} />
-            <div style={{ fontSize: '30px' }} className="ratings">
-
-                <p>{renderEmojis()}   {estrellasNum} martillos</p>
-            </div>
-            <div>
-
-                <h3>Valoraciones</h3>
-                <div className="valoracion-container">{valoraciones}</div>
-            </div>
-            <i>Propietario: {herramienta.propietario.nombre} {herramienta.propietario.apellidos}</i>
-
-
-
         </div>
 
 

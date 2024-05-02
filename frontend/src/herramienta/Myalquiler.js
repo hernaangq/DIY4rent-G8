@@ -19,13 +19,9 @@ function Myalquiler(props) {
           
         
 
-          {item.estrellasServicio == null ?   
-          <Link to={`/valorar/${item.id}`} style={{ textDecoration: 'none' }}>
-          <p><b>Valorar</b></p>
-          </Link>
-          : null}
 
-          <Link to={"/herramientas/" + item.herramienta.id} style={{ textDecoration: 'none' }}>
+
+          <Link to={"/herramientas/" + (item.herramienta.id - 1)} style={{ textDecoration: 'none' }}>
           <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
               <img src={`data:image/jpg;base64, ${item.herramienta.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
             </div>
@@ -33,6 +29,21 @@ function Myalquiler(props) {
           <p><b>{item.herramienta.nombre}</b></p>
           </Link>
 
+          <div><strong> {item.herramienta.precio}€/día</strong> </div>
+          <div><strong>Estado:</strong> {item.herramienta.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : item.herramienta.estado === 'MUY_BUENO' ? 'MUY BUENO' : item.herramienta.estado}</div>
+          <div>
+          <div>{ moment(item.fechaInicioAlquiler).format('DD/MM/YYYY') }</div>
+            <div>{ moment(item.fechaFinalAlquiler).format('DD/MM/YYYY') }</div>          
+            
+
+          </div>
+
+
+          {item.estrellasServicio == null ?   
+          <Link to={`/valorar/${item.id}`} style={{ textDecoration: 'none' }}>
+          <p><b>Valorar</b></p>
+          </Link>
+          : null}
 
           
         </div>
