@@ -24,7 +24,7 @@ function Myalquiler(props) {
 
 
           {item.estrellasServicio == null ?   
-          <Link to={`/valorar/${item.herramienta.id}`} style={{ textDecoration: 'none' }}>
+          <Link to={`/valorar/${item.id}`} style={{ textDecoration: 'none' }}>
           <p><b>Valorar</b></p>
           </Link>
           : null}

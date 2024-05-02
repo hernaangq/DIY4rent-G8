@@ -13,9 +13,15 @@ import moment from 'moment'
 const Valorar = (props) => {
 
   let { rutaId } = useParams();
-  let herramienta = props.herramientas.find(item => item.id === Number(rutaId));
+  //let herramienta = props.herramientas.find(item => item.id === Number(rutaId));
+  //let alquiler = props.alquileres.find(item => item.id === Number(rutaId));
+
+
+
+  let alquiler = props.alquileres.find(item => item.id === Number(rutaId));
+  console.log(alquiler.herramienta);
+  let herramienta = alquiler.herramienta;
   let herramientaId = herramienta.id;
-  console.log(herramientaId);
   let navigate = useNavigate();
 
   const [alquileres, setAlquileres] = useState([]);
@@ -39,7 +45,7 @@ const Valorar = (props) => {
 
     // Obtén el ID de la herramienta
     const responseHerramienta = await axios.get('https://localhost:8443/alquileres/herramienta/' + herramientaId);
-    const idAlquilada = responseHerramienta.data[0].id;
+    const idAlquilada = rutaId;
 
     // Usa el ID de "alquilada" para hacer la petición PATCH
     const ruta = 'https://localhost:8443/alquileres/' + idAlquilada;

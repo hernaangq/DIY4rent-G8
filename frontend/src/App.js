@@ -107,7 +107,7 @@ function App() {
           <Route path="/misherramientas/:rutaId" element={<Mytools herramientas={itemsPropietario} />} />
           <Route path="/misalquileres/:rutaId" element={<Myalquiler herramientas={itemsAlquiladas} />} />
           <Route path="/iniciar" element={<Inicio />} />
-          <Route path="/valorar/:rutaId" element={<Valorar herramientas = {items} />} />
+          <Route path="/valorar/:rutaId" element={<Valorar herramientas = {items} alquileres={itemsAlquiladas} />} /> 
           <Route path="/registrar" element={<Registro />} />
           <Route path="/publicar" element={<Publicartool/>} />
           <Route path="/ayuda" element={<Ayuda/>}/>
