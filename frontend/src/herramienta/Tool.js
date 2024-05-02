@@ -147,8 +147,9 @@ const Tool = (props) => {
     for (let i = 0; i < Math.floor(estrellasNum); i++) {
       stars.push('🔨');
     }
-    if (!Number.isInteger(estrellasNum)) {
-      stars.push(<img src={martillo1} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
+    if (estrellasNum % 1 !== 0 && estrellasNum !== null && estrellasNum !== 0 && !isNaN(estrellasNum)) {
+      console.log('Estrellas:', estrellasNum);
+      stars.push(<img src={martillo2} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
     }
     return stars;
   };
