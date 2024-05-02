@@ -55,7 +55,7 @@ const Editartool = (props) => {
       <h2>Editar datos de {herramienta.nombre}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Nombre:</label>
+          <label>Nombre (obligatorio): </label>
           <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} className="form-control" />
         </div>
         <div className="form-group">
@@ -75,7 +75,7 @@ const Editartool = (props) => {
           <input type="date" id="fechaFinal" value={fechaFinal} onChange={(e) => setFinal(e.target.value)}  />
           </div>
         <div className="form-group">
-          <label>Estado:</label>
+        <label>Estado (obligatorio):</label>
           <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
             <option value="">Selecciona un estado</option>
             <option value="COMO_NUEVO">Como nuevo</option>
