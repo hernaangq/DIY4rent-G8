@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './Tool.css'; // Importa el archivo de estilos para Tool
 import toolImage from '../images/martillo.jpg'; // Importa la imagen de la herramienta
 import { useParams } from "react-router-dom";
+import martillo2 from '../images/martillomitad2sinfondo.png';
+import martillo1 from '../images/martillomitad1sinfondo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
@@ -137,18 +139,20 @@ const Tool = (props) => {
   var estrellasNum = alquileres.reduce((acc, alquiler) => {
     return acc + alquiler.estrellasServicio
   }, 0) / alquileres.length;
-
+  
   estrellasNum = (Math.round(estrellasNum * 100) / 100).toFixed(2);
   
   const renderEmojis = () => {
     const stars = [];
-    for (let i = 0; i < estrellasNum; i++) {
+    for (let i = 0; i < Math.floor(estrellasNum); i++) {
       stars.push('🔨');
+    }
+    if (!Number.isInteger(estrellasNum)) {
+      stars.push(<img src={martillo2} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
     }
     return stars;
   };
-
- 
+  
   var rawResponse = herramienta.foto; 
   
   const valoraciones = alquileres.map((alquiler, index) => { return (<div key={index} className="card" style={{ backgroundColor: '#DDA15E', margin: '10px', padding: '10px', borderRadius: '5px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}><div className="card-body"><h5 className="card-title">{alquiler.usuario.nombre} {alquiler.usuario.apellidos}</h5><p className="card-text" style={{ fontSize : '20px', fontStyle:'italic'}}>"{alquiler.valoracion}"</p></div></div>); });
@@ -158,7 +162,6 @@ const Tool = (props) => {
       <div className="tool-image" style={{float: 'none', marginLeft:'75px' }}>
         <img className='fotoVista' src={`data:image/jpg;base64, ${rawResponse}`} alt="Tool" style={{ verticalAlign: 'top', height: '400px', width: 'auto', borderRadius:'15px' }} />
         <div style={{ fontSize: '30px' }} className="ratings">
-
           <p>{renderEmojis()}  {estrellasNum} Martillos </p>
         </div>
         <div>
@@ -232,17 +235,31 @@ const Tool = (props) => {
         </div>
 
 
-        <div className="google-map" style={{ justifyContent: 'center', height: '300px' }}>
-        <h3 style={{ verticalAlign: 'top' }} >Localización</h3>
-        <iframe
-          src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDqmJSqDfPdaVNuv5YLAXM9xPk0NxN1onA&q=${herramienta.propietario.latitud},${herramienta.propietario.longitud}`}
-          width="100"
-          height="2000"
-          style={{ justifyContent: 'center', borderRadius: '15px' }}
-          allowfullscreen=""
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        </div>
+        <div className="map-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
+  <div className="google-map" style={{ justifyContent: 'center', height: '300px', flex: '1 1 0', margin: '0 10px' }}>
+    <h3 style={{ verticalAlign: 'top' }}>Localización</h3>
+    <iframe 
+      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDqmJSqDfPdaVNuv5YLAXM9xPk0NxN1onA&q=${herramienta.propietario.latitud},${herramienta.propietario.longitud}`} 
+      width="100%" 
+      height="2000" 
+      style={{ justifyContent: 'center', borderRadius: '15px' }} 
+      allowfullscreen="" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <div className="google-map" style={{ justifyContent: 'center', height: '300px', flex: '1 1 0', margin: '0 10px' }}>
+    <h3 style={{ verticalAlign: 'top' }}>Localización vista:</h3>
+    <iframe 
+      src={`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyDqmJSqDfPdaVNuv5YLAXM9xPk0NxN1onA&location=${herramienta.propietario.latitud},${herramienta.propietario.longitud}&heading=210&pitch=10&fov=35`} 
+      width="100%" 
+      height="2000" 
+      style={{ justifyContent: 'center', borderRadius: '15px' }} 
+      allowfullscreen="" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
         
 
 

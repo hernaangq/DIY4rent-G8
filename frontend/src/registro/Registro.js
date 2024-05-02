@@ -94,7 +94,7 @@ const handleCityChange = async (e) => {
           </div>
 
           <div className="form-group">
-            <label>Ciudad:</label>
+            <label>Dirección:</label>
             <input type="text" value={city} onChange={handleCityChange} className="form-control" />
           </div>
 
