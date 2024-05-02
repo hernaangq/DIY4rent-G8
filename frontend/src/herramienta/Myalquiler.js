@@ -17,11 +17,7 @@ function Myalquiler(props) {
         <div className="ToolList-item" key={index}>
           
           
-          
-            <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
-              <img src={`data:image/jpg;base64, ${item.herramienta.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
-            </div>
-
+        
 
           {item.estrellasServicio == null ?   
           <Link to={`/valorar/${item.id}`} style={{ textDecoration: 'none' }}>
@@ -29,7 +25,16 @@ function Myalquiler(props) {
           </Link>
           : null}
 
-            <p><b>{item.herramienta.nombre}</b></p>
+          <Link to={"/herramientas/" + item.herramienta.id} style={{ textDecoration: 'none' }}>
+          <div className="tool-image-list" style={{ width: '300px', height:'150px', float: 'left' }}>
+              <img src={`data:image/jpg;base64, ${item.herramienta.foto}`} alt="Tool" style={{ maxWidth: '50%', height: 'auto' }} />
+            </div>
+
+          <p><b>{item.herramienta.nombre}</b></p>
+          </Link>
+
+
+          
         </div>
       ))}
     </div>

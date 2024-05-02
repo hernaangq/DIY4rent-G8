@@ -3,19 +3,41 @@ import './Registro.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 // import Modal from 'react-modal';
-
+ 
 function Registro() {
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [correo, setCorreo] = useState('');
   const [username, setUsername] = useState('');
-  const [latitud, setLatitud] = useState('');
-  const [longitud, setLongitud] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
   const [rol, setRol] = useState('');
   const navigate = useNavigate();
-
+ 
+const [city, setCity] = useState('');
+const [latitud, setLatitud] = useState('');
+const [longitud, setLongitud] = useState('');
+ 
+const handleCityChange = async (e) => {
+  const city = e.target.value;
+  setCity(city);
+ 
+  if (!city) {
+    // Si la ciudad está vacía, no hagas la solicitud
+    return;
+  }
+ 
+  try {
+    const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${e.target.value}&key=AIzaSyDqmJSqDfPdaVNuv5YLAXM9xPk0NxN1onA`);
+  if (response.data.results[0]) {
+    setLatitud(response.data.results[0].geometry.location.lat);
+    setLongitud(response.data.results[0].geometry.location.lng);
+  }
+  } catch (error) {
+    console.error(error);
+  }
+};
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Nombre:', nombre);
@@ -26,13 +48,13 @@ function Registro() {
     console.log('Confirmar Contraseña:', confirmarContrasena);
     console.log('Rol:', rol);
     // Aquí puedes agregar lógica para registrar al usuario
-
+ 
     // Verificar si las contraseñas coinciden
     if (contrasena !== confirmarContrasena) {
       console.error('Las contraseñas no coinciden');
       return;
     }
-
+ 
     try {
       // Envía una solicitud al servidor para registrar al usuario
       const ruta = rol === 'propietario' ? 'https://localhost:8443/auth/registroPropietario' : 'https://localhost:8443/auth/registroUsuario';
@@ -45,14 +67,14 @@ function Registro() {
         password: contrasena,
         email: correo
       });
-
+ 
       console.log('Registro exitoso:', response.data);
       // Realiza otras acciones necesarias después del registro exitoso, como redirigir al usuario a otra página
       // navigate('/');
     } catch { };
     setTimeout(()=>{
       navigate('/');
-    },1000);	
+    },1000);  
   }
     return (
       <div className="registro-container">
@@ -70,18 +92,17 @@ function Registro() {
             <label>Correo:</label>
             <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} className="form-control" />
           </div>
+
+          <div className="form-group">
+            <label>Ciudad:</label>
+            <input type="text" value={city} onChange={handleCityChange} className="form-control" />
+          </div>
+
           <div className="form-group">
             <label>Nombre de usuario:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
           </div>
-          <div className="form-group">
-            <label>Latitud:</label>
-            <input type="text" value={latitud} onChange={(e) => setLatitud(e.target.value)} className="form-control" />
-          </div>
-          <div className="form-group">
-            <label>Longitud:</label>
-            <input type="text" value={longitud} onChange={(e) => setLongitud(e.target.value)} className="form-control" />
-          </div>
+
           <div className="form-group">
             <label>Contraseña:</label>
             <input type="password" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="form-control" />
