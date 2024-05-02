@@ -1,13 +1,52 @@
 .ToolList-item img {
     width: 100%; /* La imagen ocupará todo el ancho disponible */
-    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
-    max-width: 200px; /* Ajusta este valor según tus necesidades */
-    max-height: 150px; /* Ajusta este valor según tus necesidades */
+    height: 100%; /* La altura se ajustará automáticamente para mantener la proporción */
+    /*max-width: 200px; /* Ajusta este valor según tus necesidades */
+    /*max-height: 150px; /* Ajusta este valor según tus necesidades */
     object-fit: cover; /* La imagen se ajustará dentro del contenedor manteniendo las proporciones */
+    border-radius: 10px 10px 0 0;
   }
   
   .ToolList-item {
     text-align: center; /* Centra el contenido dentro del contenedor */
     margin-bottom: 20px; /* Agrega un espacio entre los elementos */
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 2px solid #283618; /* Agrega un borde sólido de 2px de color verde */
+    box-shadow: 0 4px 8px rgba(0, 0, 0.2, 0.5);
+    line-height: 1.5;
   }
-  
+
+  .ToolList-item:hover {
+    transform: scale(1.25); /* Amplía el elemento al 110% del tamaño original al pasar el mouse */
+    border-color: #4CAF50;
+}
+
+.ToolList-item a {
+  text-decoration: none; /* Quita el subrayado del enlace */
+  color: #283618; /* Cambia el color del texto */
+  font-weight: bold; /* Hace que el texto sea más grueso */
+}
+
+.ToolList-item a:hover {
+  color: #4CAF50; /* Cambia el color del texto al pasar el mouse sobre él */
+}
+
+.ToolList-item p {
+  margin-bottom: 5px; /* Agrega un espacio entre los párrafos */
+}
+
+.ToolList-item p b {
+
+  font-size: 1.2em; /* Aumenta el tamaño del texto en negrita */
+}
+
+.ToolList-item div strong {
+
+  font-weight: bold; /* Hace que el texto en negrita sea más grueso */
+}
+
+.ToolList-item p span.bold {
+  font-weight: bold; /* Aplica negrita a los elementos con la clase 'bold' dentro de los párrafos */
+}
