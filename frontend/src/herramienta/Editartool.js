@@ -16,8 +16,11 @@ const Editartool = (props) => {
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [localizacion, setLocalizacion] = useState('');
+  const [fechaInicio, setInicio] = useState('');
+  const [fechaFinal, setFinal] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [foto, setFoto] = useState('');
+  const [estado, setEstado] = useState('');
 
 
 
@@ -25,7 +28,10 @@ const Editartool = (props) => {
     event.preventDefault();
     const response = await axios.patch('https://localhost:8443/herramientas/' + herramienta.id, {
       nombre,
-      precio
+      precio,
+      fechaInicio,
+      fechaFinal,
+      estado
     });
 
     if (foto) {
@@ -59,6 +65,24 @@ const Editartool = (props) => {
         <div className="form-group">
           <label>Foto:</label>
           <input type="file" accept="*/*" onChange={(e) => {console.log(e.target.files[0]);  setFoto(e.target.files[0])}} className="form-control-file" />
+        </div>
+        <div className='form-group'>
+          <label>Fecha de inicio:</label>
+          <input type="date" id="fechaInicio" value={fechaInicio} onChange={(e) => setInicio(e.target.value)}   />
+        </div>
+        <div className='form-group'>
+          <label>Fecha final:</label>
+          <input type="date" id="fechaFinal" value={fechaFinal} onChange={(e) => setFinal(e.target.value)}  />
+          </div>
+        <div className="form-group">
+          <label>Estado:</label>
+          <select value={estado} onChange={(e) => setEstado(e.target.value)} className="form-control">
+            <option value="">Selecciona un estado</option>
+            <option value="COMO_NUEVO">Como nuevo</option>
+            <option value="MUY_BUENO">Muy bueno</option>
+            <option value="BUENO">Bueno</option>
+            <option value="ACEPTABLE">Aceptable</option>
+          </select>
         </div>
         <button type="submit" className="btn btn-primary">Guardar</button>
       </form>
