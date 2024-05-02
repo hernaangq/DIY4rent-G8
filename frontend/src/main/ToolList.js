@@ -45,8 +45,8 @@ return (
             <div><strong> {item.precio}€/día</strong> </div>
             <div><strong>Estado:</strong> {item.estado === 'COMO_NUEVO' ? 'COMO NUEVO' : item.estado === 'MUY_BUENO' ? 'MUY BUENO' : item.estado}</div>
             {/* <div>{new Date(item.fechaInicio).getFullYear() + '-' + ((new Date(item.fechaInicio)).getMonth() + 1).toString().padStart(2, 0) + '-' + new Date(item.fechaInicio).getDate().toString().padStart(2, 0)}</div> */}
-            <div>{ moment(item.fechaInicio).format('DD/MM/YYYY') }</div>
-            <div>{ moment(item.fechaFinal).format('DD/MM/YYYY') }</div>          
+            <div>{ moment(item.fechaInicio, 'YYYY-MM-DD').format('DD/MM/YYYY') }</div>
+            <div>{ moment(item.fechaFinal, 'YYYY-MM-DD').format('DD/MM/YYYY') }</div>         
             </div>
         ))}
       </div>
