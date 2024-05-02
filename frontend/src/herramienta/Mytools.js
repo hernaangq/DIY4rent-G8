@@ -11,7 +11,7 @@ import moment from 'moment';
 function Mytools(props) {
   
     return (
-    <div className="ToolList">
+    <div className="ToolList" style={{ margin: '0 20px' }}>
       {props.herramientas.map((item, index) => (
 
 

@@ -17,7 +17,7 @@ function ToolList(props) {
 console.log(props.herramientas);  
 
 return (
-  <div>
+  <div style={{ margin: '0 20px' }} >
     
     {/* Línea separadora */}
     <header className="App-header-custom">

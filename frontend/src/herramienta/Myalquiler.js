@@ -11,7 +11,7 @@ function Myalquiler(props) {
   console.log(props.herramientas);
 
     return (
-    <div className="ToolList">
+    <div className="ToolList" style={{ margin: '0 20px' }}>
       {props.herramientas.map((item, index) => (
 
         <div className="ToolList-item" key={index}>

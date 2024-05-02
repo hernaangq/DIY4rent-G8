@@ -172,5 +172,4 @@ public ResponseEntity<?> subeFotoNuevo(@PathVariable Integer id, @RequestParam("
 	}
 
 
-
 }
