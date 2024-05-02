@@ -148,7 +148,7 @@ const Tool = (props) => {
       stars.push('🔨');
     }
     if (!Number.isInteger(estrellasNum)) {
-      stars.push(<img src={martillo2} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
+      stars.push(<img src={martillo1} alt="Half Hammer" style={{ width: '20px', height: '30px' }} />); // Añade un martillo a la mitad si estrellasNum no es un número entero
     }
     return stars;
   };

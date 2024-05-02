@@ -12,6 +12,7 @@ function Registro() {
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
   const [rol, setRol] = useState('');
+  const [iban, setIban] = useState('');
   const navigate = useNavigate();
  
 const [city, setCity] = useState('');
@@ -65,7 +66,8 @@ const handleCityChange = async (e) => {
         latitud: latitud,
         longitud: longitud,
         password: contrasena,
-        email: correo
+        email: correo,
+        iban: iban
       });
  
       console.log('Registro exitoso:', response.data);
@@ -91,6 +93,10 @@ const handleCityChange = async (e) => {
           <div className="form-group">
             <label>Correo:</label>
             <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label>IBAN:</label>
+            <input type="email" value={iban} onChange={(e) => setIban(e.target.value)} className="form-control" />
           </div>
 
           <div className="form-group">
