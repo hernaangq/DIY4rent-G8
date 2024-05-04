@@ -58,7 +58,7 @@ public class Herramienta {
 
     // Una o varias herramientas pertenecen a un propietario 
 
-    @OneToMany(mappedBy = "herramienta")
+    @OneToMany(mappedBy = "herramienta", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Alquiler> alquileres;
 
 

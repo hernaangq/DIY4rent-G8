@@ -41,7 +41,7 @@
 }
 
 .ToolList-item button:hover {
-  color: #4CAF50; /* Cambia el color del texto al pasar el mouse sobre él */
+  color: #c41a1a; /* Cambia el color del texto al pasar el mouse sobre él */
   background-color: white; /* Cambia el color de fondo del botón */
 }
 
