@@ -5,10 +5,17 @@ import "../App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import './Mytools.css';
 import moment from 'moment';
-
+import axios from 'axios';
 
 
 function Mytools(props) {
+
+  const handleSubmit = async (event, index) => {
+    console.log(index);
+    const response = await axios.delete('https://localhost:8443/herramientas/' + index);
+    window.location.reload();
+  }
+
   
     return (
     <div className="ToolList" style={{ margin: '0 20px' }}>
@@ -36,6 +43,8 @@ function Mytools(props) {
           </div>
           <p> </p>
           <Link to={"/tool/editar/" + index}>Editar</Link>
+          <p> </p>
+          <button onClick={(e) => handleSubmit(e, item.id)}>Eliminar</button>
         </div>
       ))}
     </div>

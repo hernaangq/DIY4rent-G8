@@ -33,6 +33,20 @@
   color: #4CAF50; /* Cambia el color del texto al pasar el mouse sobre él */
 }
 
+.ToolList-item button {
+  text-decoration: none; /* Quita el subrayado del enlace */
+  color: #283618; /* Cambia el color del texto */
+  font-weight: bold; /* Hace que el texto sea más grueso */
+  background-color: white; /* Cambia el color de fondo del botón */
+}
+
+.ToolList-item button:hover {
+  color: #4CAF50; /* Cambia el color del texto al pasar el mouse sobre él */
+  background-color: white; /* Cambia el color de fondo del botón */
+}
+
+
+
 .ToolList-item p {
   margin-bottom: 5px; /* Agrega un espacio entre los párrafos */
 }

@@ -21,3 +21,8 @@ GET https://localhost:8443/propietarios/isPropietario/garzy HTTP/1.1
 
 
 GET https://localhost:8443/alquileres/usuario/lnunez HTTP/1.1
+
+
+
+
+DELETE https://localhost:8443/herramientas/9 HTTP/1.1
