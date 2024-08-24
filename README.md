@@ -1,4 +1,4 @@
-# Marketplace de Herramientas de bricolaje
+# DIY4rent: Marketplace de Herramientas de bricolaje
 Este repositorio contiene el proyecto final de ISST de la ETSIT.
 
 ![Screenshot 2024-05-05 191822](https://github.com/user-attachments/assets/794b2af9-cd6b-4190-b6e0-108b88edf204)
