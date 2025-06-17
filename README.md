@@ -75,15 +75,6 @@ npm start
 
 ---
 
-## 📚 Technologies
-
-* **Backend**: Java 17+, Spring Boot, Spring Data JPA, Maven
-* **Frontend**: React, Axios (for API communication), Bootstrap or Material-UI (if used)
-* **Database**: H2 (in-memory) or configurable external DB
-* **Security**: HTTPS enabled via Java Keystore (`mykeys.jks`)
-
----
-
 ## 🎓 About the Project
 
 This was my final-year ISST (Ingeniería de Servicios y Sistemas de Telecomunicación) project at ETSIT (UPM), showcasing my ability to design, implement, and deploy a complete full-stack application with modern technologies and real-world development practices.
